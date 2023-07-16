@@ -2,10 +2,10 @@ import React from 'react';
 import { StatusBar, TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from 'react-native-vector-icons';
 
-import Home from './src/Home';
-import People from './src/People';
-import Settings from './src/Settings';
-import Alarm from './src/Alarm';
+import Home from './src/Home/Home';
+import People from './src/People/People';
+import Settings from './src/Settings/Settings';
+import Alarm from './src/Alarm/Alarm';
 
 export default function App() {
   const [activeTab, setActiveTab] = React.useState('home');
