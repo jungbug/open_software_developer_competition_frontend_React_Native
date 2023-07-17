@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
-import * as ImagePicker from "expo-image-picker";
+import * as ImagePicker from 'expo-image-picker';
+import { Device } from 'expo-device';
 
 export default function Settings() {
   const ImagePickerComponent = () => {
@@ -16,17 +17,17 @@ export default function Settings() {
       }
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Videos,
-        allowsEditing: false, 
+        allowsEditing: false,
         quality: 1,
-        aspect: [1, 1]
+        aspect: [1, 1],
       });
-      if (result.cancelled) {
+      if (result.canceled) {
         return null;
       }
 
       console.log(result);
-      setImageUrl(result.uri);
-    }
+      setImageUrl(result.assets[0].uri);
+    };
 
     return (
       <Pressable onPress={uploadImage}>
