@@ -1,11 +1,11 @@
 import React from 'react';
 import { StatusBar, TouchableOpacity, View, Text, StyleSheet } from 'react-native';
-import { Ionicons } from 'react-native-vector-icons';
+import { Ionicons, FontAwesome5 } from 'react-native-vector-icons';
 
 import Home from './src/Home/Home';
-import People from './src/People/People';
-import Settings from './src/Settings/Settings';
-import Alarm from './src/Alarm/Alarm';
+import Photo from './src/Photo/Photo';
+import Video from './src/Video/Video';
+import More from './src/More/More';
 
 export default function App() {
   const [activeTab, setActiveTab] = React.useState('home');
@@ -14,12 +14,12 @@ export default function App() {
     switch (activeTab) {
       case 'home':
         return <Home />;
-      case 'people':
-        return <People />;
-      case 'settings':
-        return <Settings />;
-      case 'alarm':
-        return <Alarm />;
+      case 'photo':
+        return <Photo />;
+      case 'video':
+        return <Video />;
+      case 'more':
+        return <More />;
       default:
         return <Home />;
     }
@@ -27,34 +27,34 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <View style={styles.content}>{renderPage()}</View>
       <View style={styles.tabBar}>
         <TouchableOpacity
           style={styles.tabItem}
           onPress={() => setActiveTab('home')}
         >
-          <Ionicons name="home-outline" size={24} color={activeTab === 'home' ? 'blue' : 'black'} />
+          <Ionicons name="home-outline" size={24} color={activeTab === 'home' ? '#000' : '#c0c0c0'} />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.tabItem}
-          onPress={() => setActiveTab('people')}
+          onPress={() => setActiveTab('photo')}
         >
-          <Ionicons name="person-outline" size={24} color={activeTab === 'people' ? 'blue' : 'black'} />
+          <FontAwesome5 name="camera" size={24} color={activeTab === 'photo' ? '#000' : '#c0c0c0'} />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.tabItem}
-          onPress={() => setActiveTab('settings')}
+          onPress={() => setActiveTab('video')}
         >
-          <Ionicons name="settings-outline" size={24} color={activeTab === 'settings' ? 'blue' : 'black'} />
+          <FontAwesome5 name="dumbbell" size={24} color={activeTab === 'video' ? '#000' : '#c0c0c0'} />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.tabItem}
-          onPress={() => setActiveTab('alarm')}
+          onPress={() => setActiveTab('more')}
         >
-          <Ionicons name="notifications-outline" size={24} color={activeTab === 'alarm' ? 'blue' : 'black'} />
+          <FontAwesome5 name="bars" size={24} color={activeTab === 'more' ? '#000' : '#c0c0c0'} />
         </TouchableOpacity>
       </View>
-      <StatusBar style="auto" />
     </View>
   );
 }
@@ -74,7 +74,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     height: 60,
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#fff',
+    borderColor: 'black',
+    borderWidth: 1,
   },
   tabItem: {
     flex: 1,

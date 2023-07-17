@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Camera } from 'expo-camera';
 
-export default function People() {
+export default function Photo() {
   const cameraRef = useRef(null);
   const [hasPermission, setHasPermission] = useState(null);
 
@@ -17,7 +17,7 @@ export default function People() {
     if (cameraRef.current) {
       const photo = await cameraRef.current.takePictureAsync();
 
-      // 사진 캡처 후 처리할 작업 수행
+      // 사진작업
 
       console.log(photo);
     }
@@ -40,7 +40,6 @@ export default function People() {
       >
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={takePhoto} style={styles.captureButton}>
-            <Text style={styles.captureText}>Take Photo</Text>
           </TouchableOpacity>
         </View>
       </Camera>
@@ -57,15 +56,11 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   captureButton: {
-    backgroundColor: 'transparent',
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 16,
-    borderWidth: 2,
-    borderColor: 'black',
-  },
-  captureText: {
-    color: 'white',
-    fontSize: 20,
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#fff',
   },
 });

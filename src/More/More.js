@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-export default function Alarm() {
+export default function More() {
   return (
     <View>
-      <Text>Welcome to the Alarm page!</Text>
+      <Text></Text>
     </View>
   );
 }

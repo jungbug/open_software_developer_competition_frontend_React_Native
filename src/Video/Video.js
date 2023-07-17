@@ -3,7 +3,7 @@ import { View, Text, Pressable } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Device } from 'expo-device';
 
-export default function Settings() {
+export default function Video() {
   const ImagePickerComponent = () => {
     const [imageUrl, setImageUrl] = useState('');
     const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
