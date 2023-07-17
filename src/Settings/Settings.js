@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import * as ImagePicker from "expo-image-picker";
 
-export default function People() {
+export default function Settings() {
   const ImagePickerComponent = () => {
     const [imageUrl, setImageUrl] = useState('');
     const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
@@ -16,7 +16,7 @@ export default function People() {
       }
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Videos,
-        allowsEditing: false,
+        allowsEditing: false, 
         quality: 1,
         aspect: [1, 1]
       });
