@@ -52,7 +52,7 @@ export default function App() {
           style={styles.tabItem}
           onPress={() => setActiveTab('more')}
         >
-          <FontAwesome5 name="bars" size={24} color={activeTab === 'more' ? '#000' : '#c0c0c0'} />
+          <FontAwesome5 name="chart-line" size={24} color={activeTab === 'more' ? '#000' : '#c0c0c0'} />
         </TouchableOpacity>
       </View>
     </View>
