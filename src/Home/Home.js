@@ -23,8 +23,14 @@ export default function Home() {
       </View>
 
       <View style={styles.secondContainer}>
-        <View style={styles.rectangleFood} />
-        <View style={styles.rectangleVideo} />
+        <Image
+          source={require('../../assets/Home_F.jpg')}
+          style={styles.rectangleFood}
+        />
+        <Image
+          source={require('../../assets/Home_E.jpg')}
+          style={styles.rectangleVideo}
+        />
       </View>
 
       {/* 세 번째 영역 */}
@@ -75,14 +81,12 @@ const styles = StyleSheet.create({
   rectangleFood: {
     width: 160,
     height: 90,
-    backgroundColor: 'lightblue',
     marginBottom: 16,
     borderRadius: 10,
   },
   rectangleVideo: {
     width: 160,
     height: 90,
-    backgroundColor: 'lightblue',
     marginBottom: 16,
     borderRadius: 10,
   },
