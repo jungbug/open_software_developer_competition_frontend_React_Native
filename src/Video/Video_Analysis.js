@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-export default function More() {
+export default function Video_Analysis() {
   return (
     <View>
-      <Text></Text>
+      <Text>1</Text>
     </View>
   );
 }
