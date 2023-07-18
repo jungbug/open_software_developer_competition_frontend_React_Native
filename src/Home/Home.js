@@ -2,10 +2,14 @@ import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 
 export default function Home() {
+  const USERNAME = '홍길동';
+
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
-        <Text style={styles.text}>안녕하세요 홍길동님!</Text>
+        <Text style={[styles.greeting, styles.boldText]}>안녕하세요</Text>
+        <Text style={[styles.USERNAME, styles.boldText, { color: '#9370DB' }]}>{USERNAME}</Text>
+        <Text style={[styles.greeting, styles.boldText]}>님!</Text>
       </View>
       <View style={styles.imageContainer}>
         <Image
@@ -27,9 +31,15 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  text: {
-    fontSize: 18,
+  greeting: {
+    fontSize: 20,
+  },
+  USERNAME: {
+    fontSize: 20,
+    marginLeft: 4,
   },
   imageContainer: {
     borderRadius: 50,
@@ -40,5 +50,8 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
+  },
+  boldText: {
+    fontWeight: 'bold',
   },
 });
