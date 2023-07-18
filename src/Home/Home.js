@@ -6,7 +6,6 @@ export default function Home() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* 첫 번째 영역 */}
       <View style={[styles.firstContainer]}>
         <View style={styles.contentContainer}>
           <Text style={[styles.greeting, styles.text]}>안녕하세요</Text>
@@ -23,9 +22,9 @@ export default function Home() {
         </View>
       </View>
 
-      {/* 두 번째 영역 */}
-      <View style={[styles.secondContainer, { backgroundColor: 'lightgreen' }]}>
-        <Text style={styles.text}>두 번째 영역</Text>
+      <View style={styles.secondContainer}>
+        <View style={styles.rectangleFood} />
+        <View style={styles.rectangleVideo} />
       </View>
 
       {/* 세 번째 영역 */}
@@ -69,9 +68,23 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   secondContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+  },
+  rectangleFood: {
+    width: 160,
+    height: 90,
+    backgroundColor: 'lightblue',
+    marginBottom: 16,
+    borderRadius: 10,
+  },
+  rectangleVideo: {
+    width: 160,
+    height: 90,
+    backgroundColor: 'lightblue',
+    marginBottom: 16,
+    borderRadius: 10,
   },
   thirdContainer: {
     flex: 5,
