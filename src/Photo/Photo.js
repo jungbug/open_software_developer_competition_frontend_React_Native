@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Camera } from 'expo-camera';
 
 export default function Photo() {
@@ -16,10 +16,33 @@ export default function Photo() {
   const takePhoto = async () => {
     if (cameraRef.current) {
       const photo = await cameraRef.current.takePictureAsync();
+      uploadPhoto(photo);
+    }
+  };
 
-      // 사진작업
+  const uploadPhoto = async (photo) => {
+    const data = new FormData();
+    data.append('photo', {
+      uri: photo.uri,
+      type: 'image/jpeg',
+      name: 'photo.jpg',
+    });
 
-      console.log(photo);
+    try {
+      const response = await fetch('http://your-server-url/predict', {
+        method: 'POST',
+        body: data,
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result);
+        // 예측 결과 처리
+      } else {
+        Alert.alert('Error', 'Failed to upload photo');
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Failed to connect to the server');
     }
   };
 
@@ -40,6 +63,7 @@ export default function Photo() {
       >
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={takePhoto} style={styles.captureButton}>
+            {/* Capture button UI */}
           </TouchableOpacity>
         </View>
       </Camera>
