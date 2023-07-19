@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, ImageBackground, StyleSheet, Dimensions } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Device } from 'expo-device';
+
+const { height: SCREEN_HEIGHT } = Dimensions.get("window");
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
 export default function Video() {
   const ImagePickerComponent = () => {
     const [imageUrl, setImageUrl] = useState('');
     const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
+
 
     const uploadImage = async () => {
       if (!status?.granted) {
@@ -30,11 +34,34 @@ export default function Video() {
     };
 
     return (
-      <Pressable onPress={uploadImage}>
-        <Text>동영상 업로드하기</Text>
-      </Pressable>
+      <View>
+        <ImageBackground source={require('../../assets/Home_E.jpg')} style={styles.bgi}>
+
+          <Pressable onPress={uploadImage}>
+            <Text style={styles.ti}>동영상 업로드하기</Text>
+          </Pressable>
+
+        </ImageBackground>
+
+
+      </View >
     );
   };
+
+
+  const styles = StyleSheet.create({
+    bgi: {
+      bgImage: { width: 600, height: 500 },
+    },
+
+    ti: {
+      width: SCREEN_WIDTH,
+      height: SCREEN_HEIGHT,
+      justifyContent: 'center',
+      alignItems: 'center',
+
+    }
+  });
 
   return <ImagePickerComponent />;
 }
