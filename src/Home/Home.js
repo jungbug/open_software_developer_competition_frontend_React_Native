@@ -43,7 +43,7 @@ export default function Home() {
           </Text>
           <Text style={[styles.third_greeting,]}>님의 주간분석                        </Text>
           <Text style={[styles.third_username, { color: '#9370DB' }]}>
-            추천식단 바로가기->
+            추천식단 바로가기
           </Text>
         </View>
         <BarChart
@@ -86,8 +86,8 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 90,
+    height: 90,
     borderRadius: 50,
   },
   secondContainer: {
