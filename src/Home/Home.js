@@ -1,8 +1,11 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
+import { BarChart } from 'react-native-svg-charts';
 
 export default function Home() {
   const USERNAME = '홍길동';
+
+  const data = [20, 45, 28, 80, 99, 43];
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -33,9 +36,22 @@ export default function Home() {
         />
       </View>
 
-      {/* 세 번째 영역 */}
-      <View style={[styles.thirdContainer, { backgroundColor: 'lightpink' }]}>
-        <Text style={styles.text}>세 번째 영역</Text>
+      <View style={[styles.thirdContainer]}>
+      <View style={styles.contentContainer}>
+          <Text style={[styles.third_username, { color: '#9370DB' }]}>
+            {USERNAME}
+          </Text>
+          <Text style={[styles.third_greeting,]}>님의 주간분석                        </Text>
+          <Text style={[styles.third_username, { color: '#9370DB' }]}>
+            추천식단 바로가기->
+          </Text>
+        </View>
+        <BarChart
+          style={styles.chart}
+          data={data}
+          svg={{ fill: 'purple' }}
+          contentInset={{ top: 20, bottom: 20 }}
+        />
       </View>
     </ScrollView>
   );
@@ -99,5 +115,20 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  chart: {
+    width: 300,
+    height: 200,
+  },
+  third_greeting: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: -230,
+  },
+  third_username: {
+    fontSize: 16,
+    marginLeft: 4,
+    fontWeight: 'bold',
+    marginTop: -230,
   },
 });
