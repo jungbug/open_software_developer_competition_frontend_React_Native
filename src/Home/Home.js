@@ -1,11 +1,13 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
-import { BarChart } from 'react-native-svg-charts';
+import { BarChart, Grid } from 'react-native-svg-charts';
 
 export default function Home() {
   const USERNAME = '홍길동';
 
-  const data = [20, 45, 28, 80, 99, 43];
+  const data = [20, 45, 28, 80, 99, 43, 60];
+
+  const labels = ['월', '화', '수', '목', '금', '토', '일'];
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -36,12 +38,13 @@ export default function Home() {
         />
       </View>
 
+      {/* 세 번째 영역 */}
       <View style={[styles.thirdContainer]}>
-      <View style={styles.contentContainer}>
+        <View style={styles.contentContainer}>
           <Text style={[styles.third_username, { color: '#9370DB' }]}>
             {USERNAME}
           </Text>
-          <Text style={[styles.third_greeting,]}>님의 주간분석                        </Text>
+          <Text style={[styles.third_greeting,]}>님의 주간분석                         </Text>
           <Text style={[styles.third_username, { color: '#9370DB' }]}>
             추천식단 바로가기
           </Text>
@@ -51,7 +54,20 @@ export default function Home() {
           data={data}
           svg={{ fill: 'purple' }}
           contentInset={{ top: 20, bottom: 20 }}
-        />
+          spacingInner={0.4}
+          spacingOuter={0.1}
+          gridMin={0}
+          animate
+        >
+          <Grid direction={Grid.Direction.HORIZONTAL} />
+        </BarChart>
+        <View style={styles.labelContainer}>
+          {labels.map((label, index) => (
+            <Text key={index} style={styles.labelText}>
+              {label}
+            </Text>
+          ))}
+        </View>
       </View>
     </ScrollView>
   );
@@ -130,5 +146,14 @@ const styles = StyleSheet.create({
     marginLeft: 4,
     fontWeight: 'bold',
     marginTop: -230,
+  },
+  labelContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+  },
+  labelText: {
+    fontSize: 14,
+    color: 'gray',
   },
 });
