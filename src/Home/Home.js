@@ -20,22 +20,29 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
           <Text style={[styles.greeting, styles.text]}>님!                </Text>
         </View>
         <View style={styles.imageContainer}>
-          <Image
-            source={require('../../assets/default_profile.png')}
-            style={styles.image}
-          />
+          <TouchableOpacity onPress={onNavigateToMore}>
+            <Image
+              source={require('../../assets/default_profile.png')}
+              style={styles.image}
+            />
+          </TouchableOpacity>
         </View>
       </View>
 
       <View style={styles.secondContainer}>
-        <Image
-          source={require('../../assets/Home_F.jpg')}
-          style={styles.rectangleFood}
-        />
-        <Image
-          source={require('../../assets/Home_E.jpg')}
-          style={styles.rectangleVideo}
-        />
+        <TouchableOpacity onPress={navigateToPhotoAnalysis}>
+          <Image
+            source={require('../../assets/Home_F.jpg')}
+            style={styles.rectangleFood}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={navigateToVideoAnalysis}>
+          <Image
+            source={require('../../assets/Home_E.jpg')}
+            style={styles.rectangleVideo}
+          />
+        </TouchableOpacity>
+        
       </View>
 
       {/* 세 번째 영역 */}
