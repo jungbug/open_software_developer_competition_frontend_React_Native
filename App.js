@@ -4,7 +4,9 @@ import { Ionicons, FontAwesome5 } from 'react-native-vector-icons';
 
 import Home from './src/Home/Home';
 import Photo from './src/Photo/Photo';
+import Photo_Analysis from './src/Photo/Photo_Analysis';
 import Video from './src/Video/Video';
+import Video_Analysis from './src/Video/Video_Analysis';
 import More from './src/More/More';
 
 export default function App() {
@@ -13,19 +15,29 @@ export default function App() {
   const navigateToMore = () => {
     setActiveTab('more');
   };
+  const navigateToPhotoAnalysis = () => {
+    setActiveTab('photo_analysis');
+  };
+  const navigateToVideoAnalysis = () => {
+    setActiveTab('video_analysis');
+  };
 
   const renderPage = () => {
     switch (activeTab) {
       case 'home':
-        return <Home onNavigateToMore={navigateToMore} />;
+        return <Home onNavigateToMore={navigateToMore} navigateToPhotoAnalysis={navigateToPhotoAnalysis} navigateToVideoAnalysis={navigateToVideoAnalysis}/>;
       case 'photo':
         return <Photo />;
       case 'video':
         return <Video />;
       case 'more':
         return <More />;
+      case 'photo_analysis':
+        return <Photo_Analysis />;
+      case 'video_analysis':
+        return <Video_Analysis />;
       default:
-        return <Home onNavigateToMore={navigateToMore} />;
+        return <Home onNavigateToMore={navigateToMore} navigateToPhotoAnalysis={navigateToPhotoAnalysis} navigateToVideoAnalysis={navigateToVideoAnalysis}/>;
     }
   };
 

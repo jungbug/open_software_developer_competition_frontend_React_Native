@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { BarChart, Grid } from 'react-native-svg-charts';
 
-const Home = ({ onNavigateToMore }) => {
+const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalysis}) => {
   const USERNAME = '홍길동';
 
   const data = [20, 45, 28, 80, 99, 43, 60];
