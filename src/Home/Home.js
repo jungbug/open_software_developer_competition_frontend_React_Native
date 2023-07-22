@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, Button } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { BarChart, Grid } from 'react-native-svg-charts';
 
-const Home = ({ onNavigateToPhoto }) => {
+const Home = ({ onNavigateToMore }) => {
   const USERNAME = '홍길동';
 
   const data = [20, 45, 28, 80, 99, 43, 60];
@@ -14,7 +14,7 @@ const Home = ({ onNavigateToPhoto }) => {
       <View style={[styles.firstContainer]}>
         <View style={styles.contentContainer}>
           <Text style={[styles.greeting, styles.text]}>안녕하세요</Text>
-          <Text style={[styles.username, styles.text, { color: '#9370DB' }]}>
+          <Text style={[styles.username, styles.text, { color: '#5f4ffe' }]}>
             {USERNAME}
           </Text>
           <Text style={[styles.greeting, styles.text]}>님!                </Text>
@@ -41,11 +41,15 @@ const Home = ({ onNavigateToPhoto }) => {
       {/* 세 번째 영역 */}
       <View style={[styles.thirdContainer]}>
         <View style={styles.contentContainer}>
-          <Text style={[styles.third_username, { color: '#9370DB' }]}>
+          <Text style={[styles.third_username, { color: '#5f4ffe' }]}>
             {USERNAME}
           </Text>
-          <Text style={[styles.third_greeting,]}>님의 주간분석                         </Text>
-          <Button title="Go to Photo" onPress={onNavigateToPhoto} />
+          <Text style={[styles.third_greeting,]}>님의 주간분석                                     </Text>
+          <View style={{ marginTop: -230, flexDirection: 'row', alignItems: 'center' }}>
+            <TouchableOpacity onPress={onNavigateToMore}>
+              <Text style={styles.buttonText}>추천식단</Text>
+            </TouchableOpacity>
+          </View>
         </View>
         <BarChart
           style={styles.chart}
@@ -154,6 +158,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: 'gray',
   },
+  button: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: '#5f4ffe',
+    fontSize: 18,
+  },
+
 });
 
 export default Home;
