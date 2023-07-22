@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView, Button } from 'react-native';
 import { BarChart, Grid } from 'react-native-svg-charts';
 
-export default function Home() {
+const Home = ({ onNavigateToPhoto }) => {
   const USERNAME = '홍길동';
 
   const data = [20, 45, 28, 80, 99, 43, 60];
@@ -45,9 +45,7 @@ export default function Home() {
             {USERNAME}
           </Text>
           <Text style={[styles.third_greeting,]}>님의 주간분석                         </Text>
-          <Text style={[styles.third_username, { color: '#9370DB' }]}>
-            추천식단 바로가기
-          </Text>
+          <Button title="Go to Photo" onPress={onNavigateToPhoto} />
         </View>
         <BarChart
           style={styles.chart}
@@ -71,7 +69,7 @@ export default function Home() {
       </View>
     </ScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -157,3 +155,5 @@ const styles = StyleSheet.create({
     color: 'gray',
   },
 });
+
+export default Home;

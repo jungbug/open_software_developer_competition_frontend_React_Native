@@ -10,10 +10,14 @@ import More from './src/More/More';
 export default function App() {
   const [activeTab, setActiveTab] = React.useState('home');
 
+  const navigateToPhoto = () => {
+    setActiveTab('photo');
+  };
+
   const renderPage = () => {
     switch (activeTab) {
       case 'home':
-        return <Home />;
+        return <Home onNavigateToPhoto={navigateToPhoto} />;
       case 'photo':
         return <Photo />;
       case 'video':
@@ -21,9 +25,10 @@ export default function App() {
       case 'more':
         return <More />;
       default:
-        return <Home />;
+        return <Home onNavigateToPhoto={navigateToPhoto} />;
     }
   };
+
 
   return (
     <View style={styles.container}>
