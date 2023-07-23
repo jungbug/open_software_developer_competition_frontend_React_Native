@@ -1,13 +1,11 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { BarChart, Grid } from 'react-native-svg-charts';
+import { BarChart, Grid, XAxis } from 'react-native-svg-charts';
 
-const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalysis}) => {
+const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalysis }) => {
   const USERNAME = '홍길동';
 
-  const data = [20, 45, 28, 80, 99, 43, 60];
-
-  const labels = ['월', '화', '수', '목', '금', '토', '일'];
+  const data = [10, 20, 30, 40, 50, 60, 70];
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -61,22 +59,16 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
         <BarChart
           style={styles.chart}
           data={data}
-          svg={{ fill: 'purple' }}
-          contentInset={{ top: 20, bottom: 20 }}
-          spacingInner={0.4}
+          svg={{ fill: '#5f4ffe' }}
+          spacingInner={0.55}
           spacingOuter={0.1}
-          gridMin={0}
+          gridMin={5}
           animate
         >
           <Grid direction={Grid.Direction.HORIZONTAL} />
         </BarChart>
-        <View style={styles.labelContainer}>
-          {labels.map((label, index) => (
-            <Text key={index} style={styles.labelText}>
-              {label}
-            </Text>
-          ))}
-        </View>
+        {/* 밑줄 추가 */}
+        <View style={styles.chartFooterLine} />
       </View>
     </ScrollView>
   );
@@ -142,8 +134,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   chart: {
-    width: 300,
-    height: 200,
+    width: 340,
+    height: 150,
   },
   third_greeting: {
     fontSize: 16,
@@ -174,7 +166,11 @@ const styles = StyleSheet.create({
     color: '#5f4ffe',
     fontSize: 18,
   },
-
+  chartFooterLine: {
+    borderTopWidth: 2,
+    borderColor: 'black',
+    width: '100%',
+  },
 });
 
 export default Home;
