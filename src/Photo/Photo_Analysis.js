@@ -3,11 +3,14 @@ import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'rea
 
 const FOOD = '샐러드';
 
-export default function Photo_Analysis() {
+const Photo_Analysis = ({ onNavigateToPhoto }) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.firstContainer}>
+      <TouchableOpacity onPress={onNavigateToPhoto}>
         <Text style={styles.text}>카메라</Text>
+      </TouchableOpacity>
+        
         <Text style={styles.text}>                         식품분석                                     </Text>
       </View>
 
@@ -24,7 +27,7 @@ export default function Photo_Analysis() {
       <View style={styles.fifthContainer}></View>
     </ScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -71,3 +74,5 @@ const styles = StyleSheet.create({
     color: 'black',
   },
 });
+
+export default Photo_Analysis;

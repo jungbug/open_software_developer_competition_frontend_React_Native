@@ -21,6 +21,9 @@ export default function App() {
   const navigateToVideoAnalysis = () => {
     setActiveTab('video_analysis');
   };
+  const navigateToPhoto = () => {
+    setActiveTab('photo');
+  };
 
   const renderPage = () => {
     switch (activeTab) {
@@ -33,7 +36,7 @@ export default function App() {
       case 'more':
         return <More />;
       case 'photo_analysis':
-        return <Photo_Analysis />;
+        return <Photo_Analysis onNavigateToPhoto={navigateToPhoto}/>;
       case 'video_analysis':
         return <Video_Analysis />;
       default:
