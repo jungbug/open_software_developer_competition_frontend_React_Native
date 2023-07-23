@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 
 const FOOD = '샐러드';
 
@@ -10,7 +10,6 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
       <TouchableOpacity onPress={onNavigateToPhoto}>
         <Text style={styles.text}>카메라</Text>
       </TouchableOpacity>
-        
         <Text style={styles.text}>                         식품분석                                     </Text>
       </View>
 
