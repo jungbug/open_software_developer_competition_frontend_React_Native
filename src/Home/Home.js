@@ -58,12 +58,11 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
           style={styles.chart}
           data={data}
           svg={{ fill: '#5f4ffe' }}
-          spacingInner={0.55}
+          spacingInner={0.6}
           spacingOuter={0.1}
           gridMin={5}
           animate
         >
-          <Grid direction={Grid.Direction.HORIZONTAL} />
         </BarChart>
         {/* 밑줄 추가 */}
         <View style={styles.chartFooterLine} />
