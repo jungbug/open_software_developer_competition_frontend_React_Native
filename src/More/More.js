@@ -70,26 +70,28 @@ export default function More() {
 
       {/* 마지막 부분 */}
       <View style={styles.last}>
-        <View style={styles.recommendFood}>
-          <Text style={styles.foodName}>{recList[0]}</Text>
-          <Text style={styles.foodDetail}>{recExList[0]}</Text>
-        </View>
-        <View style={styles.recommendFood}>
-          <Text style={styles.foodName}>{recList[1]}</Text>
-          <Text style={styles.foodDetail}>{recExList[1]}</Text>
-        </View>
-        <View style={styles.recommendFood}>
-          <Text style={styles.foodName}>{recList[2]}</Text>
-          <Text style={styles.foodDetail}>{recExList[2]}</Text>
-        </View>
-        <View style={styles.recommendFood}>
-          <Text style={styles.foodName}>{recList[3]}</Text>
-          <Text style={styles.foodDetail}>{recExList[3]}</Text>
-        </View>
-        <View style={styles.recommendFood}>
-          <Text style={styles.foodName}>{recList[4]}</Text>
-          <Text style={styles.foodDetail}>{recExList[4]}</Text>
-        </View>
+        <ScrollView contentContainerStyle={styles.container}>
+          <ScrollView contentContainerStyle={styles.recommendFood}>
+            <Text style={styles.foodName}>{recList[0]}</Text>
+            <Text style={styles.foodDetail}>{recExList[0]}</Text>
+          </ScrollView>
+          <ScrollView contentContainerStyle={styles.recommendFood}>
+            <Text style={styles.foodName}>{recList[1]}</Text>
+            <Text style={styles.foodDetail}>{recExList[1]}</Text>
+          </ScrollView>
+          <ScrollView contentContainerStyle={styles.recommendFood}>
+            <Text style={styles.foodName}>{recList[2]}</Text>
+            <Text style={styles.foodDetail}>{recExList[2]}</Text>
+          </ScrollView>
+          <ScrollView contentContainerStyle={styles.recommendFood}>
+            <Text style={styles.foodName}>{recList[3]}</Text>
+            <Text style={styles.foodDetail}>{recExList[3]}</Text>
+          </ScrollView>
+          <ScrollView contentContainerStyle={styles.recommendFood}>
+            <Text style={styles.foodName}>{recList[4]}</Text>
+            <Text style={styles.foodDetail}>{recExList[4]}</Text>
+          </ScrollView>
+        </ScrollView>
         {/* 마지막 부분 내용을 채워주세요 */}
       </View>
     </View>
@@ -113,7 +115,7 @@ const styles = StyleSheet.create({
   middleText: {
     fontSize: 30,
     fontWeight: 'bold',
-    color: '#9370DB',
+    color: '#5f4ffe',
     marginTop: -50,
     marginLeft: -220,
   },
@@ -125,26 +127,31 @@ const styles = StyleSheet.create({
   last: {
     flex: 3,
     justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#f111',
     borderRadius: 20,
     padding: 20,
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 10,
   },
   recommendFood: {
     flex: 1,
     justifyContent: "center",
+
   },
   foodName: {
-    fontSize: 40,
-    color: 'blue',
-    marginLeft: 60,
-    marginRight: 60,
+    fontSize: 30,
+    color: '#50a5ff',
+    marginLeft: 20,
+    marginRight: 20,
+    justifyContent: "flex-start",
   },
   foodDetail: {
     fontSize: 15,
     color: 'black',
-    marginLeft: 60,
-    marginRight: 60,
+    marginLeft: 20,
+    marginRight: 20,
+    justifyContent: "flex-start",
   },
 });
 
