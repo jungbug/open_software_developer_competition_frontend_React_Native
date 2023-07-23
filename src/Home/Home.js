@@ -18,12 +18,10 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
           <Text style={[styles.greeting, styles.text]}>님!                </Text>
         </View>
         <View style={styles.imageContainer}>
-          <TouchableOpacity onPress={onNavigateToMore}>
             <Image
               source={require('../../assets/default_profile.png')}
               style={styles.image}
             />
-          </TouchableOpacity>
         </View>
       </View>
 
