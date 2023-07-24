@@ -10,13 +10,16 @@ export default function Video_Analysis() {
       <Image
         source={require('../../assets/Plank.jpg')}
         style={styles.imageE} />
-
-      <Text style={styles.correction}>
-        교정사항칸
-      </Text>
-      <Text style={styles.manual}>
-        메뉴얼칸
-      </Text>
+      <View style={styles.correction}>
+        <Text style={styles.correctionTitle}>
+          교정사항
+        </Text>
+      </View>
+      <View style={styles.manual}>
+        <Text style={styles.manualTitle}>
+          플랭크 메뉴얼
+        </Text>
+      </View>
     </View>
   );
 }
@@ -26,24 +29,44 @@ const styles = StyleSheet.create({
     flex: 1,
     width: SCREEN_HEIGHT / 2.4,
     borderRadius: 20,
+    marginBottom: 10,
   },
   correction: {
     flex: 1,
-    margin: 20,
-
+    width: SCREEN_HEIGHT / 2.4,
+    backgroundColor: '#E2E2E2',
+    borderRadius: 20,
+    marginTop: 10,
+    marginBottom: 10,
   },
-  correctionMain: {
-
+  correctionTitle: {
+    fontSize: 25,
+    color: 'black',
+    marginTop: 15,
+    marginLeft: 20,
+    marginRight: 20,
+    justifyContent: "flex-start",
+    fontWeight: 'bold'
   },
   correctionSub: {
 
   },
   manual: {
-    flex: 1,
-    margin: 20,
+    flex: 2,
+    width: SCREEN_HEIGHT / 2.4,
+    backgroundColor: '#E2E2E2',
+    borderRadius: 20,
+    marginTop: 10,
+    marginBottom: 10,
   },
-  manualMain: {
-
+  manualTitle: {
+    fontSize: 25,
+    color: 'black',
+    marginTop: 15,
+    marginLeft: 20,
+    marginRight: 20,
+    justifyContent: "flex-start",
+    fontWeight: 'bold'
   },
   manualSub: {
 
