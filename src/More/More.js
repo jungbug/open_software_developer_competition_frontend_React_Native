@@ -11,7 +11,7 @@ export default function More() {
   const carbon = ["감자", "고구마", "콩"];
   const province = ["아몬드", "연어", "고등어"];
   const minerals = ["양파", "버섯", "토마토"];
-
+  //음식:음식설명내용으로 딕셔너리 제작 후 수정 예정
   const NUTRIENTS = [10, 10, 10, 60, 15];
 
   const recList = []; // 추천 식단 목록
