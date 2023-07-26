@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   last: {
     flex: 3,
     justifyContent: 'center',
-    backgroundColor: '#f111',
+    backgroundColor: '#EDEDED',
     borderRadius: 20,
     padding: 20,
     marginLeft: 10,
