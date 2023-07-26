@@ -1,12 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity,Dimensions } from 'react-native';
-import { LineChart } from 'react-native-svg-charts';
+import {  } from 'react-native-svg-charts';
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const FOOD = '샐러드';
 
 const Photo_Analysis = ({ onNavigateToPhoto }) => {
-  const lineChartData = [10, 20, 15, 30];
 
   return (
     <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
