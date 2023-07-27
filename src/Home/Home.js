@@ -18,10 +18,10 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
           <Text style={[styles.greeting, styles.text]}>님!                </Text>
         </View>
         <View style={styles.imageContainer}>
-            <Image
-              source={require('../../assets/default_profile.png')}
-              style={styles.image}
-            />
+          <Image
+            source={require('../../assets/default_profile.png')}
+            style={styles.image}
+          />
         </View>
       </View>
 
@@ -38,7 +38,7 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
             style={styles.rectangleVideo}
           />
         </TouchableOpacity>
-        
+
       </View>
 
       {/* 세 번째 영역 */}
@@ -66,6 +66,7 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
         </BarChart>
         {/* 밑줄 추가 */}
         <View style={styles.chartFooterLine} />
+        <Text>asdf</Text>
       </View>
     </ScrollView>
   );
@@ -122,9 +123,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   thirdContainer: {
+    backgroundColor: '#E2E2E2',
     flex: 5,
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: 20,
   },
   text: {
     fontSize: 20,
