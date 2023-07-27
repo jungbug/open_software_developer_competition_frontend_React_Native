@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { LineChart } from 'react-native-svg-charts';
-
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity,Dimensions } from 'react-native';
+import {  } from 'react-native-svg-charts';
+const { height: SCREEN_HEIGHT } = Dimensions.get("window");
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const FOOD = '샐러드';
 
 const Photo_Analysis = ({ onNavigateToPhoto }) => {
-  const lineChartData = [10, 20, 15, 30];
 
   return (
     <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
@@ -20,14 +20,7 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
         <Text style={styles.middleText}>{FOOD}</Text>
       </View>
 
-      {/* Third Container - Line Chart */}
       <View style={styles.thirdContainer}>
-        <LineChart
-          data={lineChartData}
-          style={{ flex: 1 }}
-          contentInset={{ top: 20, bottom: 20 }}
-          svg={{ stroke: 'rgba(134, 65, 244, 1)', strokeWidth: 2 }}
-        />
       </View>
 
       <View style={styles.fourthContainer}>
@@ -50,20 +43,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   secondContainer: {
-    flex: 1,
+    flex: 0.1,
     marginTop: 30,
   },
   thirdContainer: {
-    flex: 4,
+    flex: 5,
     marginBottom: 10,
+    width: SCREEN_HEIGHT / 2.4,
+    backgroundColor: '#E2E2E2',
+    borderRadius: 20,
+    marginTop: 10,
+    marginBottom: 10,
+    
   },
   fourthContainer: {
-    flex: 1,
+    flex: 0.1,
     marginBottom: 10,
   },
   fifthContainer: {
-    flex: 4,
-    backgroundColor: 'orange',
+    flex: 5,
+    marginBottom: 10,
+    width: SCREEN_HEIGHT / 2.4,
+    backgroundColor: '#E2E2E2',
+    borderRadius: 20,
+    marginTop: 10,
     marginBottom: 10,
   },
   text: {
@@ -80,6 +83,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
   },
+  
 });
 
 export default Photo_Analysis;
