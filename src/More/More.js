@@ -11,37 +11,49 @@ export default function More() {
   const carbon = { "감자": "감자는 탄수화물이 많고 칼로리가 적으며 저렴하게 구할 수 있습니다.", "고구마": "고구마설명", "콩": "콩설명" };
   const province = { "아몬드": "아몬드는 지방함량이 높지만 적당히 섭취하면 몸에 흡수되지 않으며 포만감을 줍니다.", "연어": "연어설명", "고등어": "고등어설명" };
   const minerals = { "양파": "양파에는 많은 무기질이 있어 혈당 조절, 인슐린 생성 촉진, 당뇨 예방에 좋습니다.", "버섯": "버섯설명", "토마토": "토마토설명" };
-  //음식:음식설명내용으로 딕셔너리 제작 후 수정 예정
-  const NUTRIENTS = [10, 10, 10, 60, 15];
 
-  /*const recList = []; // 추천 식단 목록-----음식 랜덤으로 추천해주는 반복문---
+  const NUTRIENTS = [10, 10, 10, 40, 15];//서버에서 받을 영양소별 섭취량
 
   if (NUTRIENTS[0] < 50) {
-    recList[0] = protein[Math.floor(Math.random() * recList.length)];
+    proteinR = Math.floor(Math.random() * Object.keys(protein).length)
+    titleP = Object.keys(protein)[proteinR];
+    subP = Object.values(protein)[proteinR];
   } else {
-    recList[0] = "단백질은 충분합니다!"
+    titleP = "단백질은 충분합니다!"
+    subP = ""
   }
   if (NUTRIENTS[1] < 50) {
-    recList[1] = vitamin[Math.floor(Math.random() * recList.length)];
+    vitaminR = Math.floor(Math.random() * Object.keys(vitamin).length)
+    titleV = Object.keys(vitamin)[vitaminR];
+    subV = Object.values(vitamin)[vitaminR];
   } else {
-    recList[1] = "비타민은 충분합니다!"
+    titleV = "비타민은 충분합니다!"
+    subV = ""
   }
   if (NUTRIENTS[2] < 50) {
-    recList[2] = carbon[Math.floor(Math.random() * recList.length)];
+    carbonR = Math.floor(Math.random() * Object.keys(carbon).length)
+    titleC = Object.keys(carbon)[carbonR];
+    subC = Object.values(carbon)[carbonR];
   } else {
-    recList[2] = "탄수화물은 충분합니다!"
+    titleC = "탄수화물은 충분합니다"
+    subC = ""
   }
   if (NUTRIENTS[3] < 50) {
-    recList[3] = province[Math.floor(Math.random() * recList.length)];
+    provinceR = Math.floor(Math.random() * Object.keys(province).length)
+    titlePV = Object.keys(province)[provinceR];
+    subPV = Object.values(province)[provinceR];
   } else {
-    recList[3] = "지방은 충분합니다!"
+    titlePV = "지방은 충분합니다."
+    subPV = ""
   }
   if (NUTRIENTS[4] < 50) {
-    recList[4] = minerals[Math.floor(Math.random() * recList.length)];
+    mineralsR = Math.floor(Math.random() * Object.keys(minerals).length)
+    titleM = Object.keys(minerals)[mineralsR];
+    subM = Object.values(minerals)[mineralsR];
   } else {
-    recList[4] = "무기질은 충분합니다!"
+    titleM = "무기질은 충분합니다."
+    subM = ""
   }
-  */
 
   //추천 식단 랜덤 추천 개발 방향 정해지면 수정 예정
 
@@ -71,24 +83,24 @@ export default function More() {
       <View style={styles.last}>
         <ScrollView contentContainerStyle={styles.container}>
           <ScrollView contentContainerStyle={styles.recommendFood}>
-            <Text style={styles.foodName}>{Object.keys(protein)[0]}</Text>
-            <Text style={styles.foodDetail}>{Object.values(protein)[0]}</Text>
+            <Text style={styles.foodName}>{titleP}</Text>
+            <Text style={styles.foodDetail}>{subP}</Text>
           </ScrollView>
           <ScrollView contentContainerStyle={styles.recommendFood}>
-            <Text style={styles.foodName}>{Object.keys(vitamin)[0]}</Text>
-            <Text style={styles.foodDetail}>{Object.values(vitamin)[0]}</Text>
+            <Text style={styles.foodName}>{titleV}</Text>
+            <Text style={styles.foodDetail}>{subV}</Text>
           </ScrollView>
           <ScrollView contentContainerStyle={styles.recommendFood}>
-            <Text style={styles.foodName}>{Object.keys(carbon)[0]}</Text>
-            <Text style={styles.foodDetail}>{Object.values(carbon)[0]}</Text>
+            <Text style={styles.foodName}>{titleC}</Text>
+            <Text style={styles.foodDetail}>{subC}</Text>
           </ScrollView>
           <ScrollView contentContainerStyle={styles.recommendFood}>
-            <Text style={styles.foodName}>{Object.keys(province)[0]}</Text>
-            <Text style={styles.foodDetail}>{Object.values(province)[0]}</Text>
+            <Text style={styles.foodName}>{titlePV}</Text>
+            <Text style={styles.foodDetail}>{subPV}</Text>
           </ScrollView>
           <ScrollView contentContainerStyle={styles.recommendFood}>
-            <Text style={styles.foodName}>{Object.keys(minerals)[0]}</Text>
-            <Text style={styles.foodDetail}>{Object.values(minerals)[0]}</Text>
+            <Text style={styles.foodName}>{titleM}</Text>
+            <Text style={styles.foodDetail}>{subM}</Text>
           </ScrollView>
         </ScrollView>
         {/* 마지막 부분 내용을 채워주세요 */}
