@@ -5,7 +5,6 @@ const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const FOOD = '샐러드';
 
-
 const Photo_Analysis = ({ onNavigateToPhoto }) => {
 
   const proteinData = [1, 2, 3, 4]; // 샘플데이터
