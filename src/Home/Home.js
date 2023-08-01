@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
-import { BarChart, Grid, XAxis } from 'react-native-svg-charts';
-
-const { height: SCREEN_HEIGHT } = Dimensions.get("window");
+import { BarChart,  XAxis } from 'react-native-svg-charts';
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const labels = ['월', '화', '수', '목', '금', '토', '일'];
 const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalysis }) => {
@@ -115,12 +113,13 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
             gridMin={5}
             animate
           >
-            <XAxis
-              style={{ marginHorizontal: -5, marginTop: 160 }}
-              formatLabel={(value, index) => labels[index]}
-              contentInset={{ left: 20, right: 20 }} // 라벨과 그래프 사이의 간격을 조절
-              svg={{ fontSize: 12, fill: 'black' }}
-            />
+          <XAxis
+            style={{ marginHorizontal: -5, height: 200, marginTop: 160 }}
+            data={data}
+            formatLabel={(value, index) => labels[index]}
+            contentInset={{ left: 20, right: 20 }}
+            svg={{ fontSize: 12, fill: 'black' }}
+          />
           </BarChart>
           {/* 밑줄 추가 */}
           <View style={styles.chartFooterLine} />
