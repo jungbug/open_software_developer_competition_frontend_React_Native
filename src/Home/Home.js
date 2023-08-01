@@ -119,7 +119,7 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
           {/* 밑줄 추가 */}
           <View style={styles.chartFooterLine} />
           <Text style={{ marginTop: 40, marginLeft: SCREEN_WIDTH * 0.05, fontSize: 30, fontWeight: "bold", color: '#5f4ffe' }}>추천식단</Text>
-          <ScrollView horizontal style={styles.recFood}>
+          <ScrollView horizontal style={styles.recFood} showsHorizontalScrollIndicator={false}>
             <View style={styles.recBlock}>
               <Text style={styles.foodName}>{titleP}</Text>
               <Text style={styles.foodDetail}>{subP}</Text>
