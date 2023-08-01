@@ -35,7 +35,7 @@ export default function Video() {
 
     return (
       <View>
-        <ImageBackground source={require('../../assets/Home_E.jpg')} style={styles.bgi}>
+        <ImageBackground source={require('../../assets/Home_E.png')} style={styles.bgi}>
 
           <Pressable onPress={uploadImage}>
             <Text style={styles.ti}>동영상 업로드하기</Text>

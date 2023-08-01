@@ -4,7 +4,7 @@ import { BarChart, Grid, XAxis } from 'react-native-svg-charts';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
-const labels = ['월', '화', '수', '목','금','토','일']; 
+const labels = ['월', '화', '수', '목', '금', '토', '일'];
 const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalysis }) => {
   const protein = { "닭가슴살": "닭가슴살은 칼로리가 낮지만 고단백질입니다.", "삶은 계란": "삶은 계란은 단백질 함량이 많기 때문에...(설명)" };
   const vitamin = { "치즈": "치즈에 들어있는 비타민A와 펩타이드는 항산화 작용으로 암세포 증식을 억제합니다.", "시금치": "시금치설명", "소의 간": "소의 간 설명" };
@@ -85,7 +85,7 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
         </TouchableOpacity>
         <TouchableOpacity onPress={navigateToVideoAnalysis}>
           <Image
-            source={require('../../assets/Home_E.jpg')}
+            source={require('../../assets/Home_E1.jpg')}
             style={styles.rectangleVideo}
           />
         </TouchableOpacity>
@@ -115,30 +115,30 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
             gridMin={5}
             animate
           >
-          <XAxis
-          style={{ marginHorizontal: -5, marginTop: 160 }}
-          formatLabel={(value, index) => labels[index]}
-          contentInset={{ left: 20, right: 20 }} // 라벨과 그래프 사이의 간격을 조절
-          svg={{ fontSize: 12, fill: 'black' }}
-          />
+            <XAxis
+              style={{ marginHorizontal: -5, marginTop: 160 }}
+              formatLabel={(value, index) => labels[index]}
+              contentInset={{ left: 20, right: 20 }} // 라벨과 그래프 사이의 간격을 조절
+              svg={{ fontSize: 12, fill: 'black' }}
+            />
           </BarChart>
           {/* 밑줄 추가 */}
           <View style={styles.chartFooterLine} />
-          <Text style={{ marginTop: 40, marginLeft: SCREEN_WIDTH * 0.05, fontSize: 30, fontWeight: "bold", color: '#5f4ffe' }}>추천식단</Text>
-          <ScrollView horizontal style={styles.recFood} showsHorizontalScrollIndicator={false}>
+          <Text style={{ marginTop: 60, marginLeft: SCREEN_WIDTH * 0.05, fontSize: 30, fontWeight: "bold", color: '#5f4ffe' }}>추천식단</Text>
+          <ScrollView pagingEnabled horizontal style={styles.recFood} showsHorizontalScrollIndicator={false}>
             <View style={styles.recBlock}>
               <Text style={styles.foodName}>{titleP}</Text>
               <Text style={styles.foodDetail}>{subP}</Text>
               <Text style={styles.foodName}>{titleV}</Text>
               <Text style={styles.foodDetail}>{subV}</Text>
             </View>
-            <View style={styles.recBlock}>
+            <View style={styles.recBlockNext}>
               <Text style={styles.foodName}>{titleC}</Text>
               <Text style={styles.foodDetail}>{subC}</Text>
               <Text style={styles.foodName}>{titlePV}</Text>
               <Text style={styles.foodDetail}>{subPV}</Text>
             </View>
-            <View style={styles.recBlock}>
+            <View style={styles.recBlockNext}>
               <Text style={styles.foodName}>{titleM}</Text>
               <Text style={styles.foodDetail}>{subM}</Text>
             </View>
@@ -264,6 +264,11 @@ const styles = StyleSheet.create({
   recBlock: {
     width: SCREEN_WIDTH,
     marginLeft: SCREEN_WIDTH * 0.05,
+    marginRight: SCREEN_WIDTH * 0.05,
+  },
+  recBlockNext: {
+    width: SCREEN_WIDTH,
+    marginLeft: -SCREEN_WIDTH * 0.13,
     marginRight: SCREEN_WIDTH * 0.05,
   },
   foodName: {
