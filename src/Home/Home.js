@@ -104,6 +104,7 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
               </TouchableOpacity>
             </View>
           </View>
+          <Text style={[styles.nut, { color: '#5f4ffe' }]}>  비타민C</Text>
           <BarChart
             style={styles.chart}
             data={data}
@@ -199,7 +200,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   thirdContainer: {
-    backgroundColor: '#E2E2E2',
+    backgroundColor: '#F0F0F0',
     flex: 3.5,
     justifyContent: 'center',
     alignItems: 'center',
@@ -280,6 +281,10 @@ const styles = StyleSheet.create({
     color: 'black',
     marginBottom: 20,
     marginRight: SCREEN_WIDTH * 0.16,
+  },
+  nut: {
+    fontSize: 24,
+    fontWeight: 'bold',
   },
 });
 
