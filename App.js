@@ -24,6 +24,9 @@ export default function App() {
   const navigateToPhoto = () => {
     setActiveTab('photo');
   };
+  const navigateToHome = () => {
+    setActiveTab('home');
+  };
 
   const renderPage = () => {
     switch (activeTab) {
@@ -34,7 +37,7 @@ export default function App() {
       case 'video':
         return <Video />;
       case 'more':
-        return <More />;
+        return <More onNavigateToHome={navigateToHome}/>;
       case 'photo_analysis':
         return <Photo_Analysis onNavigateToPhoto={navigateToPhoto}/>;
       case 'video_analysis':

@@ -37,7 +37,7 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
           spacingInner={0.4}
           yMin={0} // y축 최솟값을 0으로 설정
         >
-          <Grid />
+         
         </BarChart>
         <XAxis
           style={{ marginHorizontal: 30 }}
@@ -70,7 +70,6 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
           spacingInner={0.4}
           yMin={0} // y축 최솟값을 0으로 설정
         >
-          <Grid />
         </BarChart>
         <XAxis
           style={{ marginHorizontal: 30 }}
