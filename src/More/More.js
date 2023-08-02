@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, ScrollView,TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
@@ -12,7 +12,7 @@ const More = ({ onNavigateToHome }) => {
   const province = { "아몬드": "아몬드는 지방함량이 높지만 적당히 섭취하면 몸에 흡수되지 않으며 포만감을 줍니다.", "연어": "연어설명", "고등어": "고등어설명" };
   const minerals = { "양파": "양파에는 많은 무기질이 있어 혈당 조절, 인슐린 생성 촉진, 당뇨 예방에 좋습니다.", "버섯": "버섯설명", "토마토": "토마토설명" };
 
-  const NUTRIENTS = [10, 10, 10, 40, 15];//서버에서 받을 영양소별 섭취량
+  const NUTRIENTS = [10, 60, 10, 40, 15];//서버에서 받을 영양소별 섭취량
 
   if (NUTRIENTS[0] < 50) {
     proteinR = Math.floor(Math.random() * Object.keys(protein).length)
@@ -70,7 +70,7 @@ const More = ({ onNavigateToHome }) => {
       <View style={styles.header}>
         <Icon name="chevron-back-outline" size={24} color="#000" />
         <TouchableOpacity onPress={onNavigateToHome}>
-            <Text style={styles.headerText}>홈</Text>
+          <Text style={styles.headerText}>홈</Text>
         </TouchableOpacity>
         <Text style={styles.headerText}>                              </Text>
         <Text style={styles.headerText}>추천식단</Text>

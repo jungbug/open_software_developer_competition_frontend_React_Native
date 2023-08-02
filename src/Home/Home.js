@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
-import { BarChart,  XAxis } from 'react-native-svg-charts';
+import { BarChart, XAxis } from 'react-native-svg-charts';
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const labels = ['월', '화', '수', '목', '금', '토', '일'];
 const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalysis }) => {
@@ -10,7 +10,7 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
   const province = { "아몬드": "아몬드는 지방함량이 높지만 적당히 섭취하면 몸에 흡수되지 않으며 포만감을 줍니다.", "연어": "연어설명", "고등어": "고등어설명" };
   const minerals = { "양파": "양파에는 많은 무기질이 있어 혈당 조절, 인슐린 생성 촉진, 당뇨 예방에 좋습니다.", "버섯": "버섯설명", "토마토": "토마토설명" };
 
-  const NUTRIENTS = [10, 10, 10, 40, 15];//서버에서 받을 영양소별 섭취량
+  const NUTRIENTS = [10, 60, 10, 40, 15];//서버에서 받을 영양소별 섭취량
 
   if (NUTRIENTS[0] < 50) {
     proteinR = Math.floor(Math.random() * Object.keys(protein).length)
@@ -114,13 +114,13 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
             gridMin={5}
             animate
           >
-          <XAxis
-            style={{ marginHorizontal: -5, height: 200, marginTop: 160 }}
-            data={data}
-            formatLabel={(value, index) => labels[index]}
-            contentInset={{ left: 20, right: 20 }}
-            svg={{ fontSize: 12, fill: 'black' }}
-          />
+            <XAxis
+              style={{ marginHorizontal: -5, height: 200, marginTop: 160 }}
+              data={data}
+              formatLabel={(value, index) => labels[index]}
+              contentInset={{ left: 20, right: 20 }}
+              svg={{ fontSize: 12, fill: 'black' }}
+            />
           </BarChart>
           {/* 밑줄 추가 */}
           <View style={styles.chartFooterLine} />
