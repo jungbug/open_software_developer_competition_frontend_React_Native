@@ -34,7 +34,7 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
     titleC = Object.keys(carbon)[carbonR];
     subC = Object.values(carbon)[carbonR];
   } else {
-    titleC = "탄수화물은 충분합니다"
+    titleC = "탄수화물은 충분합니asdfajsdf;lk다"
     subC = ""
   }
   if (NUTRIENTS[3] < 50) {
