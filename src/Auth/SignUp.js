@@ -14,18 +14,18 @@ const SignUp = ({ onNavigateToLogin }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            user_name: "123",
-            user_id: "123",
-            user_pw: "123",
-            user_email: "123",
-            user_phone: "123",
+            user_name: "1111",
+            user_id: "1111",
+            user_pw: "1111",
+            user_email: "1111",
+            user_phone: "1111",
             // is_valid: true
           }),
       },
     );
-
-    if (response.status === 200) {
-      const responseJson = await response.json();
+    const responseJson = await response.json();
+    console.log(responseJson.status_code)
+    if (responseJson.status_code === 200) {
       console.log(responseJson)
       onNavigateToLogin();
       return response
@@ -35,12 +35,6 @@ const SignUp = ({ onNavigateToLogin }) => {
     }
   };
 
-  // const handleSignUp = () => {
-  //   // 여기에 정보 저장 머시기들 들어가야함
-  //   // 회원가입 성공 후 화면 전환하는 코드
-  //   // onSignUp();
-  //   onNavigateToLogin(); // 로그인 화면으로 전환
-  // };
   
   return (
     <View style={styles.container}>
