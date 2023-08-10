@@ -5,27 +5,60 @@ const SignUp = ({ onNavigateToLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSignUp = () => {
-    // 여기에 정보 저장 머시기들 들어가야함
-    // 회원가입 성공 후 화면 전환하는 코드
-    // onSignUp();
-    onNavigateToLogin(); // 로그인 화면으로 전환
+  const handleSignUp = async () => {
+    const response = await fetch(
+      'http://hoshi-kirby.xyz/api/v1/user/register',
+      {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            user_name: "123",
+            user_id: "123",
+            user_pw: "123",
+            user_email: "123",
+            user_phone: "123",
+            // is_valid: true
+          }),
+      },
+    );
+
+    if (response.status === 200) {
+      const responseJson = await response.json();
+      console.log(responseJson)
+      onNavigateToLogin();
+      return response
+    } else {
+      console.log("실패");
+      // throw new Error('unable to get');
+    }
   };
+
+  // const handleSignUp = () => {
+  //   // 여기에 정보 저장 머시기들 들어가야함
+  //   // 회원가입 성공 후 화면 전환하는 코드
+  //   // onSignUp();
+  //   onNavigateToLogin(); // 로그인 화면으로 전환
+  // };
   
   return (
     <View style={styles.container}>
       <Text style={styles.title}>회원가입</Text>
+
       <TextInput
         style={styles.input}
         placeholder="이메일"
         onChangeText={text => setEmail(text)}
       />
+
       <TextInput
         style={styles.input}
         placeholder="비밀번호"
         secureTextEntry
         onChangeText={text => setPassword(text)}
       />
+
       <TouchableOpacity style={styles.button} onPress={handleSignUp}>
         <Text style={styles.buttonText}>가입하기</Text>
       </TouchableOpacity>

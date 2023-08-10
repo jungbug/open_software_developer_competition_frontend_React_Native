@@ -5,17 +5,34 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // 딕셔너리나 데이터베이스에 저장된 사용자 정보와 비교하여 로그인 처리
-    // 예를 들어, 사용자 정보를 가져오는 함수를 호출하고 정보 일치 여부 확인
-    // const userData = getUserData(email);
-    // if (userData && userData.password === password) {
-    //   onLogin(); // 로그인 성공 후 화면 전환
-    // } else {
-    //   // 에러 처리
-    // }
-    onLogin(); // 임시로 로그인 처리
+  const handleLogin = async () => {
+    const response = await fetch('http://hoshi-kirby.xyz/api/v1/user/login?id=123&pw=123', {
+        method: 'GET',
+      },
+    );
+
+    if (response.status === 200) {//200이면 성공
+      const responseJson = await response.json();
+      console.log(responseJson)
+      onLogin();
+      return response
+    } else {//200이 아니면 실패
+      return 0;
+      // throw new Error('unable to get');
+    }
   };
+  // const handleLogin = () => {
+  //   // 딕셔너리나 데이터베이스에 저장된 사용자 정보와 비교하여 로그인 처리
+  //   // 예를 들어, 사용자 정보를 가져오는 함수를 호출하고 정보 일치 여부 확인
+  //   // const userData = getUserData(email);
+  //   // if (userData && userData.password === password) {
+  //   //   onLogin(); // 로그인 성공 후 화면 전환
+  //   // } else {
+  //   //   // 에러 처리
+  //   // }
+
+  //   onLogin(); // 임시로 로그인 처리
+  // };
 
   return (
     <View style={styles.container}>
@@ -31,9 +48,13 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
         secureTextEntry
         onChangeText={text => setPassword(text)}
       />
+
+
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>로그인</Text>
       </TouchableOpacity>
+
+
       <TouchableOpacity style={styles.signUpLink} onPress={onNavigateToSignUp}>
         <Text style={styles.signUpText}>회원가입</Text>
       </TouchableOpacity>
