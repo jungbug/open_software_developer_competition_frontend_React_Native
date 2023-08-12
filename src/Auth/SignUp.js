@@ -4,8 +4,14 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 const SignUp = ({ onNavigateToLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [warning, setWarning] = useState('');
 
   const handleSignUp = async () => {
+    if (email.length < 8 || password.length < 8) {
+      setWarning('아이디와 비밀번호는 8글자 이상이어야 합니다.');
+      return;
+    }
+
     const response = await fetch(
       'http://hoshi-kirby.xyz/api/v1/user/register',
       {
@@ -23,9 +29,10 @@ const SignUp = ({ onNavigateToLogin }) => {
           }),
       },
     );
+
     if (response.status === 200) {
       onNavigateToLogin();
-      return response
+      return response;
     } else {
       console.log("실패");
       // throw new Error('unable to get');
@@ -39,16 +46,18 @@ const SignUp = ({ onNavigateToLogin }) => {
 
       <TextInput
         style={styles.input}
-        placeholder="이메일"
+        placeholder="8글자 이상의 아이디"
         onChangeText={text => setEmail(text)}
       />
 
       <TextInput
         style={styles.input}
-        placeholder="비밀번호"
+        placeholder="8글자 이상의 비밀번호"
         secureTextEntry
         onChangeText={text => setPassword(text)}
       />
+
+      {warning ? <Text style={styles.warning}>{warning}</Text> : null}
 
       <TouchableOpacity style={styles.button} onPress={handleSignUp}>
         <Text style={styles.buttonText}>가입하기</Text>
@@ -87,6 +96,10 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     fontSize: 18,
+  },
+  warning: {
+    color: 'red',
+    marginBottom: 10,
   },
 });
 
