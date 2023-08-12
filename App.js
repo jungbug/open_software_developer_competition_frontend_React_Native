@@ -11,6 +11,16 @@ import Video_Analysis from './src/Video/Video_Analysis';
 import More from './src/More/More';
 
 export default function App() {
+  const getData = async () => {
+    try {
+      const accessToken = await AsyncStorage.getItem('accessToken');
+      console.log('accessToken:', accessToken);
+    } catch (error) {
+      console.error('Error getting data:', error);
+    }
+  };
+  //if accessToken 있으면 usestate home으로 없으면 usestate login으로
+
   const [activeTab, setActiveTab] = useState('login');
   const [showNavigationBar, setShowNavigationBar] = useState(false);
 
@@ -43,12 +53,12 @@ export default function App() {
   const navigateToLogin = () => {
     setActiveTab('login');
     setShowNavigationBar(false);
-  };  
+  };
 
   const renderPage = () => {
     switch (activeTab) {
       case 'home':
-        return <Home onNavigateToMore={navigateToMore} navigateToPhotoAnalysis={navigateToPhotoAnalysis} navigateToVideoAnalysis={navigateToVideoAnalysis}/>;
+        return <Home onNavigateToMore={navigateToMore} navigateToPhotoAnalysis={navigateToPhotoAnalysis} navigateToVideoAnalysis={navigateToVideoAnalysis} />;
       case 'photo':
         return <Photo />;
       case 'signUp':
@@ -58,13 +68,13 @@ export default function App() {
       case 'video':
         return <Video />;
       case 'more':
-        return <More onNavigateToHome={navigateToHome}/>;
+        return <More onNavigateToHome={navigateToHome} />;
       case 'photo_analysis':
-        return <Photo_Analysis onNavigateToPhoto={navigateToPhoto}/>;
+        return <Photo_Analysis onNavigateToPhoto={navigateToPhoto} />;
       case 'video_analysis':
         return <Video_Analysis />;
       default:
-        return <Home onNavigateToMore={navigateToMore} navigateToPhotoAnalysis={navigateToPhotoAnalysis} navigateToVideoAnalysis={navigateToVideoAnalysis}/>;
+        return <Home onNavigateToMore={navigateToMore} navigateToPhotoAnalysis={navigateToPhotoAnalysis} navigateToVideoAnalysis={navigateToVideoAnalysis} />;
     }
   };
 

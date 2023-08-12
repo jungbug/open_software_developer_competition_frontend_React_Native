@@ -1,25 +1,62 @@
 import React, { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
 const Login = ({ onLogin, onNavigateToSignUp }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async () => {
-    const response = await fetch('http://hoshi-kirby.xyz/api/v1/user/login?id=2&pw=2', {
-        method: 'GET',
-      },
-    );
-    const responseJson = await response.json();
-    if (responseJson.status_code === 200) {//200이면 성공
-      console.log(responseJson)
-      onLogin();
-      return response
-    } else {//200이 아니면 실패
-      return 0;
-      // throw new Error('unable to get');
+  const saveData = async (data) => {
+    try {
+      await AsyncStorage.setItem('accessToken', data);
+      console.log('Data saved successfully');
+    } catch (error) {
+      console.error('Error saving data:', error);
     }
   };
+
+  const getData = async () => {
+    try {
+      const accessToken = await AsyncStorage.getItem('accessToken');
+      console.log('accessToken:', accessToken);
+    } catch (error) {
+      console.error('Error getting data:', error);
+    }
+  };
+
+  const handleLogin = async () => {
+    const id = email; // 사용자 ID
+    const pw = password; // 사용자 비밀번호
+
+    const queryParams = new URLSearchParams({
+      id: id,
+      pw: pw
+    });
+
+    const url = `http://hoshi-kirby.xyz/api/v1/user/login?${queryParams}`;
+
+    try {
+      const response = await fetch(url, {
+        method: 'GET'
+      });
+
+      const responseJson = await response.json();
+
+      if (response.status === 200) {
+        console.log(responseJson.access_token);
+        saveData(responseJson.access_token);
+        getData()
+        onLogin();
+        return response;
+      } else {
+        return 0;
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+      return 0;
+    }
+  };
+
 
 
   return (

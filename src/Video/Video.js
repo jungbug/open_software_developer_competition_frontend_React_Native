@@ -30,6 +30,7 @@ export default function Video() {
       }
 
       console.log(result);
+      console.log(responseJson.access_token);
       setImageUrl(result.assets[0].uri);
     };
 
