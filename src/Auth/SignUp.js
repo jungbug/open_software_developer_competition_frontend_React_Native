@@ -14,7 +14,7 @@ const SignUp = ({ onNavigateToLogin }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            user_name: "1111",
+            user_name: "3232",
             user_id: "1111",
             user_pw: "1111",
             user_email: "1111",
@@ -23,10 +23,7 @@ const SignUp = ({ onNavigateToLogin }) => {
           }),
       },
     );
-    const responseJson = await response.json();
-    console.log(responseJson.status_code)
-    if (responseJson.status_code === 200) {
-      console.log(responseJson)
+    if (response.status === 200) {
       onNavigateToLogin();
       return response
     } else {

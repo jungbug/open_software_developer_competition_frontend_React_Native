@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "frontend_React_Native",
-    "slug": "frontend_React_Native",
+    "name": "healthwatch_oss",
+    "slug": "healthwatch_oss",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
