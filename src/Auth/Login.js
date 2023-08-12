@@ -20,8 +20,10 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
     try {
       const accessToken = await AsyncStorage.getItem('accessToken');
       console.log('accessToken:', accessToken);
+      return accessToken;
     } catch (error) {
       console.error('Error getting data:', error);
+      return 0;
     }
   };
 
