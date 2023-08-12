@@ -3,6 +3,14 @@ import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Camera } from 'expo-camera';
 
 export default function Photo() {
+  const getData = async () => {
+    try {
+      const accessToken = await AsyncStorage.getItem('accessToken');
+      console.log('accessToken:', accessToken);
+    } catch (error) {
+      console.error('Error getting data:', error);
+    }
+  };
   const cameraRef = useRef(null);
   const [hasPermission, setHasPermission] = useState(null);
 

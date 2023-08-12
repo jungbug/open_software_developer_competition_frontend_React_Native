@@ -5,6 +5,14 @@ import { Device } from 'expo-device';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
+const getData = async () => {
+  try {
+    const accessToken = await AsyncStorage.getItem('accessToken');
+    console.log('accessToken:', accessToken);
+  } catch (error) {
+    console.error('Error getting data:', error);
+  }
+};
 
 export default function Video() {
   const ImagePickerComponent = () => {
@@ -30,7 +38,6 @@ export default function Video() {
       }
 
       console.log(result);
-      console.log(responseJson.access_token);
       setImageUrl(result.assets[0].uri);
     };
 

@@ -3,6 +3,14 @@ import { View, Image, Text, StyleSheet, Dimensions, ScrollView } from 'react-nat
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
+const getData = async () => {
+  try {
+    const accessToken = await AsyncStorage.getItem('accessToken');
+    console.log('accessToken:', accessToken);
+  } catch (error) {
+    console.error('Error getting data:', error);
+  }
+};
 
 const CORRECTION_INDEX1 = "팔이 너무 벌어져있습니다. 양팔을 어깨너비로 벌리고 편하게 엎드리세요. \n\n무릎이 접혀져있습니다. 무릎을 피고 힘을 풀지 마세요.\n\n엉덩이가 위로 올라와있습니다. 복부에 힘을 주고 다시 해보세요."//서버에서 받을 내용
 

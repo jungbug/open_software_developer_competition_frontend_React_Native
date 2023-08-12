@@ -6,6 +6,14 @@ const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const FOOD = '샐러드';
 
 const Photo_Analysis = ({ onNavigateToPhoto }) => {
+  const getData = async () => {
+    try {
+      const accessToken = await AsyncStorage.getItem('accessToken');
+      console.log('accessToken:', accessToken);
+    } catch (error) {
+      console.error('Error getting data:', error);
+    }
+  };
 
   const proteinData = [1, 2, 3, 4]; // 샘플데이터
   const labels = ['칼로리', '단백질', '탄수화물', '지방']; // x축 라벨
@@ -37,7 +45,7 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
           spacingInner={0.4}
           yMin={0} // y축 최솟값을 0으로 설정
         >
-         
+
         </BarChart>
         <XAxis
           style={{ marginHorizontal: 30 }}
