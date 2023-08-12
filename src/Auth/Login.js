@@ -5,6 +5,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 const Login = ({ onLogin, onNavigateToSignUp }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loginFailed, setLoginFailed] = useState(false); // 추가: 로그인 실패 상태
 
   const saveData = async (data) => {
     try {
@@ -47,17 +48,18 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
         saveData(responseJson.access_token);
         getData()
         onLogin();
+        setLoginFailed(false); // 로그인 성공 시 실패 상태 초기화
         return response;
       } else {
+        setLoginFailed(true); // 로그인 실패 시 실패 상태 변경
         return 0;
       }
     } catch (error) {
       console.error('An error occurred:', error);
+      setLoginFailed(true); // 로그인 실패 시 실패 상태 변경
       return 0;
     }
   };
-
-
 
   return (
     <View style={styles.container}>
@@ -74,11 +76,13 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
         onChangeText={text => setPassword(text)}
       />
 
+      {loginFailed && ( // 추가: 로그인 실패 시 경고 표시
+        <Text style={styles.warning}>로그인에 실패했습니다. 다시 시도하세요.</Text>
+      )}
 
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>로그인</Text>
       </TouchableOpacity>
-
 
       <TouchableOpacity style={styles.signUpLink} onPress={onNavigateToSignUp}>
         <Text style={styles.signUpText}>회원가입</Text>
@@ -124,6 +128,10 @@ const styles = StyleSheet.create({
   signUpText: {
     color: '#5f4ffe',
     fontSize: 16,
+  },
+  warning: {
+    color: 'red',
+    marginTop: 10,
   },
 });
 
