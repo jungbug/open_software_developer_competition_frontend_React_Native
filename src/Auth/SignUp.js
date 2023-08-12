@@ -14,11 +14,11 @@ const SignUp = ({ onNavigateToLogin }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            user_name: "3232",
-            user_id: "1111",
-            user_pw: "1111",
-            user_email: "1111",
-            user_phone: "1111",
+            user_name: email,
+            user_id: email,
+            user_pw: password,
+            user_email: email,
+            user_phone: email,
             // is_valid: true
           }),
       },
