@@ -1,3 +1,18 @@
-# frontend_React_Native
+# frontend_React_Native   
 
-제17회 공개 sw 개발자대회 헬스워치 어플
+![](https://img.shields.io/badge/React%20Native-61DAFB?style=flat-square&logo=React&logoColor=black)
+
+
+### Frontend Configuration  
+Manual with Yarn & expo:  
+
+```shell
+yarn install
+yarn expo start
+```
+
+Manual with npm:
+```shell
+npm install
+npm start
+```
