@@ -65,7 +65,7 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
           <Text style={[styles.username, styles.text, { color: '#5f4ffe' }]}>
             {USERNAME}
           </Text>
-          <Text style={[styles.greeting, styles.text]}>님!                </Text>
+          <Text style={[styles.greeting, styles.text]}>님!</Text>
         </View>
         <View style={styles.imageContainer}>
           <Image
