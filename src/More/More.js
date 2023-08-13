@@ -76,13 +76,12 @@ const More = ({ onNavigateToHome }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Icon name="chevron-back-outline" size={24} color="#000" />
         <TouchableOpacity onPress={onNavigateToHome}>
           <Text style={styles.headerText}>홈</Text>
         </TouchableOpacity>
-        <Text style={styles.headerText}>                              </Text>
+        <Text style={styles.headerText}></Text>
         <Text style={styles.headerText}>추천식단</Text>
-        <Text style={styles.headerText}>                                        </Text>
+        <Text style={styles.headerText}></Text>
       </View>
 
       <View style={styles.middle}>
@@ -126,6 +125,17 @@ const styles = StyleSheet.create({
   header: {
     flex: 0.7,
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: SCREEN_HEIGHT * 0.001,
+    marginLeft: SCREEN_WIDTH * 0.05,
+    marginRight: SCREEN_WIDTH * 0.25,
+  },
+  iconHome: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  recommendation: {
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -158,7 +168,6 @@ const styles = StyleSheet.create({
   recommendFood: {
     flex: 1,
     justifyContent: "center",
-
   },
   foodName: {
     fontSize: 30,
@@ -175,19 +184,5 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
 });
-
-/*function generateAllCombinations() {
-  const variables = ['protein', 'vitamin', 'mineral', 'fiber', 'carbohydrate'];
-  const totalCombinations = 2 ** variables.length; // 2의 n승 (n은 변수의 개수)
-
-  for (let i = 0; i < totalCombinations; i++) {
-    const combination = {};
-    for (let j = 0; j < variables.length; j++) {
-      const variableValue = (i & (1 << j)) !== 0;
-      combination[variables[j]] = variableValue;
-    }
-  }
-}*/
-
 
 export default More;

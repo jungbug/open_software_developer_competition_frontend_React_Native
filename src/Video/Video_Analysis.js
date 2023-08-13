@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   correctionTitle: {
     fontSize: 25,
-    color: 'black',
+    color: '#50a5ff',
     marginTop: 15,
     marginLeft: 20,
     marginRight: 20,
@@ -86,8 +86,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   manualTitle: {
+    color: '#5f4ffe',
     fontSize: 25,
-    color: 'black',
     marginTop: 15,
     marginLeft: 20,
     marginRight: 20,
@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   manualSub: {
+    
     marginTop: 10,
     marginLeft: 20,
     marginRight: 20,

@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import { BarChart, XAxis, YAxis, Grid } from 'react-native-svg-charts';
-const { height: SCREEN_HEIGHT } = Dimensions.get("window");
-const { width: SCREEN_WIDTH } = Dimensions.get("window");
+const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
 const FOOD = '샐러드';
 
 const Photo_Analysis = ({ onNavigateToPhoto }) => {
@@ -28,8 +27,9 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
         <TouchableOpacity onPress={onNavigateToPhoto}>
           <Text style={styles.text}>카메라</Text>
         </TouchableOpacity>
-        <Text style={styles.text}>                        식품분석                                   </Text>
+        <Text style={styles.text}>식품분석</Text>
       </View>
+
 
       <View style={styles.secondContainer}>
         <Text style={styles.middleText}>{FOOD}</Text>
@@ -105,10 +105,12 @@ const styles = StyleSheet.create({
     paddingVertical: 50,
   },
   firstContainer: {
-    flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: SCREEN_HEIGHT * 0.01,
+    marginLeft: SCREEN_WIDTH * 0.02,
+    marginRight: SCREEN_WIDTH * 0.39,
   },
   secondContainer: {
     flex: 0.1,
@@ -122,6 +124,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginTop: 10,
     marginBottom: 10,
+    alignSelf: 'center',
   },
   fourthContainer: {
     flex: 0.1,
@@ -135,6 +138,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginTop: 10,
     marginBottom: 10,
+    alignSelf: 'center',
   },
   text: {
     fontSize: 16,
