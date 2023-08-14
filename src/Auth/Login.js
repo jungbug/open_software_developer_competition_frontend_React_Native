@@ -6,7 +6,7 @@ import { api_uri } from '@env';
 const Login = ({ onLogin, onNavigateToSignUp }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loginFailed, setLoginFailed] = useState(false); // 추가: 로그인 실패 상태
+  const [loginFailed, setLoginFailed] = useState(false);
 
   const saveData = async (data) => {
     try {
@@ -27,8 +27,8 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
   };
 
   const handleLogin = async () => {
-    const id = email; // 사용자 ID
-    const pw = password; // 사용자 비밀번호
+    const id = email;
+    const pw = password;
 
     const queryParams = new URLSearchParams({
       id: id,
@@ -48,19 +48,19 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
         const tokenResult = getData();
         
         if (tokenResult !== 0) {
-          onLogin(tokenResult); // 로그인 성공 시 토큰 전달
-          setLoginFailed(false); // 로그인 성공 시 실패 상태 초기화
+          onLogin(tokenResult);
+          setLoginFailed(false);
         } else {
-          setLoginFailed(true); // 로그인 실패 시 실패 상태 변경
+          setLoginFailed(true);
         }
         return response;
       } else {
-        setLoginFailed(true); // 로그인 실패 시 실패 상태 변경
+        setLoginFailed(true);
         return 0;
       }
     } catch (error) {
       console.error('An error occurred:', error);
-      setLoginFailed(true); // 로그인 실패 시 실패 상태 변경
+      setLoginFailed(true);
       return 0;
     }
   };
@@ -80,7 +80,7 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
         onChangeText={text => setPassword(text)}
       />
 
-      {loginFailed && ( // 추가: 로그인 실패 시 경고 표시
+      {loginFailed && (
         <Text style={styles.warning}>로그인에 실패했습니다. 다시 시도하세요.</Text>
       )}
 
@@ -89,7 +89,7 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.signUpButton} onPress={onNavigateToSignUp}>
-        <Text style={styles.buttonText}>회원가입</Text>
+        <Text style={[styles.buttonText, styles.signUpButtonText]}>회원가입</Text>
       </TouchableOpacity>
     </View>
   );
@@ -126,7 +126,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   signUpButton: {
-    backgroundColor: '#50a5ff',
+    backgroundColor: 'white',
+    borderColor: '#50a5ff',
+    borderWidth: 2,
     paddingVertical: 12,
     paddingHorizontal: 72,
     borderRadius: 20,
@@ -136,10 +138,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   buttonText: {
-    color: 'white',
     fontWeight: 'bold',
     fontSize: 18,
     marginRight: 5,
+    color: 'white',
+  },
+  signUpButtonText: {
+    color: '#50a5ff',
   },
   signUpLink: {
     marginTop: 10,
