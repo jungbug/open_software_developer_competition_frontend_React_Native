@@ -70,12 +70,12 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
       <Text style={styles.title}>로그인</Text>
       <TextInput
         style={styles.input}
-        placeholder="이메일"
+        placeholder="아이디를 입력해주세요."
         onChangeText={text => setEmail(text)}
       />
       <TextInput
         style={styles.input}
-        placeholder="비밀번호"
+        placeholder="비밀번호를 입력해주세요."
         secureTextEntry
         onChangeText={text => setPassword(text)}
       />
@@ -88,8 +88,8 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
         <Text style={styles.buttonText}>로그인</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.signUpLink} onPress={onNavigateToSignUp}>
-        <Text style={styles.signUpText}>회원가입</Text>
+      <TouchableOpacity style={styles.signUpButton} onPress={onNavigateToSignUp}>
+        <Text style={styles.buttonText}>회원가입</Text>
       </TouchableOpacity>
     </View>
   );
@@ -107,24 +107,39 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   input: {
-    width: 250,
-    height: 40,
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 5,
+    width: 280,
+    height: 50,
+    backgroundColor: '#f2f2f2',
     paddingHorizontal: 10,
+    paddingVertical: 10,
     marginBottom: 10,
+    borderRadius: 20,
   },
   button: {
-    backgroundColor: '#5f4ffe',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
+    backgroundColor: '#50a5ff',
+    paddingVertical: 12,
+    paddingHorizontal: 80,
+    borderRadius: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  signUpButton: {
+    backgroundColor: '#50a5ff',
+    paddingVertical: 12,
+    paddingHorizontal: 72,
+    borderRadius: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10,
   },
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
     fontSize: 18,
+    marginRight: 5,
   },
   signUpLink: {
     marginTop: 10,
