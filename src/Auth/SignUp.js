@@ -3,13 +3,14 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import { api_uri } from '@env';
 
 const SignUp = ({ onNavigateToLogin }) => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [warning, setWarning] = useState('');
 
   const handleSignUp = async () => {
-    if (email.length < 8 || password.length < 8) {
-      setWarning('아이디와 비밀번호는 8글자 이상이어야 합니다.');
+    if (name.length === 0 || email.length < 8 || password.length < 8) {
+      setWarning('아이디, 비밀번호는 8글자 이상이어야 합니다.');
       return;
     }
 
@@ -18,13 +19,13 @@ const SignUp = ({ onNavigateToLogin }) => {
       {
         method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            user_name: email,
-            user_id: email,
-            user_pw: password,
-          }),
+          user_name: name,
+          user_id: email,
+          user_pw: password,
+        }),
       },
     );
 
@@ -32,15 +33,18 @@ const SignUp = ({ onNavigateToLogin }) => {
       onNavigateToLogin();
       return response;
     } else {
-      console.log("실패");
+      console.log('실패');
       // throw new Error('unable to get');
     }
   };
 
-  
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>회원가입</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="이름"
+        onChangeText={text => setName(text)}
+      />
 
       <TextInput
         style={styles.input}
@@ -58,7 +62,7 @@ const SignUp = ({ onNavigateToLogin }) => {
       {warning ? <Text style={styles.warning}>{warning}</Text> : null}
 
       <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-        <Text style={styles.buttonText}>가입하기</Text>
+        <Text style={styles.buttonText}>확인</Text>
       </TouchableOpacity>
     </View>
   );
@@ -76,19 +80,23 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   input: {
-    width: 250,
-    height: 40,
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 5,
+    width: 280,
+    height: 50,
+    backgroundColor: '#f2f2f2',
     paddingHorizontal: 10,
+    paddingVertical: 10,
     marginBottom: 10,
+    borderRadius: 20,
   },
   button: {
-    backgroundColor: '#5f4ffe',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
+    backgroundColor: '#50a5ff',
+    paddingVertical: 15,
+    paddingHorizontal: 100,
+    borderRadius: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 30,
   },
   buttonText: {
     color: 'white',
