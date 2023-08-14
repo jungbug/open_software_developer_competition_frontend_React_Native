@@ -3,7 +3,7 @@ name: Deploy React Native App with Expo
 on:
   push:
     branches:
-      - main
+      - deployment
 
 jobs:
   deploy:
