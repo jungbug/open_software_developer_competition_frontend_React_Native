@@ -33,5 +33,8 @@ jobs:
       - name: Log in to Expo
         run: expo login -u ${{secrets.EXPO_USERNAME}} -p ${{secrets.EXPO_PASSWORD}} --non-interactive
 
-      - name: Build and Publish with EAS
-        run: eas build --profile preview && eas update
+      - name: Build and Publish with EAS for Android
+        run: eas build --platform android --profile preview
+
+      - name: Update with EAS
+        run: eas update
