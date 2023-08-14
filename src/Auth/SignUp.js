@@ -40,21 +40,24 @@ const SignUp = ({ onNavigateToLogin }) => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.label}>이름</Text>
       <TextInput
         style={styles.input}
-        placeholder="이름"
+        placeholder="이름을 입력하세요"
         onChangeText={text => setName(text)}
       />
 
+      <Text style={styles.label}>아이디 (8글자 이상)</Text>
       <TextInput
         style={styles.input}
-        placeholder="8글자 이상의 아이디"
+        placeholder="아이디를 입력하세요"
         onChangeText={text => setEmail(text)}
       />
 
+      <Text style={styles.label}>비밀번호 (8글자 이상)</Text>
       <TextInput
         style={styles.input}
-        placeholder="8글자 이상의 비밀번호"
+        placeholder="비밀번호를 입력하세요"
         secureTextEntry
         onChangeText={text => setPassword(text)}
       />
@@ -74,10 +77,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  title: {
-    fontSize: 24,
+  label: {
+    fontSize: 22,
     fontWeight: 'bold',
-    marginBottom: 16,
+    marginBottom: 14,
+    alignSelf: 'flex-start',
+    marginLeft: 20,
+    color: '#50a5ff',
+
   },
   input: {
     width: 280,
