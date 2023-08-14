@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { api_uri } from '@env';
+
+import iconImage from '../../assets/icon.png';
 
 const Login = ({ onLogin, onNavigateToSignUp }) => {
   const [email, setEmail] = useState('');
@@ -67,7 +69,7 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>로그인</Text>
+      <Image source={iconImage} style={styles.icon} />
       <TextInput
         style={styles.input}
         placeholder="아이디를 입력해주세요."
@@ -123,7 +125,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 30,
   },
   signUpButton: {
     backgroundColor: 'white',
@@ -146,12 +148,10 @@ const styles = StyleSheet.create({
   signUpButtonText: {
     color: '#50a5ff',
   },
-  signUpLink: {
-    marginTop: 10,
-  },
-  signUpText: {
-    color: '#5f4ffe',
-    fontSize: 16,
+  icon: {
+    width: 300,
+    height: 250,
+    marginBottom: 16,
   },
   warning: {
     color: 'red',
