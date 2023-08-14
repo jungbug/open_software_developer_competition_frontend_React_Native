@@ -67,6 +67,12 @@ const SignUp = ({ onNavigateToLogin }) => {
       <TouchableOpacity style={styles.button} onPress={handleSignUp}>
         <Text style={styles.buttonText}>확인</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.loginButton}
+        onPress={onNavigateToLogin}
+      >
+        <Text style={styles.loginButtonText}>이미 계정이 있으신가요?</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -113,6 +119,14 @@ const styles = StyleSheet.create({
   warning: {
     color: 'red',
     marginBottom: 10,
+  },
+  loginButton: {
+    marginTop: 20,
+  },
+  loginButtonText: {
+    color: '#50a5ff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 
