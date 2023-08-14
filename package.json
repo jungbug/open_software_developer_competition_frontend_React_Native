@@ -2,6 +2,8 @@
   "name": "healthwatch_oss",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
+  "license": "MIT",
+
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -17,6 +19,7 @@
     "expo-status-bar": "~1.6.0",
     "react": "18.2.0",
     "react-native": "0.72.3",
+    "react-native-dotenv": "^3.4.9",
     "react-native-svg": "13.9.0",
     "react-native-svg-charts": "^5.4.0"
   },

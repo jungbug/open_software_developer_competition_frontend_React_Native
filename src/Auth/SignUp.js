@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { api_uri } from '@env';
 
 const SignUp = ({ onNavigateToLogin }) => {
   const [email, setEmail] = useState('');
@@ -13,7 +14,7 @@ const SignUp = ({ onNavigateToLogin }) => {
     }
 
     const response = await fetch(
-      'http://hoshi-kirby.xyz/api/v1/user/register',
+      api_uri + '/api/v1/user/register',
       {
         method: 'POST',
         headers: {
@@ -23,9 +24,6 @@ const SignUp = ({ onNavigateToLogin }) => {
             user_name: email,
             user_id: email,
             user_pw: password,
-            user_email: email,
-            user_phone: email,
-            // is_valid: true
           }),
       },
     );

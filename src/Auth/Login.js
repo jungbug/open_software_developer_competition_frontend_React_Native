@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { api_uri } from '@env';
 
 const Login = ({ onLogin, onNavigateToSignUp }) => {
   const [email, setEmail] = useState('');
@@ -10,7 +11,6 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
   const saveData = async (data) => {
     try {
       await AsyncStorage.setItem('accessToken', data);
-      console.log('Data saved successfully');
     } catch (error) {
       console.error('Error saving data:', error);
     }
@@ -19,7 +19,6 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
   const getData = async () => {
     try {
       const accessToken = await AsyncStorage.getItem('accessToken');
-      console.log('accessToken:', accessToken);
       return accessToken;
     } catch (error) {
       console.error('Error getting data:', error);
@@ -35,8 +34,7 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
       id: id,
       pw: pw
     });
-
-    const url = `http://hoshi-kirby.xyz/api/v1/user/login?${queryParams}`;
+    const url = api_uri + `/api/v1/user/login?${queryParams}`;
 
     try {
       const response = await fetch(url, {
@@ -46,11 +44,15 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
       const responseJson = await response.json();
 
       if (response.status === 200) {
-        console.log(responseJson.access_token);
         saveData(responseJson.access_token);
-        getData()
-        onLogin();
-        setLoginFailed(false); // 로그인 성공 시 실패 상태 초기화
+        const tokenResult = getData();
+        
+        if (tokenResult !== 0) {
+          onLogin(tokenResult); // 로그인 성공 시 토큰 전달
+          setLoginFailed(false); // 로그인 성공 시 실패 상태 초기화
+        } else {
+          setLoginFailed(true); // 로그인 실패 시 실패 상태 변경
+        }
         return response;
       } else {
         setLoginFailed(true); // 로그인 실패 시 실패 상태 변경
