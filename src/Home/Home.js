@@ -1,10 +1,23 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Dimensions, } from 'react-native';
 import { BarChart, XAxis } from 'react-native-svg-charts';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const labels = ['월', '화', '수', '목', '금', '토', '일'];
 
+
 const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalysis }) => {
+  const getData = async () => {
+    try {
+      const accessToken = await AsyncStorage.getItem('accessToken');
+      const popName = await AsyncStorage.getItem('userId')
+      return [accessToken, popName];
+    } catch (error) {
+      console.error('Error getting data:', error);
+      return 0;
+    }
+  };
   const protein = { "닭가슴살": "닭가슴살은 칼로리가 낮지만 고단백질입니다.", "삶은 계란": "삶은 계란은 단백질 함량이 많기 때문에...(설명)" };
   const vitamin = { "치즈": "치즈에 들어있는 비타민A와 펩타이드는 항산화 작용으로 암세포 증식을 억제합니다.", "시금치": "시금치설명", "소의 간": "소의 간 설명" };
   const carbon = { "감자": "감자는 탄수화물이 많고 칼로리가 적으며 저렴하게 구할 수 있습니다.", "고구마": "고구마설명", "콩": "콩설명" };
@@ -12,7 +25,18 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
   const minerals = { "양파": "양파에는 많은 무기질이 있어 혈당 조절, 인슐린 생성 촉진, 당뇨 예방에 좋습니다.", "버섯": "버섯설명", "토마토": "토마토설명" };
 
   const NUTRIENTS = [10, 60, 10, 40, 15];//서버에서 받을 영양소별 섭취량
+  getData().then((result) => {
+    accessToken = result[0];
+    nameResult = result[1];
+  });
 
+  useEffect(() => {
+    getData().then(([token, name]) => {
+      setAccessToken(token);
+      setNameResult(name);
+    });
+  }, []);
+  console.log(nameResult);
   if (NUTRIENTS[0] < 50) {
     proteinR = Math.floor(Math.random() * Object.keys(protein).length)
     titleP = Object.keys(protein)[proteinR];
@@ -53,9 +77,10 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
     titleM = "무기질은 충분합니다."
     subM = ""
   }
-  const USERNAME = '홍길동';
+  const USERNAME = nameResult
 
   const data = [10, 20, 30, 40, 50, 60, 70];
+
 
   return (
     <View Style={styles.container}>
