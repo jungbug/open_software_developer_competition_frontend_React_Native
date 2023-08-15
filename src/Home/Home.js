@@ -8,14 +8,18 @@ const labels = ['월', '화', '수', '목', '금', '토', '일'];
 
 
 const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalysis }) => {
+  const [nameResult, setNameResult] = useState('');
+  const [accessToken, setAccessToken] = useState('');
+
   const getData = async () => {
     try {
-      const accessToken = await AsyncStorage.getItem('accessToken');
-      const popName = await AsyncStorage.getItem('userId')
-      return [accessToken, popName];
+      const accessTokenValue = await AsyncStorage.getItem('accessToken');
+      const popName = await AsyncStorage.getItem('userId');
+
+      return [accessTokenValue, popName];
     } catch (error) {
       console.error('Error getting data:', error);
-      return 0;
+      return [null, null];
     }
   };
   const protein = { "닭가슴살": "닭가슴살은 칼로리가 낮지만 고단백질입니다.", "삶은 계란": "삶은 계란은 단백질 함량이 많기 때문에...(설명)" };
@@ -36,7 +40,7 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
       setNameResult(name);
     });
   }, []);
-  console.log(nameResult);
+  
   if (NUTRIENTS[0] < 50) {
     proteinR = Math.floor(Math.random() * Object.keys(protein).length)
     titleP = Object.keys(protein)[proteinR];
