@@ -98,7 +98,7 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
         </View>
         <View style={styles.imageContainer}>
           <Image
-            source={require('../../assets/default_profile.png')}
+            source={require('../../assets/icon.png')}
             style={styles.image}
           />
         </View>
