@@ -1,6 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Camera } from 'expo-camera';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
+import { api_uri } from '@env';
 
 export default function Photo() {
   const getData = async () => {
@@ -11,6 +13,7 @@ export default function Photo() {
       console.error('Error getting data:', error);
     }
   };
+
   const cameraRef = useRef(null);
   const [hasPermission, setHasPermission] = useState(null);
 
@@ -37,15 +40,18 @@ export default function Photo() {
     });
 
     try {
-      const response = await fetch('http://your-server-url/predict', {
+      const response = await fetch(api_uri + '/api/v1/upload/image', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
         body: data,
       });
 
       if (response.ok) {
         const result = await response.json();
         console.log(result);
-        // 예측 결과 처리
+        // 업로드 성공 처리
       } else {
         Alert.alert('Error', 'Failed to upload photo');
       }
