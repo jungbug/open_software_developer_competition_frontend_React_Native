@@ -25,6 +25,7 @@ export default function Photo() {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === 'granted');
+      console.log('1:', setHasPermission);
     })();
   }, []);
 
@@ -35,6 +36,7 @@ export default function Photo() {
       const photo = await cameraRef.current.takePictureAsync();
       // 찍은 사진을 업로드하는 함수를 호출
       uploadPhoto(photo);
+      console.log('2:', photo);
     }
   };
 
@@ -57,7 +59,7 @@ export default function Photo() {
         },
         body: data,
       });
-
+      console.log('3:', response.status);
       if (response.status === 200) {
         // 업로드 성공 시 결과를 출력하고 성공 메시지를 띄우고
         const result = await response.json();
