@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Camera } from 'expo-camera';
-import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api_uri } from '@env';
 
 export default function Photo() {
@@ -48,10 +48,11 @@ export default function Photo() {
         body: data,
       });
 
-      if (response.ok) {
+      if (response.status === 200) {
         const result = await response.json();
         console.log(result);
         // 업로드 성공 처리
+        Alert.alert('Success', 'Photo uploaded successfully');
       } else {
         Alert.alert('Error', 'Failed to upload photo');
       }
