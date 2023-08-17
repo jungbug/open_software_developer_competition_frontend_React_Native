@@ -6,20 +6,25 @@ import { api_uri } from '@env';
 import axios from 'axios';
 
 export default function Photo() {
+  let [nameResult, setNameResult] = useState('');
+  let [accessToken, setAccessToken] = useState('');
+  let [ghkrwkdwk, setGhkrwkdwk] = useState('');
   const getData = async () => {
     try {
-      // AsyncStorage에서 'accessToken' 데이터를 가져오는거
-      const accessToken = await AsyncStorage.getItem('accessToken');
-      console.log('accessToken:', accessToken);
+      const accessTokenValue = await AsyncStorage.getItem('accessToken');
+      const popName = await AsyncStorage.getItem('userId');
+
+      return [accessTokenValue, popName];
     } catch (error) {
       console.error('Error getting data:', error);
+      return [null, null];
     }
   };
-
   // 카메라 참조를 생성
   const cameraRef = useRef(null);
   // 카메라 권한 상태를 관리
   const [hasPermission, setHasPermission] = useState(null);
+
 
   useEffect(() => {
     // 컴포넌트가 마운트될 때 카메라 권한을 요청하고 상태를 업데이트
@@ -41,40 +46,32 @@ export default function Photo() {
     }
   };
 
-  
+
   // 사진 업로드 함수
   const uploadPhoto = async (photo) => {
+    const formData = new FormData();
+    formData.append('file', {
+      uri: photo.uri,
+      name: 'photo' + ghkrwkdwk + '.jpg', // 파일 이름과 확장자 지정
+      type: 'image/jpeg', // 이미지 파일의 타입 지정
+    });
+  
     try {
-      // 폼데이터 생성
-      var body = new FormData();
-
-      var photoData = {
-        uri: photo.uri,
-        type: 'multipart/form-data',
-        name: 'photo.jpg',
-      };
-      body.append('image', photoData);
-
-      // 서버에 데이터 전송
-      const response = await axios.post(api_uri + '/api/v1/upload/test/images', body, {
-        headers: { 'content-type': 'multipart/form-data' },
+      const response = await fetch(api_uri + '/api/v1/upload/image', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: "Bearer " + accessToken
+        },
+        body: formData,
       });
-      console.log('5:',response);
-      console.log('3:',response.status);
-      if (response.status === 200) {
-        const result = response.data;
-        console.log('6:',result);
-        console.log('7:',response.data);
-        
-        Alert.alert('Success', 'Photo uploaded successfully');
-      } else {
-        Alert.alert('Error', 'Failed to upload photo');
-      }
+      const responseData = await response.json();
+      console.log('Upload success:', responseData);
     } catch (error) {
-      Alert.alert('Error', 'Failed to connect to the server');
-      console.log('4:',error);
+      console.error('Upload error:', error);
     }
   };
+  
 
   if (hasPermission === null) {
     // 권한 상태가 알 수 없는 경우 빈 화면을 반환
