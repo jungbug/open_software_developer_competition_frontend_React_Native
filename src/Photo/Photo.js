@@ -24,6 +24,7 @@ export default function Photo() {
     }
   };
 
+
   useEffect(() => {
     // 컴포넌트가 마운트될 때 데이터 가져와 상태 변수 업데이트
     getData().then(([token, name]) => {
@@ -43,7 +44,6 @@ export default function Photo() {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === 'granted');
-      console.log('1:', setHasPermission);
     })();
   }, []);
 
@@ -54,7 +54,7 @@ export default function Photo() {
       const photo = await cameraRef.current.takePictureAsync();
       // 찍은 사진을 업로드하는 함수를 호출
       uploadPhoto(photo);
-      console.log('2:', photo);
+      console.log(photo);
     }
   };
 
@@ -62,9 +62,8 @@ export default function Photo() {
   const uploadPhoto = async (photo) => {
     const formData = new FormData();
     formData.append('file', {
-      uri: photo.uri,
-      name: 'photo' + ghkrwkdwk + '.jpg', // 파일 이름과 확장자 지정
-      type: 'image/jpeg', // 이미지 파일의 타입 지정
+      file: photo,
+      name: 'photo', // 파일 이름과 확장자 지정
     });
 
     try {
@@ -92,6 +91,7 @@ export default function Photo() {
     // 권한이 없는 경우 'No access to camera' 텍스트를 반환합니다.
     return <Text>No access to camera</Text>;
   }
+
 
   return (
     <View style={{ flex: 1 }}>
