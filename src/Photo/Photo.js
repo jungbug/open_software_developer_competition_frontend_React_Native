@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Camera } from 'expo-camera';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api_uri } from '@env';
+import axios from 'axios';
 
 export default function Photo() {
   const getData = async () => {
@@ -42,42 +43,36 @@ export default function Photo() {
 
   // 사진 업로드 함수
   const uploadPhoto = async (photo) => {
-    const data = new FormData();
-    data.append('photo', {
-      uri: photo.uri,
-      type: 'image/jpeg',
-      name: 'photo.jpg',
-    });
-
     try {
-      const response = await fetch(api_uri + '/api/v1/upload/test/image', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        body: data,
+      // 폼데이터 생성
+      var body = new FormData();
+
+      var photoData = {
+        uri: photo.uri,
+        type: 'multipart/form-data',
+        name: 'photo.jpg',
+      };
+      body.append('image', photoData);
+
+      // 서버에 데이터 전송
+      const response = await axios.post(api_uri + '/api/v1/upload/test/images', body, {
+        headers: { 'content-type': 'multipart/form-data' },
       });
-      console.log(response.status);
+      console.log('5:',response);
+      console.log('3:',response.status);
       if (response.status === 200) {
-        const result = await response.json();
+        const result = response.data;
         console.log(result);
         Alert.alert('Success', 'Photo uploaded successfully');
-      } else if (response.status === 422) {
-        const errorData = await response.json();
-        console.log('Validation Error:', errorData);
-        if (errorData.detail && errorData.detail[0] && errorData.detail[0].msg) {
-          const errorMsg = errorData.detail[0].msg;
-          Alert.alert('Validation Error', errorMsg);
-        } else {
-          Alert.alert('Validation Error', 'An error occurred during validation');
-        }
       } else {
         Alert.alert('Error', 'Failed to upload photo');
       }
     } catch (error) {
       Alert.alert('Error', 'Failed to connect to the server');
+      console.log('4:',error);
     }
   };
+
   if (hasPermission === null) {
     // 권한 상태가 알 수 없는 경우 빈 화면을 반환
     return <View />;
