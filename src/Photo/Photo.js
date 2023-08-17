@@ -6,9 +6,12 @@ import { api_uri } from '@env';
 import axios from 'axios';
 
 export default function Photo() {
-  let [nameResult, setNameResult] = useState('');
-  let [accessToken, setAccessToken] = useState('');
-  let [ghkrwkdwk, setGhkrwkdwk] = useState('');
+  // 사용할 상태 변수들 선언
+  let [nameResult, setNameResult] = useState('');  // 이름 결과 상태 변수
+  let [accessToken, setAccessToken] = useState('');  // 액세스 토큰 상태 변수
+  let [ghkrwkdwk, setGhkrwkdwk] = useState('');  // 알 수 없는 상태 변수
+
+  // AsyncStorage에서 데이터 가져오는 함수
   const getData = async () => {
     try {
       const accessTokenValue = await AsyncStorage.getItem('accessToken');
@@ -20,11 +23,20 @@ export default function Photo() {
       return [null, null];
     }
   };
+
+  useEffect(() => {
+    // 컴포넌트가 마운트될 때 데이터 가져와 상태 변수 업데이트
+    getData().then(([token, name]) => {
+      setAccessToken(token);
+      setNameResult(name);
+    });
+  }, []);
+
   // 카메라 참조를 생성
   const cameraRef = useRef(null);
+
   // 카메라 권한 상태를 관리
   const [hasPermission, setHasPermission] = useState(null);
-
 
   useEffect(() => {
     // 컴포넌트가 마운트될 때 카메라 권한을 요청하고 상태를 업데이트
@@ -46,7 +58,6 @@ export default function Photo() {
     }
   };
 
-
   // 사진 업로드 함수
   const uploadPhoto = async (photo) => {
     const formData = new FormData();
@@ -55,7 +66,7 @@ export default function Photo() {
       name: 'photo' + ghkrwkdwk + '.jpg', // 파일 이름과 확장자 지정
       type: 'image/jpeg', // 이미지 파일의 타입 지정
     });
-  
+
     try {
       const response = await fetch(api_uri + '/api/v1/upload/image', {
         method: 'POST',
@@ -71,7 +82,6 @@ export default function Photo() {
       console.error('Upload error:', error);
     }
   };
-  
 
   if (hasPermission === null) {
     // 권한 상태가 알 수 없는 경우 빈 화면을 반환

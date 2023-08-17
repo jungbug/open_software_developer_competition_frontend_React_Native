@@ -24,6 +24,7 @@ export default function Video() {
     }
   };
 
+
   useEffect(() => {
     getData().then(([token, name]) => {
       setAccessToken(token);
@@ -42,7 +43,7 @@ export default function Video() {
       });
 
       try {
-        const response = await fetch(api_uri + '/api/v1/upload/video', {
+        const response = await fetch(api_uri + '/api/v1/upload/image', {
           method: 'POST',
           headers: {
             'Content-Type': 'multipart/form-data',
