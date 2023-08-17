@@ -43,7 +43,6 @@ export default function Photo() {
   // 사진 업로드 함수
   const uploadPhoto = async (photo) => {
     const data = new FormData();
-    // FormData에 사진 데이터를 추가
     data.append('photo', {
       uri: photo.uri,
       type: 'image/jpeg',
@@ -51,30 +50,34 @@ export default function Photo() {
     });
 
     try {
-      // 서버로 사진 업로드 요청을 보내는 코드
-      const response = await fetch(api_uri + '/api/v1/upload/image', {
+      const response = await fetch(api_uri + '/api/v1/upload/test/image', {
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data',
         },
         body: data,
       });
-      console.log('3:', response.status);
+      console.log(response.status);
       if (response.status === 200) {
-        // 업로드 성공 시 결과를 출력하고 성공 메시지를 띄우고
         const result = await response.json();
         console.log(result);
         Alert.alert('Success', 'Photo uploaded successfully');
+      } else if (response.status === 422) {
+        const errorData = await response.json();
+        console.log('Validation Error:', errorData);
+        if (errorData.detail && errorData.detail[0] && errorData.detail[0].msg) {
+          const errorMsg = errorData.detail[0].msg;
+          Alert.alert('Validation Error', errorMsg);
+        } else {
+          Alert.alert('Validation Error', 'An error occurred during validation');
+        }
       } else {
-        // 업로드 실패 시 에러 메시지를 띄움
         Alert.alert('Error', 'Failed to upload photo');
       }
     } catch (error) {
-      // 서버 연결 실패 시 에러 메시지를 띄움
       Alert.alert('Error', 'Failed to connect to the server');
     }
   };
-
   if (hasPermission === null) {
     // 권한 상태가 알 수 없는 경우 빈 화면을 반환
     return <View />;
