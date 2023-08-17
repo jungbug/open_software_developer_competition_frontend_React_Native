@@ -41,6 +41,7 @@ export default function Photo() {
     }
   };
 
+  
   // 사진 업로드 함수
   const uploadPhoto = async (photo) => {
     try {
