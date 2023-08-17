@@ -62,7 +62,9 @@ export default function Photo() {
       console.log('3:',response.status);
       if (response.status === 200) {
         const result = response.data;
-        console.log(result);
+        console.log('6:',result);
+        console.log('7:',response.data);
+        
         Alert.alert('Success', 'Photo uploaded successfully');
       } else {
         Alert.alert('Error', 'Failed to upload photo');
