@@ -4,6 +4,7 @@ import { Camera } from 'expo-camera';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api_uri } from '@env';
 import axios from 'axios';
+import { init } from './Photo_Api';
 
 export default function Photo() {
   // 사용할 상태 변수들 선언
