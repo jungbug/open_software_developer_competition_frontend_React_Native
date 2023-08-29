@@ -11,21 +11,25 @@ let flag = false;
 const init = async (result) => {
   try{
     const response = await(await fetch(`${API_URL}/api/${API_KEY}/I2790/json/1/1000/DESC_KOR=${result}`)).json();
-    console.log(response);
     for (let item of response.I2790.row) {
       if(item.DESC_KOR === result){
         console.log(item);
+        proteinData = [item.NUTR_CONT1, item.NUTR_CONT2, item.NUTR_CONT3, item.NUTR_CONT4];
         flag = true;
         break;
       }
     }
     if(!flag){
-      console.log(response.I2790.row[0]); 
+      proteinData = [response.I2790.row[0].NUTR_CONT1, response.I2790.row[0].NUTR_CONT2, response.I2790.row[0].NUTR_CONT3, response.I2790.row[0].NUTR_CONT4];
+      console.log(response.I2790.row[0]);
     }
+    console.log(proteinData)
   } catch (e) {
     console.log("데이터가 없습니다")
   }
 };
+
+init(result)
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -39,8 +43,8 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
     }
   };
 
-  const proteinData = [1, 2, 3, 4]; // 샘플데이터
-  const labels = ['칼로리', '단백질', '탄수화물', '지방']; // x축 라벨
+  let proteinData = [1, 2, 3, 4]; // 샘플데이터
+  const labels = ['칼로리', '탄수화물', '단백질', '지방']; // x축 라벨
 
   // y축 눈금 계산
   const maxData = Math.max(...proteinData);
