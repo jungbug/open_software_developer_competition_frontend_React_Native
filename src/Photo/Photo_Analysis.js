@@ -3,10 +3,8 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from
 import { BarChart, XAxis } from 'react-native-svg-charts';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // AsyncStorage 임포트 추가
 import { tellFoodName } from './Photo.js';
+import { API_URL, API_KEY } from '@env';
 const foodName = tellFoodName(); // 변수명 변경
-
-const API_URL = "http://openapi.foodsafetykorea.go.kr"; // 상수로 변경
-const API_KEY = "415756d599f247a1bc19";
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
 
