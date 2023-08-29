@@ -15,7 +15,7 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
   const init = async (foodName) => { // 파라미터 이름 변경
     try {
       const response = await (await fetch(`${API_URL}/api/${API_KEY}/I2790/json/1/1000/DESC_KOR=${foodName}`)).json();
-      let fetchedProteinData = [1, 2, 3, 4]; // 기본값으로 사용할 데이터
+      let fetchedProteinData = [1, 1, 1, 1]; // 기본값으로 사용할 데이터
       for (let item of response.I2790.row) {
         if (item.DESC_KOR === foodName) {
           fetchedProteinData = [item.NUTR_CONT1, item.NUTR_CONT2, item.NUTR_CONT3, item.NUTR_CONT4];
@@ -27,7 +27,7 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
       console.log("데이터가 없습니다")
     }
   };
-  let samData = [1, 2, 3, 4]; 
+  let samData = [1, 1, 1, 1]; 
   useEffect(() => {
     init(foodName); // 컴포넌트가 마운트되면 데이터 초기화
   }, []);
