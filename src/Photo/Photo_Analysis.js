@@ -4,8 +4,30 @@ import { BarChart, XAxis, YAxis, Grid } from 'react-native-svg-charts';
 import { tellFoodName } from './Photo.js';
 const result = tellFoodName();
 
+// env파일에 넣어야함
+API_URL = "http://openapi.foodsafetykorea.go.kr"
+API_KEY = "415756d599f247a1bc19"
+let flag = false;
+const init = async (result) => {
+  try{
+    const response = await(await fetch(`${API_URL}/api/${API_KEY}/I2790/json/1/1000/DESC_KOR=${result}`)).json();
+    console.log(response);
+    for (let item of response.I2790.row) {
+      if(item.DESC_KOR === result){
+        console.log(item);
+        flag = true;
+        break;
+      }
+    }
+    if(!flag){
+      console.log(response.I2790.row[0]); 
+    }
+  } catch (e) {
+    console.log("데이터가 없습니다")
+  }
+};
+
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
-const FOOD = '샐러드';
 
 const Photo_Analysis = ({ onNavigateToPhoto }) => {
   const getData = async () => {
@@ -26,12 +48,12 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
-      <View style={styles.firstContainer}>
-        <TouchableOpacity onPress={onNavigateToPhoto}>
-          <Text style={styles.text}>카메라</Text>
-        </TouchableOpacity>
+    <View style={styles.firstContainer}>
+      <TouchableOpacity onPress={onNavigateToPhoto}>
+        <Text style={styles.text}>카메라</Text>
+      </TouchableOpacity>
         <Text style={styles.text}>식품분석</Text>
-      </View>
+    </View>
 
 
       <View style={styles.secondContainer}>

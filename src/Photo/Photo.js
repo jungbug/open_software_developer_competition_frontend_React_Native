@@ -140,6 +140,6 @@ const styles = StyleSheet.create({
   },
 });
 export const tellFoodName = () => {
-  const foodName = '백숙';
+  const foodName = '돈까스';
   return foodName;//사진 인공지능 돌려서 어떤 음식인지 알려주는 함수, return 값에 음식 이름 나오게 설정해야됨
 };
