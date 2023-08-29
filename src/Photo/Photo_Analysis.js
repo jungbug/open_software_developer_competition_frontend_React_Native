@@ -1,55 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
-import { BarChart, XAxis, YAxis, Grid } from 'react-native-svg-charts';
+import { BarChart, XAxis } from 'react-native-svg-charts';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // AsyncStorage 임포트 추가
 import { tellFoodName } from './Photo.js';
-const result = tellFoodName();
+const foodName = tellFoodName(); // 변수명 변경
 
-// env파일에 넣어야함
-API_URL = "http://openapi.foodsafetykorea.go.kr"
-API_KEY = "415756d599f247a1bc19"
-let flag = false;
-const init = async (result) => {
-  try{
-    const response = await(await fetch(`${API_URL}/api/${API_KEY}/I2790/json/1/1000/DESC_KOR=${result}`)).json();
-    for (let item of response.I2790.row) {
-      if(item.DESC_KOR === result){
-        console.log(item);
-        proteinData = [item.NUTR_CONT1, item.NUTR_CONT2, item.NUTR_CONT3, item.NUTR_CONT4];
-        flag = true;
-        break;
-      }
-    }
-    if(!flag){
-      proteinData = [response.I2790.row[0].NUTR_CONT1, response.I2790.row[0].NUTR_CONT2, response.I2790.row[0].NUTR_CONT3, response.I2790.row[0].NUTR_CONT4];
-      console.log(response.I2790.row[0]);
-    }
-    console.log(proteinData)
-  } catch (e) {
-    console.log("데이터가 없습니다")
-  }
-};
-
-init(result)
+const API_URL = "http://openapi.foodsafetykorea.go.kr"; // 상수로 변경
+const API_KEY = "415756d599f247a1bc19";
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
 
 const Photo_Analysis = ({ onNavigateToPhoto }) => {
-  const getData = async () => {
-    try {
-      const accessToken = await AsyncStorage.getItem('accessToken');
-      console.log('accessToken:', accessToken);
-    } catch (error) {
-      console.error('Error getting data:', error);
-    }
-  };
-
-  let proteinData = [1, 2, 3, 4]; // 샘플데이터
+  const [proteinData, setProteinData] = useState([1, 2, 3, 4]); // 초기값으로 샘플 데이터 사용
   const labels = ['칼로리', '탄수화물', '단백질', '지방']; // x축 라벨
 
-  // y축 눈금 계산
-  const maxData = Math.max(...proteinData);
-  const yTicks = Array.from({ length: 10 }, (_, i) => i * (maxData / 4));
-
+  const init = async (foodName) => { // 파라미터 이름 변경
+    try {
+      const response = await (await fetch(`${API_URL}/api/${API_KEY}/I2790/json/1/1000/DESC_KOR=${foodName}`)).json();
+      let fetchedProteinData = [1, 2, 3, 4]; // 기본값으로 사용할 데이터
+      for (let item of response.I2790.row) {
+        if (item.DESC_KOR === foodName) {
+          fetchedProteinData = [item.NUTR_CONT1, item.NUTR_CONT2, item.NUTR_CONT3, item.NUTR_CONT4];
+          break;
+        }
+      }
+      setProteinData(fetchedProteinData); // 데이터 업데이트
+    } catch (e) {
+      console.log("데이터가 없습니다")
+    }
+  };
+  let samData = [1, 2, 3, 4]; 
+  useEffect(() => {
+    init(foodName); // 컴포넌트가 마운트되면 데이터 초기화
+  }, []);
   return (
     <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
     <View style={styles.firstContainer}>
@@ -61,20 +44,19 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
 
 
       <View style={styles.secondContainer}>
-        <Text style={styles.middleText}>{result}</Text>
+        <Text style={styles.middleText}>{foodName}</Text>
       </View>
 
       <View style={styles.thirdContainer}>
         {/* 단백질 데이터를 이용한 BarChart */}
         <BarChart
           style={{ height: 250, width: SCREEN_WIDTH * 0.8, alignSelf: 'center' }}
-          data={proteinData}
+          data={proteinData.map((value) => value * 2)} // 샘플데이터의 값에 2를 곱해 임의의 주간 데이터 생성
           svg={{ fill: '#50a5ff' }}
           contentInset={{ top: 20, bottom: 20 }}
           spacingInner={0.4}
           yMin={0} // y축 최솟값을 0으로 설정
         >
-
         </BarChart>
         <XAxis
           style={{ marginHorizontal: 30 }}
@@ -83,14 +65,6 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
           contentInset={{ left: 20, right: 20 }} // 라벨과 그래프 사이의 간격을 조절
           svg={{ fontSize: 12, fill: 'black' }}
         />
-        {/* <YAxis
-          style={{ position: 'absolute', top: -20, bottom: 140, left: 10 }}
-          data={yTicks} // 수정된 yTicks를 사용하여 y축 눈금 설정
-          formatLabel={(value) => `${value.toFixed(0)}g`} // 소수점 1자리까지 표시
-          svg={{ fontSize: 10, fill: 'black' }}
-          contentInset={{ top: 20, bottom: 20 }}
-          numberOfTicks={5}
-        /> */}
       </View>
 
       <View style={styles.fourthContainer}>
@@ -101,7 +75,7 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
         {/* 주간 데이터를 이용한 BarChart */}
         <BarChart
           style={{ height: 250, width: SCREEN_WIDTH * 0.8, alignSelf: 'center' }}
-          data={proteinData.map((value) => value * 2)} // 샘플데이터의 값에 2를 곱해 임의의 주간 데이터 생성
+          data={samData} // 샘플데이터의 값에 2를 곱해 임의의 주간 데이터 생성
           svg={{ fill: '#5f4ffe' }}
           contentInset={{ top: 20, bottom: 20 }}
           spacingInner={0.4}
@@ -115,14 +89,6 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
           contentInset={{ left: 20, right: 20 }} // 라벨과 그래프 사이의 간격을 조절
           svg={{ fontSize: 12, fill: 'black' }}
         />
-        {/* <YAxis
-          style={{ position: 'absolute', top: -20, bottom: 140, left: 10 }}
-          data={yTicks} // 수정된 yTicks를 사용하여 y축 눈금 설정
-          formatLabel={(value) => `${value.toFixed(0)}g`} // 소수점 1자리까지 표시
-          svg={{ fontSize: 10, fill: 'black' }}
-          contentInset={{ top: 20, bottom: 20 }}
-          numberOfTicks={5}
-        /> */}
       </View>
     </ScrollView>
   );
