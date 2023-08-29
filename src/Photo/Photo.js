@@ -4,6 +4,7 @@ import { Camera } from 'expo-camera';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api_uri } from '@env';
 import axios from 'axios';
+import {init} from './tfjs.js'
 
 export default function Photo() {
   // 사용할 상태 변수들 선언
@@ -52,6 +53,8 @@ export default function Photo() {
     if (cameraRef.current) {
       // 카메라에서 사진을 찍음
       const photo = await cameraRef.current.takePictureAsync();
+      // console.log(photo.uri)
+      init(photo.uri)
       // 찍은 사진을 업로드하는 함수를 호출
       uploadPhoto(photo);
       console.log(photo);
@@ -139,6 +142,7 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
   },
 });
+
 export const tellFoodName = () => {
   const foodName = '돈까스';
   return foodName;//사진 인공지능 돌려서 어떤 음식인지 알려주는 함수, return 값에 음식 이름 나오게 설정해야됨
