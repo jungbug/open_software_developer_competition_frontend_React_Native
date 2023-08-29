@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from
 import { BarChart, XAxis, YAxis, Grid } from 'react-native-svg-charts';
 import { tellFoodName } from './Photo.js';
 const result = tellFoodName();
-console.log(result);//Photo.js에서 음식이름 알아낸거 받아냄
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
 const FOOD = '샐러드';
@@ -36,7 +35,7 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
 
 
       <View style={styles.secondContainer}>
-        <Text style={styles.middleText}>{FOOD}</Text>
+        <Text style={styles.middleText}>{result}</Text>
       </View>
 
       <View style={styles.thirdContainer}>
