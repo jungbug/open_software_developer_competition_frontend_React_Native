@@ -24,7 +24,7 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
           break;
         }
       }
-      setProteinData(fetchedProteinData); // 데이터 업데이트
+      setProteinData(fetchedProteinData);
     } catch (e) {
       console.log("데이터가 없습니다")
     }
