@@ -4,19 +4,38 @@ import { Camera } from 'expo-camera';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api_uri } from '@env';
 import axios from 'axios';
+
 export default function Photo() {
+  // 사용할 상태 변수들 선언
+  let [nameResult, setNameResult] = useState('');  // 이름 결과 상태 변수
+  let [accessToken, setAccessToken] = useState('');  // 액세스 토큰 상태 변수
+  let [ghkrwkdwk, setGhkrwkdwk] = useState('');  // 알 수 없는 상태 변수
+
+  // AsyncStorage에서 데이터 가져오는 함수
   const getData = async () => {
     try {
-      // AsyncStorage에서 'accessToken' 데이터를 가져오는거
-      const accessToken = await AsyncStorage.getItem('accessToken');
-      console.log('accessToken:', accessToken);
+      const accessTokenValue = await AsyncStorage.getItem('accessToken');
+      const popName = await AsyncStorage.getItem('userId');
+
+      return [accessTokenValue, popName];
     } catch (error) {
       console.error('Error getting data:', error);
+      return [null, null];
     }
   };
 
+
+  useEffect(() => {
+    // 컴포넌트가 마운트될 때 데이터 가져와 상태 변수 업데이트
+    getData().then(([token, name]) => {
+      setAccessToken(token);
+      setNameResult(name);
+    });
+  }, []);
+
   // 카메라 참조를 생성
   const cameraRef = useRef(null);
+
   // 카메라 권한 상태를 관리
   const [hasPermission, setHasPermission] = useState(null);
 
@@ -25,7 +44,6 @@ export default function Photo() {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === 'granted');
-      console.log('1:', setHasPermission);
     })();
   }, []);
 
@@ -36,26 +54,26 @@ export default function Photo() {
       const photo = await cameraRef.current.takePictureAsync();
       // 찍은 사진을 업로드하는 함수를 호출
       uploadPhoto(photo);
-      console.log('2:', photo);
+      console.log(photo);
     }
   };
 
   // 사진 업로드 함수
   const uploadPhoto = async (photo) => {
+    const formData = new FormData();
+    formData.append('file', {
+      file: photo,
+      name: 'photo', // 파일 이름과 확장자 지정
+    });
+
     try {
-      // 폼데이터 생성
-      var body = new FormData();
-
-      var photoData = {
-        uri: photo.uri,
-        type: 'multipart/form-data',
-        name: 'photo.jpg',
-      };
-      body.append('image', photoData);
-
-      // 서버에 데이터 전송
-      const response = await axios.post(api_uri + '/api/v1/upload/test/images', body, {
-        headers: { 'content-type': 'multipart/form-data' },
+      const response = await fetch(api_uri + '/api/v1/upload/image', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: "Bearer " + accessToken
+        },
+        body: formData,
       });
       console.log('5:', response);
       console.log('3:', response.status);
@@ -83,6 +101,7 @@ export default function Photo() {
     // 권한이 없는 경우 'No access to camera' 텍스트를 반환합니다.
     return <Text>No access to camera</Text>;
   }
+
 
   return (
     <View style={{ flex: 1 }}>

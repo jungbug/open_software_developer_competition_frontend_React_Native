@@ -23,10 +23,7 @@ export default function Video() {
       return [null, null];
     }
   };
-  getData().then((result) => {
-    accessToken = result[0];
-    nameResult = result[1];
-  });
+
 
   useEffect(() => {
     getData().then(([token, name]) => {
