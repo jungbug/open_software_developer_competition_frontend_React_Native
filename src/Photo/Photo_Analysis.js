@@ -9,7 +9,7 @@ const foodName = tellFoodName(); // 변수명 변경
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
 
 const Photo_Analysis = ({ onNavigateToPhoto }) => {
-  const [proteinData, setProteinData] = useState([1, 2, 3, 4]); // 초기값으로 샘플 데이터 사용
+  const [proteinData, setProteinData] = useState([1, 1, 1, 1]); // 초기값으로 샘플 데이터 사용
   const labels = ['칼로리', '탄수화물', '단백질', '지방']; // x축 라벨
 
   const init = async (foodName) => { // 파라미터 이름 변경
