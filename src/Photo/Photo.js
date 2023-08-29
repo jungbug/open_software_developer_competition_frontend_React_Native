@@ -4,7 +4,6 @@ import { Camera } from 'expo-camera';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api_uri } from '@env';
 import axios from 'axios';
-
 export default function Photo() {
   const getData = async () => {
     try {
@@ -41,7 +40,6 @@ export default function Photo() {
     }
   };
 
-  
   // 사진 업로드 함수
   const uploadPhoto = async (photo) => {
     try {
@@ -59,20 +57,20 @@ export default function Photo() {
       const response = await axios.post(api_uri + '/api/v1/upload/test/images', body, {
         headers: { 'content-type': 'multipart/form-data' },
       });
-      console.log('5:',response);
-      console.log('3:',response.status);
+      console.log('5:', response);
+      console.log('3:', response.status);
       if (response.status === 200) {
         const result = response.data;
-        console.log('6:',result);
-        console.log('7:',response.data);
-        
+        console.log('6:', result);
+        console.log('7:', response.data);
+
         Alert.alert('Success', 'Photo uploaded successfully');
       } else {
         Alert.alert('Error', 'Failed to upload photo');
       }
     } catch (error) {
       Alert.alert('Error', 'Failed to connect to the server');
-      console.log('4:',error);
+      console.log('4:', error);
     }
   };
 
@@ -122,3 +120,7 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
   },
 });
+export const tellFoodName = () => {
+  const foodName = '백숙';
+  return foodName;//사진 인공지능 돌려서 어떤 음식인지 알려주는 함수, return 값에 음식 이름 나오게 설정해야됨
+};

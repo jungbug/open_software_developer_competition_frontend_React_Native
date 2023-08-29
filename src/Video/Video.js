@@ -42,11 +42,12 @@ export default function Video() {
       const formData = new FormData();
       formData.append('file', {
         file: videoUri,
-        name: 'video' + ghkrwkdwk,
+        name: 'image' + ghkrwkdwk,
       });
+      console.log('image' + ghkrwkdwk)
 
       try {
-        const response = await fetch(api_uri + '/api/v1/upload/image', {
+        const response = await fetch(api_uri + '/api/v1/upload/test/image', {
           method: 'POST',
           headers: {
             'Content-Type': 'multipart/form-data',
