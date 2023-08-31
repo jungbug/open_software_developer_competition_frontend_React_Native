@@ -52,6 +52,7 @@ export default function Video() {
           },
           body: formData,
         });
+        console.error('to:', accessToken);
         const responseData = await response.json();
         console.log('Upload success:', responseData);
       } catch (error) {
@@ -68,7 +69,7 @@ export default function Video() {
       }
 
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: false,
         quality: 1,
         aspect: [1, 1],
