@@ -67,8 +67,9 @@ export default function Photo() {
   const uploadPhoto = async (photo) => {
     const formData = new FormData();
     formData.append('file', {
-      file: photo,
-      name: 'photo', // 파일 이름과 확장자 지정
+      uri: photo.uri,
+      name: 'photo' + ghkrwkdwk + '.jpg', // 파일 이름과 확장자 지정
+      type: 'image/jpeg', // 이미지 파일의 타입 지정
     });
 
     try {

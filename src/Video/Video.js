@@ -38,13 +38,14 @@ export default function Video() {
     const uploadVideo = async (videoUri) => {
       const formData = new FormData();
       formData.append('file', {
-        file: videoUri,
-        name: 'image' + ghkrwkdwk,
+        uri: videoUri,
+        name: 'photo' + ghkrwkdwk + '.jpg', // 파일 이름과 확장자 지정
+        type: 'image/jpeg', // 이미지 파일의 타입 지정
       });
       console.log('image' + ghkrwkdwk)
 
       try {
-        const response = await fetch(api_uri + '/api/v1/upload/image', {
+        const response = await fetch(api_uri + '/api/v1/upload/video', {
           method: 'POST',
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -69,7 +70,7 @@ export default function Video() {
       }
 
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        mediaTypes: ImagePicker.MediaTypeOptions.Videos,
         allowsEditing: false,
         quality: 1,
         aspect: [1, 1],
