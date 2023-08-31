@@ -44,7 +44,7 @@ export default function Video() {
       console.log('image' + ghkrwkdwk)
 
       try {
-        const response = await fetch(api_uri + '/api/v1/upload/image', {
+        const response = await fetch(api_uri + '/api/v1/upload/test/image', {
           method: 'POST',
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -52,10 +52,8 @@ export default function Video() {
           },
           body: formData,
         });
-        console.error('to:', accessToken);
         const responseData = await response.json();
         console.log('Upload success:', responseData);
-        
       } catch (error) {
         console.error('Upload error:', error);
       }
@@ -70,17 +68,17 @@ export default function Video() {
       }
 
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        mediaTypes: ImagePicker.MediaTypeOptions.Videos,
         allowsEditing: false,
         quality: 1,
         aspect: [1, 1],
       });
 
-      const index = "." + result.uri.substr(result.uri.lastIndexOf('.') + 1);
+      const index = "." + result.assets[0].uri.substr(result.assets[0].uri.lastIndexOf('.') + 1);
 
-      if (!result.cancelled) {
-        uploadVideo(result.uri);
-        setImageUrl(result.uri);
+      if (!result.canceled) {
+        uploadVideo(result.assets[0].uri);
+        setImageUrl(result.assets[0].uri);
         setGhkrwkdwk(index);
       }
     };
