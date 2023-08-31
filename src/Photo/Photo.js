@@ -5,7 +5,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api_uri } from '@env';
 import axios from 'axios';
 import {init} from './tfjs.js'
-
+export const tellFoodName = () => {
+  const foodName = '돈까스';
+  return foodName;//사진 인공지능 돌려서 어떤 음식인지 알려주는 함수, return 값에 음식 이름 나오게 설정해야됨
+};
 export default function Photo() {
   // 사용할 상태 변수들 선언
   let [nameResult, setNameResult] = useState('');  // 이름 결과 상태 변수
@@ -78,6 +81,7 @@ export default function Photo() {
         },
         body: formData,
       });
+      console.error('to:', accessToken);
       console.log('5:', response);
       console.log('3:', response.status);
       if (response.status === 200) {
@@ -143,7 +147,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export const tellFoodName = () => {
-  const foodName = '돈까스';
-  return foodName;//사진 인공지능 돌려서 어떤 음식인지 알려주는 함수, return 값에 음식 이름 나오게 설정해야됨
-};
