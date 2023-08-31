@@ -44,7 +44,7 @@ export default function Video() {
       console.log('image' + ghkrwkdwk)
 
       try {
-        const response = await fetch(api_uri + '/api/v1/upload/test/image', {
+        const response = await fetch(api_uri + '/api/v1/upload/image', {
           method: 'POST',
           headers: {
             'Content-Type': 'multipart/form-data',
