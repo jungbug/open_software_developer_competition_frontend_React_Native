@@ -55,11 +55,9 @@ export default function Photo() {
     if (cameraRef.current) {
       // 카메라에서 사진을 찍음
       const photo = await cameraRef.current.takePictureAsync();
-      // console.log(photo.uri)
-      init(photo.uri)
       // 찍은 사진을 업로드하는 함수를 호출
       uploadPhoto(photo);
-      console.log(photo);
+      // console.log(photo);
     }
   };
 
@@ -81,13 +79,12 @@ export default function Photo() {
         },
         body: formData,
       });
-      console.error('to:', accessToken);
-      console.log('5:', response);
-      console.log('3:', response.status);
+      // console.error('to:', accessToken);
+      // console.log('5:', response);
+      // console.log('3:', response.status);
       if (response.status === 200) {
-        const result = response.data;
-        console.log('6:', result);
-        console.log('7:', response.data);
+        const responseData = await response.json();
+        console.log('6:', responseData);
 
         Alert.alert('Success', 'Photo uploaded successfully');
       } else {
