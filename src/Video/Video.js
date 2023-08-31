@@ -55,6 +55,7 @@ export default function Video() {
         console.error('to:', accessToken);
         const responseData = await response.json();
         console.log('Upload success:', responseData);
+        
       } catch (error) {
         console.error('Upload error:', error);
       }

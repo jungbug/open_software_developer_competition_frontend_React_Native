@@ -4,7 +4,6 @@ import { Camera } from 'expo-camera';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api_uri } from '@env';
 import axios from 'axios';
-import {init} from './tfjs.js'
 export const tellFoodName = () => {
   const foodName = '돈까스';
   return foodName;//사진 인공지능 돌려서 어떤 음식인지 알려주는 함수, return 값에 음식 이름 나오게 설정해야됨
