@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
-
+let responseData = {}
 export default function Video() {
   let [nameResult, setNameResult] = useState('');
   let [accessToken, setAccessToken] = useState('');
@@ -54,7 +54,8 @@ export default function Video() {
           body: formData,
         });
         console.error('to:', accessToken);
-        const responseData = await response.json();
+        responseData = await response.json();
+        exName = Object.values(responseData)[2]
         console.log('Upload success:', responseData);
       } catch (error) {
         console.error('Upload error:', error);
@@ -110,3 +111,8 @@ export default function Video() {
 
   return <ImagePickerComponent />;
 }
+export const tellExName = () => {
+  const exName = Object.values(responseData)[2]
+  return exName
+}
+console.log(Object.values(responseData)[2])

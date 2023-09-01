@@ -4,10 +4,7 @@ import { Camera } from 'expo-camera';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api_uri } from '@env';
 import axios from 'axios';
-export const tellFoodName = () => {
-  const foodName = '돈까스';
-  return foodName;//사진 인공지능 돌려서 어떤 음식인지 알려주는 함수, return 값에 음식 이름 나오게 설정해야됨
-};
+
 export default function Photo() {
   // 사용할 상태 변수들 선언
   let [nameResult, setNameResult] = useState('');  // 이름 결과 상태 변수
@@ -55,9 +52,11 @@ export default function Photo() {
     if (cameraRef.current) {
       // 카메라에서 사진을 찍음
       const photo = await cameraRef.current.takePictureAsync();
+      // console.log(photo.uri)
+      init(photo.uri)
       // 찍은 사진을 업로드하는 함수를 호출
       uploadPhoto(photo);
-      // console.log(photo);
+      console.log(photo);
     }
   };
 
@@ -65,11 +64,9 @@ export default function Photo() {
   const uploadPhoto = async (photo) => {
     const formData = new FormData();
     formData.append('file', {
-      uri: photo.uri,
-      name: 'photo' + ghkrwkdwk + '.jpg', // 파일 이름과 확장자 지정
-      type: 'image/jpeg', // 이미지 파일의 타입 지정
+      file: photo,
+      name: 'photo', // 파일 이름과 확장자 지정
     });
-
     try {
       const response = await fetch(api_uri + '/api/v1/upload/image', {
         method: 'POST',
@@ -79,12 +76,12 @@ export default function Photo() {
         },
         body: formData,
       });
-      // console.error('to:', accessToken);
-      // console.log('5:', response);
-      // console.log('3:', response.status);
+      console.log('5:', response);
+      console.log('3:', response.status);
       if (response.status === 200) {
-        const responseData = await response.json();
-        console.log('6:', responseData);
+        const result = response.data;
+        console.log('6:', result);
+        console.log('7:', response.data);
 
         Alert.alert('Success', 'Photo uploaded successfully');
       } else {
@@ -144,3 +141,7 @@ const styles = StyleSheet.create({
   },
 });
 
+export const tellFoodName = () => {
+  const foodName = '돈까스';
+  return foodName;//사진 인공지능 돌려서 어떤 음식인지 알려주는 함수, return 값에 음식 이름 나오게 설정해야됨
+};
