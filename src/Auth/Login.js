@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, ActivityIndicator } from 'react-native';
 import { api_uri } from '@env';
 
 import iconImage from '../../assets/icon.png';
@@ -9,6 +9,7 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginFailed, setLoginFailed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
 
   const saveData = async (data, id) => {
     try {
@@ -34,6 +35,8 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
     const id = email;
     const pw = password;
 
+    setIsLoading(true); // 로딩 중으로 설정
+
     const queryParams = new URLSearchParams({
       id: id,
       pw: pw
@@ -45,6 +48,8 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
       const response = await fetch(url, {
         method: 'GET'
       });
+
+      setIsLoading(false); // 로딩이 완료되면 로딩 상태를 다시 false로 설정
 
       const responseJson = await response.json();
 
@@ -72,6 +77,7 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
       }
     } catch (error) {
       console.error('An error occurred:', error);
+      setIsLoading(false); // 에러 발생 시도도 로딩 상태를 false로 설정
       setLoginFailed(true);
       return 0;
     }
@@ -79,30 +85,37 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
 
   return (
     <View style={styles.container}>
-      <Image source={iconImage} style={styles.icon} />
-      <TextInput
-        style={styles.input}
-        placeholder="아이디를 입력해주세요."
-        onChangeText={text => setEmail(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="비밀번호를 입력해주세요."
-        secureTextEntry
-        onChangeText={text => setPassword(text)}
-      />
+      {isLoading ? (
+        <ActivityIndicator size="large" color="#50a5ff" /> // 로딩 중 표시
+      ) : (
+        // 로그인 폼 표시
+        <>
+          <Image source={iconImage} style={styles.icon} />
+          <TextInput
+            style={styles.input}
+            placeholder="아이디를 입력해주세요."
+            onChangeText={text => setEmail(text)}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="비밀번호를 입력해주세요."
+            secureTextEntry
+            onChangeText={text => setPassword(text)}
+          />
 
-      {loginFailed && (
-        <Text style={styles.warning}>로그인에 실패했습니다. 다시 시도하세요.</Text>
+          {loginFailed && (
+            <Text style={styles.warning}>로그인에 실패했습니다. 다시 시도하세요.</Text>
+          )}
+
+          <TouchableOpacity style={styles.button} onPress={handleLogin}>
+            <Text style={styles.buttonText}>로그인</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.signUpButton} onPress={onNavigateToSignUp}>
+            <Text style={[styles.buttonText, styles.signUpButtonText]}>회원가입</Text>
+          </TouchableOpacity>
+        </>
       )}
-
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>로그인</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.signUpButton} onPress={onNavigateToSignUp}>
-        <Text style={[styles.buttonText, styles.signUpButtonText]}>회원가입</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -112,11 +125,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
   },
   input: {
     width: 280,
