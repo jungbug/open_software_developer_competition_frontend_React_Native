@@ -3,18 +3,11 @@ import { View, Text, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } fr
 import { Camera } from 'expo-camera';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api_uri } from '@env';
-// tellFoodName 함수를 아래에 정의
-export const tellFoodName = () => {
-  // 여기에서 사진을 분석하고 음식 이름을 가져오는 코드를 작성하세요.
-  // 예를 들면, AI 모델을 호출하거나 이미지 처리를 수행할 수 있습니다.
-  // 이 함수는 음식 이름을 반환해야 합니다. test
-  const foodName = '돈까스'; // 임시로 돈까스를 반환하는 예시
-  return foodName;
-};
+
 export default function Photo() {
   const [isLoading, setIsLoading] = useState(false);
-  let [nameResult, setNameResult] = useState('');
-  let [accessToken, setAccessToken] = useState('');
+  const [foodName, setFoodName] = useState('돈까스'); // 기본값으로 돈까스 설정
+  const [accessToken, setAccessToken] = useState('');
   const [hasPermission, setHasPermission] = useState(null);
 
   const cameraRef = useRef(null);
@@ -34,7 +27,8 @@ export default function Photo() {
   useEffect(() => {
     getData().then(([token, name]) => {
       setAccessToken(token);
-      setNameResult(name);
+      // 사용자의 이름으로 초기 foodName 설정
+      setFoodName(name);
     });
   }, []);
 
@@ -58,24 +52,29 @@ export default function Photo() {
     const formData = new FormData();
     formData.append('file', {
       uri: photo.uri,
-      name: 'photo.jpg', // 파일 이름 지정
+      name: 'photo.jpg',
       type: 'image/jpeg',
     });
-
+  
     try {
       const response = await fetch(api_uri + '/api/v1/upload/image', {
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: "Bearer " + accessToken
+          Authorization: "Bearer " + accessToken,
         },
         body: formData,
       });
-
+  
       if (response.status === 200) {
         const responseData = await response.json();
-        console.log('Response Data:', responseData);
-
+        const newFoodName = Object.values(responseData)[2];
+        console.log(newFoodName);
+        
+        // 응답을 받아서 foodName 상태를 업데이트
+        setFoodName(newFoodName);
+        await AsyncStorage.setItem('foodName', newFoodName); // AsyncStorage에도 저장
+  
         Alert.alert('사진이 보내졌습니다', '음식분석화면으로 이동해주세요.');
       } else {
         Alert.alert('사진을 보내는데 문제가 발생했습니다', '다시 시도해주세요.');
@@ -118,7 +117,6 @@ export default function Photo() {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   buttonContainer: {
     flex: 1,

@@ -1,21 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage'; // AsyncStorage 임포트 추가
-import { tellFoodName } from './Photo.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_URL, API_KEY } from '@env';
-
-const foodName = tellFoodName();
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
 
 const Photo_Analysis = ({ onNavigateToPhoto }) => {
-  const [proteinData, setProteinData] = useState([1, 1, 1, 1]); // 초기값으로 샘플 데이터 사용
-  const labels = ['칼로리', '탄수화물', '지방', '단백질']; // x축 라벨
+  const [proteinData, setProteinData] = useState([1, 1, 1, 1]);
+  const [foodName, setFoodName] = useState(''); // 초기값은 빈 문자열로 설정
+
+  useEffect(() => {
+    // AsyncStorage에서 foodName 값을 가져와서 설정
+    AsyncStorage.getItem('foodName')
+      .then((value) => {
+        if (value) {
+          setFoodName(value);
+          init(value);
+        } else {
+          // 기본값으로 설정할 돈까스를 사용
+          setFoodName('돈까스');
+          init('돈까스');
+        }
+      })
+      .catch((error) => {
+        console.error('Error getting data:', error);
+        // 기본값으로 설정할 돈까스를 사용
+        setFoodName('돈까스');
+        init('돈까스');
+      });
+  }, []); // 처음 렌더링 시에만 실행
 
   const init = async (foodName) => {
     try {
       const response = await (await fetch(`${API_URL}/api/${API_KEY}/I2790/json/1/1000/DESC_KOR=${foodName}`)).json();
-      let fetchedProteinData = [1, 1, 1, 1]; // 기본값으로 사용할 데이터
+      let fetchedProteinData = [1, 1, 1, 1];
       for (let item of response.I2790.row) {
         if (item.DESC_KOR === foodName) {
           fetchedProteinData = [item.NUTR_CONT1, item.NUTR_CONT2, item.NUTR_CONT4, item.NUTR_CONT3];
@@ -24,13 +42,9 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
       }
       setProteinData(fetchedProteinData);
     } catch (e) {
-      console.log("데이터가 없습니다")
+      console.log("데이터가 없습니다");
     }
   };
-
-  useEffect(() => {
-    init(foodName); // 컴포넌트가 마운트되면 데이터 초기화
-  }, []);
 
   return (
     <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
