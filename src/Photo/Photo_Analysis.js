@@ -18,17 +18,16 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
           init(value);
         } else {
           // 기본값으로 설정할 돈까스를 사용
-          setFoodName('돈까스');
-          init('돈까스');
+          setFoodName('');
+          init('');
         }
       })
       .catch((error) => {
         console.error('Error getting data:', error);
-        // 기본값으로 설정할 돈까스를 사용
-        setFoodName('돈까스');
-        init('돈까스');
+        setFoodName('');
+        init('');
       });
-  }, []); // 처음 렌더링 시에만 실행
+  }, []);
 
   const init = async (foodName) => {
     try {

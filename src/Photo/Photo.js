@@ -6,7 +6,7 @@ import { api_uri } from '@env';
 
 export default function Photo() {
   const [isLoading, setIsLoading] = useState(false);
-  const [foodName, setFoodName] = useState('돈까스'); // 기본값으로 돈까스 설정
+  const [foodName, setFoodName] = useState('');
   const [accessToken, setAccessToken] = useState('');
   const [hasPermission, setHasPermission] = useState(null);
 
