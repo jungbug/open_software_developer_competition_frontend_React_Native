@@ -7,7 +7,7 @@ import { api_uri } from '@env';
 export const tellFoodName = () => {
   // 여기에서 사진을 분석하고 음식 이름을 가져오는 코드를 작성하세요.
   // 예를 들면, AI 모델을 호출하거나 이미지 처리를 수행할 수 있습니다.
-  // 이 함수는 음식 이름을 반환해야 합니다.
+  // 이 함수는 음식 이름을 반환해야 합니다. test
   const foodName = '돈까스'; // 임시로 돈까스를 반환하는 예시
   return foodName;
 };
