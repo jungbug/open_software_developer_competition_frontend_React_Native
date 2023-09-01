@@ -50,9 +50,7 @@ export default function Photo() {
       setIsLoading(true);
 
       const photo = await cameraRef.current.takePictureAsync();
-      // 찍은 사진을 업로드하는 함수를 호출
       uploadPhoto(photo);
-      // console.log(photo);
     }
   };
 
@@ -60,9 +58,10 @@ export default function Photo() {
     const formData = new FormData();
     formData.append('file', {
       uri: photo.uri,
-      name: 'photo' + ghkrwkdwk + '.jpg', // 파일 이름과 확장자 지정
-      type: 'image/jpeg', // 이미지 파일의 타입 지정
+      name: 'photo.jpg', // 파일 이름 지정
+      type: 'image/jpeg',
     });
+
     try {
       const response = await fetch(api_uri + '/api/v1/upload/image', {
         method: 'POST',
@@ -72,9 +71,7 @@ export default function Photo() {
         },
         body: formData,
       });
-      // console.error('to:', accessToken);
-      // console.log('5:', response);
-      // console.log('3:', response.status);
+
       if (response.status === 200) {
         const responseData = await response.json();
         console.log('Response Data:', responseData);
@@ -150,4 +147,5 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
 });
+
 
