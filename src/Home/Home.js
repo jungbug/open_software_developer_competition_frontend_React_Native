@@ -134,7 +134,7 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
               </TouchableOpacity>
             </View>
           </View>
-          <Text style={[styles.nut, { color: '#5f4ffe' }]}>  비타민C</Text>
+          <Text style={[styles.nut, { color: '#5f4ffe' }]}>   칼로리</Text>
           <BarChart
             style={styles.chart}
             data={data}
