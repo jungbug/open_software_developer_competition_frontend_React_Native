@@ -3,14 +3,18 @@ import { View, Text, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } fr
 import { Camera } from 'expo-camera';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api_uri } from '@env';
-import axios from 'axios';
+// tellFoodName 함수를 아래에 정의
 export const tellFoodName = () => {
-  const foodName = '돈까스';
-  return foodName;//사진 인공지능 돌려서 어떤 음식인지 알려주는 함수, return 값에 음식 이름 나오게 설정해야됨
+  // 여기에서 사진을 분석하고 음식 이름을 가져오는 코드를 작성하세요.
+  // 예를 들면, AI 모델을 호출하거나 이미지 처리를 수행할 수 있습니다.
+  // 이 함수는 음식 이름을 반환해야 합니다.
+  const foodName = '돈까스'; // 임시로 돈까스를 반환하는 예시
+  return foodName;
 };
 export default function Photo() {
   const [isLoading, setIsLoading] = useState(false);
-  const [accessToken, setAccessToken] = useState('');
+  let [nameResult, setNameResult] = useState('');
+  let [accessToken, setAccessToken] = useState('');
   const [hasPermission, setHasPermission] = useState(null);
 
   const cameraRef = useRef(null);
@@ -30,6 +34,7 @@ export default function Photo() {
   useEffect(() => {
     getData().then(([token, name]) => {
       setAccessToken(token);
+      setNameResult(name);
     });
   }, []);
 
@@ -72,15 +77,15 @@ export default function Photo() {
       // console.log('3:', response.status);
       if (response.status === 200) {
         const responseData = await response.json();
-        console.log('6:', responseData);
+        console.log('Response Data:', responseData);
 
-        Alert.alert('Success', 'Photo uploaded successfully');
+        Alert.alert('사진이 보내졌습니다', '음식분석화면으로 이동해주세요.');
       } else {
-        Alert.alert('Error', 'Failed to upload photo');
+        Alert.alert('사진을 보내는데 문제가 발생했습니다', '다시 시도해주세요.');
       }
     } catch (error) {
-      Alert.alert('Error', 'Failed to connect to the server');
-      console.log('Error:', error);
+      Alert.alert('사진을 보내는데 문제가 발생했습니다', '다시 시도해주세요.');
+      console.log('사진을 보내는데 문제가 발생했습니다', error);
     } finally {
       setIsLoading(false);
     }
