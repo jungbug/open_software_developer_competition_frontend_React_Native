@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Pressable, ImageBackground, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Pressable, ImageBackground, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { api_uri } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -11,6 +11,7 @@ export default function Video() {
   let [nameResult, setNameResult] = useState('');
   let [accessToken, setAccessToken] = useState('');
   let [ghkrwkdwk, setGhkrwkdwk] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const getData = async () => {
     try {
@@ -36,14 +37,14 @@ export default function Video() {
     const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
 
     const uploadVideo = async (videoUri) => {
+      setIsLoading(true);
       const formData = new FormData();
       formData.append('file', {
         uri: videoUri,
-        name: 'video' + ghkrwkdwk + '.mp4', // 파일 이름과 확장자 지정
-        type: 'video/mp4', // 이미지 파일의 타입 지정
+        name: 'video' + ghkrwkdwk + '.mp4',
+        type: 'video/mp4',
       });
-      console.log('video' + ghkrwkdwk)
-
+    
       try {
         const response = await fetch(api_uri + '/api/v1/upload/video', {
           method: 'POST',
@@ -53,14 +54,17 @@ export default function Video() {
           },
           body: formData,
         });
-        console.error('to:', accessToken);
+    
         responseData = await response.json();
-        exName = Object.values(responseData)[2]
+        exName = Object.values(responseData)[2];
         console.log('Upload success:', responseData);
       } catch (error) {
         console.error('Upload error:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
+    
 
     const handleUpload = async () => {
       if (!status?.granted) {
@@ -88,12 +92,17 @@ export default function Video() {
 
     return (
       <View>
-        <ImageBackground source={require('../../assets/Home_E.png')} style={styles.bgi}>
-          <Pressable onPress={handleUpload}>
-            <Text style={styles.ti}>동영상 업로드하기</Text>
-          </Pressable>
-        </ImageBackground>
-      </View>
+      <ImageBackground source={require('../../assets/Home_E.png')} style={styles.bgi}>
+        <Pressable onPress={handleUpload}>
+          <Text style={styles.ti}>동영상 업로드하기</Text>
+        </Pressable>
+      </ImageBackground>
+      {isLoading && (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      )}
+    </View>
     );
   };
 
@@ -106,6 +115,16 @@ export default function Video() {
       height: SCREEN_HEIGHT,
       justifyContent: 'center',
       alignItems: 'center',
+    },
+    loadingContainer: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(255, 255, 255, 1)',
     },
   });
 
