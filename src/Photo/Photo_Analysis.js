@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from
 import AsyncStorage from '@react-native-async-storage/async-storage'; // AsyncStorage 임포트 추가
 import { tellFoodName } from './Photo.js';
 import { API_URL, API_KEY } from '@env';
+
 const foodName = tellFoodName();
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
@@ -46,10 +47,10 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
 
       <View style={styles.thirdContainer}>
         <View style={styles.nutritionInfo}>
-          <NutritionInfo label="칼로리" value={proteinData[0]} />
-          <NutritionInfo label="탄수화물" value={proteinData[1]} />
-          <NutritionInfo label="지방" value={proteinData[2]} />
-          <NutritionInfo label="단백질" value={proteinData[3]} />
+        <NutritionInfo label="칼로리" value={proteinData[0]  + "kcal"} />
+  <NutritionInfo label="탄수화물" value={proteinData[1] + "g"} />
+  <NutritionInfo label="지방" value={proteinData[2] + "g"} />
+  <NutritionInfo label="단백질" value={proteinData[3] + "g"} />
         </View>
       </View>
 
@@ -58,12 +59,13 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
       </View>
 
       <View style={styles.fifthContainer}>
-      <View style={styles.nutritionInfo}>
-    <NutritionInfo label="칼로리" value={proteinData[0]} />
-    <NutritionInfo label="탄수화물" value={proteinData[1]} />
-    <NutritionInfo label="지방" value={proteinData[2]} />
-    <NutritionInfo label="단백질" value={proteinData[3]} />
-  </View>
+      <View style={styles.nutritionInfo2}>
+  <NutritionInfo2 label="칼로리" value={proteinData[0]  + " kcal"} />
+  <NutritionInfo2 label="탄수화물" value={proteinData[1] + "g"} />
+  <NutritionInfo2 label="지방" value={proteinData[2] + "g"} />
+  <NutritionInfo2 label="단백질" value={proteinData[3] + "g"} />
+</View>
+
       </View>
     </ScrollView>
   );
@@ -76,6 +78,16 @@ const NutritionInfo = ({ label, value }) => (
     </View>
     <View style={styles.nutritionInfoItemValue}>
       <Text style={styles.nutritionValue}>{value}</Text>
+    </View>
+  </View>
+);
+const NutritionInfo2 = ({ label, value }) => (
+  <View style={styles.nutritionInfoItem}>
+    <View style={styles.nutritionInfoItemLabel}>
+      <Text style={styles.nutritionLabel}>{label}</Text>
+    </View>
+    <View style={styles.nutritionInfoItemValue}>
+      <Text style={styles.nutritionValue2}>{value}</Text>
     </View>
   </View>
 );
@@ -121,6 +133,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     alignSelf: 'center',
+    padding: 20,
   },
   text: {
     fontSize: 16,
@@ -143,7 +156,7 @@ const styles = StyleSheet.create({
   nutritionInfoItem: {
     flexDirection: 'row', // 가로로 정렬
     justifyContent: 'space-between', // 라벨과 값 사이의 간격을 벌립니다.
-    marginVertical: 10, // 각 항목을 위아래로 여백을 줍니다.
+    marginVertical: 12, // 각 항목을 위아래로 여백을 줍니다.
     alignItems: 'center',
   },
   nutritionInfoItemLabel: {
@@ -154,13 +167,18 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end', // 수치를 오른쪽으로 정렬
   },
   nutritionLabel: {
-    fontSize: 16,
+    fontSize: 25,
     fontWeight: 'bold',
   },
   nutritionValue: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: 'bold',
     color: '#50a5ff',
+  },
+  nutritionValue2: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: '#5f4ffe',
   },
 });
 
