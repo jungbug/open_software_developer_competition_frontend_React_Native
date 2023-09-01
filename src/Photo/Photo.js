@@ -3,10 +3,18 @@ import { View, Text, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } fr
 import { Camera } from 'expo-camera';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api_uri } from '@env';
-
+// tellFoodName 함수를 아래에 정의
+export const tellFoodName = () => {
+  // 여기에서 사진을 분석하고 음식 이름을 가져오는 코드를 작성하세요.
+  // 예를 들면, AI 모델을 호출하거나 이미지 처리를 수행할 수 있습니다.
+  // 이 함수는 음식 이름을 반환해야 합니다.
+  const foodName = '돈까스'; // 임시로 돈까스를 반환하는 예시
+  return foodName;
+};
 export default function Photo() {
   const [isLoading, setIsLoading] = useState(false);
-  const [accessToken, setAccessToken] = useState('');
+  let [nameResult, setNameResult] = useState('');
+  let [accessToken, setAccessToken] = useState('');
   const [hasPermission, setHasPermission] = useState(null);
 
   const cameraRef = useRef(null);
@@ -26,6 +34,7 @@ export default function Photo() {
   useEffect(() => {
     getData().then(([token, name]) => {
       setAccessToken(token);
+      setNameResult(name);
     });
   }, []);
 
@@ -66,10 +75,6 @@ export default function Photo() {
       if (response.status === 200) {
         const responseData = await response.json();
         console.log('Response Data:', responseData);
-
-        // 여기에서 음식 이름을 설정하려면 함수를 호출하고 해당 함수에서 서버 응답을 처리해야 합니다.
-        const foodName = await tellFoodName(); // tellFoodName 함수를 호출하여 음식 이름 가져오기
-        console.log('Food Name:', foodName);
 
         Alert.alert('Success', 'Photo uploaded successfully');
       } else {
@@ -143,11 +148,4 @@ const styles = StyleSheet.create({
   },
 });
 
-// tellFoodName 함수를 아래에 정의
-export const tellFoodName = async () => {
-  // 여기에서 사진을 분석하고 음식 이름을 가져오는 코드를 작성하세요.
-  // 예를 들면, AI 모델을 호출하거나 이미지 처리를 수행할 수 있습니다.
-  // 이 함수는 음식 이름을 반환해야 합니다.
-  const foodName = '돈까스'; // 임시로 돈까스를 반환하는 예시
-  return foodName;
-};
+
