@@ -23,7 +23,7 @@ const SITUP_MANUAL = "*잘못된 윗몸일으키기는 허리에 부담을 줄 �
 const SQUAT_MANUAL = "1. 차렷 자세에서 양발을 어깨너비로 벌린다.\n\n2. 양손은 깍지를 끼거나 앞으로 나란이를 한다.\n\n3. 양발 끝은 바깥쪽으로 15~20도 정도 벌려준다.\n\n4. 상체를 그대로 꼿꼿이 유지하면서 천천히 엉덩이를 뒤로 뺀다.\n\n5. 그와 동시에 천천히 무릎을 굽히면서 의자에 앉듯이 앉는다.\n\n6. 옆에서 봤을 때 허벅지가 바닥과 평행이 될 정도까지 앉는다.\n\n7. 엉덩이를 뒤로 빼면서 앉는데 무릎이 발끝을 넘어가는 건 괜찮다.\n\n8. 그리고 다시 준비 자세로 돌아온다.\n\n9. 호흡은 편하게 숨을 쉬어도 괜찮고 내려갈 때 마시고 올라올 때 뱉어도 좋다."
 const UNKNOWN_MANUAL = "운동을 인식할 수 없거나 아직 업로드되지 않은 상태입니다. 영상을 다시 업로드하거나 재촬영 해주십시오."
 export default function Video_Analysis() {
-  const exName = tellExName()
+  let exName = tellExName()
   console.log("h")
   console.log(exName)
   if (exName == "Plank") {
@@ -38,6 +38,15 @@ export default function Video_Analysis() {
   } else {
     CORRECTION_INDEX1 = UNKNOWN_INDEX
     PLANK_MANUAL = UNKNOWN_MANUAL
+  }
+  if (exName == "Plank") {
+    exName = "플랭크"
+  } else if (exName == "Situp") {
+    exName = "윗몸일으키기"
+  } else if (exName == "Squat") {
+    exName = "스쿼트"
+  } else {
+    exName = "영상이 업로드되지 않았거나 분석되지 않는 형태의 운동입니다."
   }
 
   return (
