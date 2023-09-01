@@ -1,20 +1,16 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import { Camera } from 'expo-camera';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api_uri } from '@env';
-import axios from 'axios';
-export const tellFoodName = () => {
-  const foodName = '돈까스';
-  return foodName;//사진 인공지능 돌려서 어떤 음식인지 알려주는 함수, return 값에 음식 이름 나오게 설정해야됨
-};
-export default function Photo() {
-  // 사용할 상태 변수들 선언
-  let [nameResult, setNameResult] = useState('');  // 이름 결과 상태 변수
-  let [accessToken, setAccessToken] = useState('');  // 액세스 토큰 상태 변수
-  let [ghkrwkdwk, setGhkrwkdwk] = useState('');  // 알 수 없는 상태 변수
 
-  // AsyncStorage에서 데이터 가져오는 함수
+export default function Photo() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [accessToken, setAccessToken] = useState('');
+  const [hasPermission, setHasPermission] = useState(null);
+
+  const cameraRef = useRef(null);
+
   const getData = async () => {
     try {
       const accessTokenValue = await AsyncStorage.getItem('accessToken');
@@ -27,47 +23,34 @@ export default function Photo() {
     }
   };
 
-
   useEffect(() => {
-    // 컴포넌트가 마운트될 때 데이터 가져와 상태 변수 업데이트
     getData().then(([token, name]) => {
       setAccessToken(token);
-      setNameResult(name);
     });
   }, []);
 
-  // 카메라 참조를 생성
-  const cameraRef = useRef(null);
-
-  // 카메라 권한 상태를 관리
-  const [hasPermission, setHasPermission] = useState(null);
-
   useEffect(() => {
-    // 컴포넌트가 마운트될 때 카메라 권한을 요청하고 상태를 업데이트
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === 'granted');
     })();
   }, []);
 
-  // 사진 찍기 함수
   const takePhoto = async () => {
     if (cameraRef.current) {
-      // 카메라에서 사진을 찍음
+      setIsLoading(true);
+
       const photo = await cameraRef.current.takePictureAsync();
-      // 찍은 사진을 업로드하는 함수를 호출
       uploadPhoto(photo);
-      // console.log(photo);
     }
   };
 
-  // 사진 업로드 함수
   const uploadPhoto = async (photo) => {
     const formData = new FormData();
     formData.append('file', {
       uri: photo.uri,
-      name: 'photo' + ghkrwkdwk + '.jpg', // 파일 이름과 확장자 지정
-      type: 'image/jpeg', // 이미지 파일의 타입 지정
+      name: 'photo.jpg', // 파일 이름 지정
+      type: 'image/jpeg',
     });
 
     try {
@@ -79,12 +62,14 @@ export default function Photo() {
         },
         body: formData,
       });
-      // console.error('to:', accessToken);
-      // console.log('5:', response);
-      // console.log('3:', response.status);
+
       if (response.status === 200) {
         const responseData = await response.json();
-        console.log('6:', responseData);
+        console.log('Response Data:', responseData);
+
+        // 여기에서 음식 이름을 설정하려면 함수를 호출하고 해당 함수에서 서버 응답을 처리해야 합니다.
+        const foodName = await tellFoodName(); // tellFoodName 함수를 호출하여 음식 이름 가져오기
+        console.log('Food Name:', foodName);
 
         Alert.alert('Success', 'Photo uploaded successfully');
       } else {
@@ -92,36 +77,39 @@ export default function Photo() {
       }
     } catch (error) {
       Alert.alert('Error', 'Failed to connect to the server');
-      console.log('4:', error);
+      console.log('Error:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   if (hasPermission === null) {
-    // 권한 상태가 알 수 없는 경우 빈 화면을 반환
     return <View />;
   }
 
   if (hasPermission === false) {
-    // 권한이 없는 경우 'No access to camera' 텍스트를 반환합니다.
     return <Text>No access to camera</Text>;
   }
 
-
   return (
     <View style={{ flex: 1 }}>
-      {/* 카메라 컴포넌트를 렌더링하고, 촬영 버튼을 추가 */}
-      <Camera
-        ref={cameraRef}
-        style={{ flex: 1, aspectRatio: 4 / 3 }}
-        type={Camera.Constants.Type.back}
-      >
-        <View style={styles.buttonContainer}>
-          {/* 사진 찍기 버튼 */}
-          <TouchableOpacity onPress={takePhoto} style={styles.captureButton}>
-            {/* 버튼 UI */}
-          </TouchableOpacity>
+      {isLoading ? (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#0000ff" />
         </View>
-      </Camera>
+      ) : (
+        <Camera
+          ref={cameraRef}
+          style={{ flex: 1, aspectRatio: 4 / 3 }}
+          type={Camera.Constants.Type.back}
+        >
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity onPress={takePhoto} style={styles.captureButton}>
+              {/* 버튼 UI */}
+            </TouchableOpacity>
+          </View>
+        </Camera>
+      )}
     </View>
   );
 }
@@ -142,5 +130,24 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#fff',
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
 });
 
+// tellFoodName 함수를 아래에 정의
+export const tellFoodName = async () => {
+  // 여기에서 사진을 분석하고 음식 이름을 가져오는 코드를 작성하세요.
+  // 예를 들면, AI 모델을 호출하거나 이미지 처리를 수행할 수 있습니다.
+  // 이 함수는 음식 이름을 반환해야 합니다.
+  const foodName = '돈까스'; // 임시로 돈까스를 반환하는 예시
+  return foodName;
+};
