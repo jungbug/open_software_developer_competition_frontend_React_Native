@@ -76,13 +76,13 @@ export default function Photo() {
         const responseData = await response.json();
         console.log('Response Data:', responseData);
 
-        Alert.alert('Success', 'Photo uploaded successfully');
+        Alert.alert('사진이 보내졌습니다', '음식분석화면으로 이동해주세요.');
       } else {
-        Alert.alert('Error', 'Failed to upload photo');
+        Alert.alert('사진을 보내는데 문제가 발생했습니다', '다시 시도해주세요.');
       }
     } catch (error) {
-      Alert.alert('Error', 'Failed to connect to the server');
-      console.log('Error:', error);
+      Alert.alert('사진을 보내는데 문제가 발생했습니다', '다시 시도해주세요.');
+      console.log('사진을 보내는데 문제가 발생했습니다', error);
     } finally {
       setIsLoading(false);
     }
