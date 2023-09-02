@@ -44,7 +44,7 @@ export default function Video() {
         name: 'video' + ghkrwkdwk + '.mp4',
         type: 'video/mp4',
       });
-    
+
       try {
         const response = await fetch(api_uri + '/api/v1/upload/video', {
           method: 'POST',
@@ -54,7 +54,7 @@ export default function Video() {
           },
           body: formData,
         });
-    
+
         responseData = await response.json();
         exName = Object.values(responseData)[2];
         console.log('Upload success:', responseData);
@@ -64,7 +64,7 @@ export default function Video() {
         setIsLoading(false);
       }
     };
-    
+
 
     const handleUpload = async () => {
       if (!status?.granted) {
@@ -92,17 +92,17 @@ export default function Video() {
 
     return (
       <View>
-      <ImageBackground source={require('../../assets/Home_E.png')} style={styles.bgi}>
-        <Pressable onPress={handleUpload}>
-          <Text style={styles.ti}>동영상 업로드하기</Text>
-        </Pressable>
-      </ImageBackground>
-      {isLoading && (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#0000ff" />
-        </View>
-      )}
-    </View>
+        <ImageBackground source={require('../../assets/Home_E.png')} style={styles.bgi}>
+          <Pressable onPress={handleUpload}>
+            <Text style={styles.ti}>동영상 업로드하기</Text>
+          </Pressable>
+        </ImageBackground>
+        {isLoading && (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color="#0000ff" />
+          </View>
+        )}
+      </View>
     );
   };
 

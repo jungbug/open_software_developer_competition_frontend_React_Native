@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_URL, API_KEY } from '@env';
-import {getFood} from './Photo';
-import {tlqkf} from './Photo';
+import { getFood } from './Photo';
+import { tlqkf } from './Photo';
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -48,7 +48,7 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
           break;
         }
       }
-      if (flag){
+      if (flag) {
         fetchedProteinData = [response.I2790.row[0].NUTR_CONT1, response.I2790.row[0].NUTR_CONT2, response.I2790.row[0].NUTR_CONT4, response.I2790.row[0].NUTR_CONT3];
       }
       setProteinData(fetchedProteinData);
@@ -72,10 +72,10 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
 
       <View style={styles.thirdContainer}>
         <View style={styles.nutritionInfo}>
-        <NutritionInfo label="칼로리" value={proteinData[0]  + "kcal"} />
-  <NutritionInfo label="탄수화물" value={proteinData[1] + "g"} />
-  <NutritionInfo label="지방" value={proteinData[2] + "g"} />
-  <NutritionInfo label="단백질" value={proteinData[3] + "g"} />
+          <NutritionInfo label="칼로리" value={proteinData[0] + "kcal"} />
+          <NutritionInfo label="탄수화물" value={proteinData[1] + "g"} />
+          <NutritionInfo label="지방" value={proteinData[2] + "g"} />
+          <NutritionInfo label="단백질" value={proteinData[3] + "g"} />
         </View>
       </View>
 
@@ -84,12 +84,12 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
       </View>
 
       <View style={styles.fifthContainer}>
-      <View style={styles.nutritionInfo2}>
-  <NutritionInfo2 label="칼로리" value={proteinData[0]  + " kcal"} />
-  <NutritionInfo2 label="탄수화물" value={proteinData[1] + "g"} />
-  <NutritionInfo2 label="지방" value={proteinData[2] + "g"} />
-  <NutritionInfo2 label="단백질" value={proteinData[3] + "g"} />
-</View>
+        <View style={styles.nutritionInfo2}>
+          <NutritionInfo2 label="칼로리" value={proteinData[0] + " kcal"} />
+          <NutritionInfo2 label="탄수화물" value={proteinData[1] + "g"} />
+          <NutritionInfo2 label="지방" value={proteinData[2] + "g"} />
+          <NutritionInfo2 label="단백질" value={proteinData[3] + "g"} />
+        </View>
 
       </View>
     </ScrollView>

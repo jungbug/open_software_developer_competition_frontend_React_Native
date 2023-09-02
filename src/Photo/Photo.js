@@ -7,7 +7,7 @@ import { api_uri } from '@env';
 export default function Photo() {
   const [isLoading, setIsLoading] = useState(false);
   const [foodName, setFoodName] = useState('');
-  const [accessToken, setAccessToken] = useState('');
+  let [accessToken, setAccessToken] = useState('');
   const [hasPermission, setHasPermission] = useState(null);
 
   const cameraRef = useRef(null);
@@ -55,7 +55,7 @@ export default function Photo() {
       name: 'photo.jpg',
       type: 'image/jpeg',
     });
-  
+
     try {
       const response = await fetch(api_uri + '/api/v1/upload/image', {
         method: 'POST',
@@ -65,16 +65,16 @@ export default function Photo() {
         },
         body: formData,
       });
-  
+
       if (response.status === 200) {
         const responseData = await response.json();
         const newFoodName = Object.values(responseData)[2];
         console.log(newFoodName);
-        
+
         // 응답을 받아서 foodName 상태를 업데이트
         setFoodName(newFoodName);
         await AsyncStorage.setItem('foodName', newFoodName); // AsyncStorage에도 저장
-  
+
         Alert.alert('사진이 보내졌습니다', '음식분석화면으로 이동해주세요.');
       } else {
         Alert.alert('사진을 보내는데 문제가 발생했습니다', '다시 시도해주세요.');
