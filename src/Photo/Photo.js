@@ -34,7 +34,7 @@ export default function Photo() {
 
   useEffect(() => {
     (async () => {
-      const { status } = await Camera.requestPermissionsAsync();
+      const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === 'granted');
     })();
   }, []);
@@ -57,6 +57,7 @@ export default function Photo() {
     });
 
     try {
+      console.log(accessToken)
       const response = await fetch(api_uri + '/api/v1/upload/image', {
         method: 'POST',
         headers: {
