@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_URL, API_KEY } from '@env';
-import { getFood } from './Photo';
-import { tlqkf } from './Photo';
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -43,6 +41,9 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
       let fetchedProteinData = [1, 1, 1, 1];
       for (let item of response.I2790.row) {
         if (item.DESC_KOR === foodName) {
+          if(item.NUTR_CONT1 === "" || item.NUTR_CONT2 === "" || item.NUTR_CONT3 === "" || item.NUTR_CONT4 === ""){
+            return;
+          }
           fetchedProteinData = [item.NUTR_CONT1, item.NUTR_CONT2, item.NUTR_CONT4, item.NUTR_CONT3];
           flag = false;
           break;
