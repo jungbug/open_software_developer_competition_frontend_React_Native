@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Dimensions, } from 'react-native';
 import { BarChart, XAxis } from 'react-native-svg-charts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { api_uri } from '@env';
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const labels = ['월', '화', '수', '목', '금', '토', '일'];
@@ -10,6 +11,7 @@ const labels = ['월', '화', '수', '목', '금', '토', '일'];
 const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalysis }) => {
   let [nameResult, setNameResult] = useState('');
   let [accessToken, setAccessToken] = useState('');
+  const [weekproteinData, setWeekProteinData] = useState([1, 1, 1, 1]);
 
   const getData = async () => {
     try {
@@ -85,6 +87,58 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
 
   const data = [10, 20, 30, 40, 50, 60, 70];
 
+  const fetchWeekData = async () => {
+    try {
+      const accessToken = await AsyncStorage.getItem('accessToken');
+  
+      if (!accessToken) {
+        console.error('Access token is missing.');
+        return;
+      }
+  
+      const url = api_uri + '/api/v1/user/nutrient/weekly';
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + accessToken,
+        },
+      });
+  
+      if (response.status === 200) {
+        const responseJson = await response.json();
+        console.log('주간 데이터 가져오기 성공', responseJson);
+  
+        if (responseJson.length > 0) {
+          // 배열의 첫 번째 객체에서 값을 가져와서 state를 업데이트합니다.
+          const firstItem = responseJson[0];
+          setWeekProteinData([
+            firstItem.total_kcal,
+            firstItem.total_carbs,
+            firstItem.total_protein,
+            firstItem.total_fat,
+          ]);
+          //아래 코드는 api 엔드포인드가 weekly가 아닌 all일때 사용
+          // setWeekProteinData([
+          //   firstItem.kcal,
+          //   firstItem.carbohydrate,
+          //   firstItem.protein,
+          //   firstItem.fat,
+          // ]);
+        }
+      } else {
+        console.error('주간 데이터 가져오기 실패:', response.status);
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  };
+  
+  
+  
+  useEffect(() => {
+    fetchWeekData();
+  }, []);
+  
 
   return (
     <View Style={styles.container}>
