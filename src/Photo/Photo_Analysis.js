@@ -110,28 +110,16 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
   };
   
 
-
-  const getWeekData = async () => {
-    try {
-      const accessToken = await AsyncStorage.getItem('accessToken');
-      return accessToken;
-    } catch (error) {
-      console.error('Error getting access token:', error);
-      return null;
-    }
-  };
-  
   const fetchWeekData = async () => {
     try {
-      const accessToken = await getWeekData();
+      const accessToken = await AsyncStorage.getItem('accessToken');
   
       if (!accessToken) {
         console.error('Access token is missing.');
         return;
       }
   
-      const url = api_uri + '/api/v1/user/nutrient/weekly';
-  
+      const url = api_uri + '/api/v1/user/nutrient/all';
       const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -142,12 +130,17 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
       if (response.status === 200) {
         const responseJson = await response.json();
         console.log('주간 데이터 가져오기 성공', responseJson);
-        setWeekProteinData([
-          responseJson.kcal,
-          responseJson.carbohydrate,
-          responseJson.protein,
-          responseJson.fat,
-        ]);
+  
+        if (responseJson.length > 0) {
+          // 배열의 첫 번째 객체에서 값을 가져와서 state를 업데이트합니다.
+          const firstItem = responseJson[0];
+          setWeekProteinData([
+            firstItem.kcal,
+            firstItem.carbohydrate,
+            firstItem.protein,
+            firstItem.fat,
+          ]);
+        }
       } else {
         console.error('주간 데이터 가져오기 실패:', response.status);
       }
@@ -155,6 +148,7 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
       console.error('An error occurred:', error);
     }
   };
+  
   
   
   useEffect(() => {
