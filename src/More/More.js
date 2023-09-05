@@ -117,6 +117,8 @@ const More = ({ onNavigateToHome }) => {
     </View>
   );
 }
+console.log(SCREEN_HEIGHT)
+console.log(SCREEN_WIDTH)
 
 const styles = StyleSheet.create({
   container: {
@@ -140,15 +142,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headerText: {
-    fontSize: 16,
+    fontSize: SCREEN_HEIGHT * SCREEN_WIDTH * 0.00005,
     fontWeight: 'bold',
   },
   middleText: {
-    fontSize: 30,
+    fontSize: SCREEN_HEIGHT * SCREEN_WIDTH * 0.0001,
     fontWeight: 'bold',
     color: '#5f4ffe',
-    marginTop: -50,
-    marginLeft: -220,
+    marginTop: -SCREEN_HEIGHT * 0.06,
+    marginLeft: -SCREEN_WIDTH * 0.564,
   },
   middle: {
     flex: 0.1,
@@ -161,26 +163,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#EDEDED',
     borderRadius: 20,
     padding: 20,
-    marginLeft: 10,
-    marginRight: 10,
-    marginBottom: 10,
+    marginLeft: SCREEN_WIDTH * 0.025,
+    marginRight: SCREEN_WIDTH * 0.025,
+    marginBottom: SCREEN_HEIGHT * 0.012,
   },
   recommendFood: {
     flex: 1,
     justifyContent: "center",
   },
   foodName: {
-    fontSize: 30,
+    fontSize: SCREEN_HEIGHT * SCREEN_WIDTH * 0.0001,
     color: '#50a5ff',
-    marginLeft: 20,
-    marginRight: 20,
+    marginLeft: SCREEN_WIDTH * 0.05,
+    marginRight: SCREEN_WIDTH * 0.05,
     justifyContent: "flex-start",
   },
   foodDetail: {
-    fontSize: 15,
+    fontSize: SCREEN_HEIGHT * SCREEN_WIDTH * 0.00005,
     color: 'black',
-    marginLeft: 20,
-    marginRight: 20,
+    marginLeft: SCREEN_WIDTH * 0.05,
+    marginRight: SCREEN_WIDTH * 0.05,
     justifyContent: "flex-start",
   },
 });

@@ -4,6 +4,7 @@ import { BarChart, XAxis } from 'react-native-svg-charts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api_uri } from '@env';
 
+const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const labels = ['월', '화', '수', '목', '금', '토', '일'];
 
@@ -90,12 +91,12 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
   const fetchWeekData = async () => {
     try {
       const accessToken = await AsyncStorage.getItem('accessToken');
-  
+
       if (!accessToken) {
         console.error('Access token is missing.');
         return;
       }
-  
+
       const url = api_uri + '/api/v1/user/nutrient/weekly';
       const response = await fetch(url, {
         method: 'GET',
@@ -103,11 +104,11 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
           Authorization: 'Bearer ' + accessToken,
         },
       });
-  
+
       if (response.status === 200) {
         const responseJson = await response.json();
         console.log('주간 데이터 가져오기 성공', responseJson);
-  
+
         if (responseJson.length > 0) {
           // 배열의 첫 번째 객체에서 값을 가져와서 state를 업데이트합니다.
           const firstItem = responseJson[0];
@@ -132,13 +133,13 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
       console.error('An error occurred:', error);
     }
   };
-  
-  
-  
+
+
+
   useEffect(() => {
     fetchWeekData();
   }, []);
-  
+
 
   return (
     <View Style={styles.container}>
@@ -182,7 +183,7 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
               {USERNAME}
             </Text>
             <Text style={[styles.third_greeting,]}>님의 주간분석</Text>
-            <View style={{ marginTop: -230, flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ marginTop: -SCREEN_HEIGHT * 0.272512, flexDirection: 'row', alignItems: 'center' }}>
               <TouchableOpacity onPress={onNavigateToMore}>
                 <Text style={styles.buttonText}>추천식단</Text>
               </TouchableOpacity>
@@ -199,7 +200,7 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
             animate
           >
             <XAxis
-              style={{ marginHorizontal: -5, height: 200, marginTop: 160 }}
+              style={{ marginHorizontal: -5, height: SCREEN_HEIGHT * 0.237, marginTop: SCREEN_HEIGHT * 0.18957346 }}
               data={data}
               formatLabel={(value, index) => labels[index]}
               contentInset={{ left: 20, right: 20 }}
@@ -208,7 +209,7 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
           </BarChart>
           {/* 밑줄 추가 */}
           <View style={styles.chartFooterLine} />
-          <Text style={{ marginTop: 60, marginLeft: SCREEN_WIDTH * 0.05, fontSize: 30, fontWeight: "bold", color: '#5f4ffe' }}>추천식단</Text>
+          <Text style={{ marginTop: SCREEN_HEIGHT * 0.07109, marginLeft: SCREEN_WIDTH * 0.05, fontSize: SCREEN_HEIGHT * SCREEN_WIDTH * 0.000091, fontWeight: "bold", color: '#5f4ffe' }}>추천식단</Text>
           <ScrollView pagingEnabled horizontal style={styles.recFood} showsHorizontalScrollIndicator={false}>
             <View style={styles.recBlock}>
               <Text style={styles.foodName}>{titleP}</Text>
@@ -243,27 +244,27 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 16,
-    marginTop: 20,
+    marginTop: SCREEN_HEIGHT * 0.024,
   },
   contentContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   greeting: {
-    fontSize: 20,
+    fontSize: SCREEN_HEIGHT * SCREEN_WIDTH * 0.0000607,
   },
   username: {
-    fontSize: 20,
+    fontSize: SCREEN_HEIGHT * SCREEN_WIDTH * 0.0000607,
     marginLeft: 4,
   },
   imageContainer: {
     borderRadius: 50,
     overflow: 'hidden',
-    marginLeft: 16,
+    marginLeft: SCREEN_WIDTH * 0.041025641,
   },
   image: {
-    width: 90,
-    height: 90,
+    width: SCREEN_WIDTH * 0.230769,
+    height: SCREEN_HEIGHT * 0.1066,
     borderRadius: 50,
   },
   secondContainer: {
@@ -272,15 +273,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   rectangleFood: {
-    width: 160,
-    height: 90,
-    marginBottom: 16,
+    width: SCREEN_WIDTH * 0.4102564,
+    height: SCREEN_HEIGHT * 0.1066,
+    marginBottom: SCREEN_HEIGHT * 0.019,
     borderRadius: 10,
   },
   rectangleVideo: {
-    width: 160,
-    height: 90,
-    marginBottom: 16,
+    width: SCREEN_WIDTH * 0.4102564,
+    height: SCREEN_HEIGHT * 0.1066,
+    marginBottom: SCREEN_HEIGHT * 0.019,
     borderRadius: 10,
   },
   thirdContainer: {
@@ -289,31 +290,31 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
-    marginLeft: 16,
-    marginRight: 16,
-    marginBottom: 16,
+    marginLeft: SCREEN_WIDTH * 0.0410,
+    marginRight: SCREEN_WIDTH * 0.0410,
+    marginBottom: SCREEN_HEIGHT * 0.019,
   },
   text: {
-    fontSize: 20,
+    fontSize: SCREEN_HEIGHT * SCREEN_WIDTH * 0.0000607,
     fontWeight: 'bold',
   },
   chart: {
-    width: 340,
-    height: 150,
+    width: SCREEN_WIDTH * 0.8718,
+    height: SCREEN_HEIGHT * 0.1777,
   },
   third_greeting: {
-    fontSize: 16,
+    fontSize: SCREEN_HEIGHT * SCREEN_WIDTH * 0.000091 * 0.5,
     fontWeight: 'bold',
-    marginTop: 20,
-    marginBottom: 20,
+    marginTop: SCREEN_HEIGHT * 0.024,
+    marginBottom: SCREEN_HEIGHT * 0.024,
     justifyContent: "flex-start",
   },
   third_username: {
-    fontSize: 16,
-    marginLeft: 20,
+    fontSize: SCREEN_HEIGHT * SCREEN_WIDTH * 0.000091 * 0.5,
+    marginLeft: SCREEN_WIDTH * 0.05,
     fontWeight: 'bold',
-    marginTop: 20,
-    marginBottom: 20,
+    marginTop: SCREEN_HEIGHT * 0.024,
+    marginBottom: SCREEN_HEIGHT * 0.024,
   },
   labelContainer: {
     flexDirection: 'row',
@@ -321,7 +322,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   labelText: {
-    fontSize: 14,
+    fontSize: SCREEN_HEIGHT * SCREEN_WIDTH * 0.000091 * 0.5,
     color: 'gray',
   },
   button: {
@@ -331,11 +332,11 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#5f4ffe',
-    fontSize: 18,
-    marginTop: 250,
-    marginBottom: 20,
+    fontSize: SCREEN_HEIGHT * SCREEN_WIDTH * 0.0000547,
+    marginTop: SCREEN_HEIGHT * 0.296,
+    marginBottom: SCREEN_HEIGHT * 0.024,
     justifyContent: "flex-end",
-    marginLeft: 120,
+    marginLeft: SCREEN_WIDTH * 0.3,
   },
   chartFooterLine: {
     borderTopWidth: 2,
@@ -343,7 +344,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   recFood: {
-    marginTop: 20,
+    marginTop: SCREEN_HEIGHT * 0.024,
   },
   recBlock: {
     width: SCREEN_WIDTH,
@@ -356,18 +357,18 @@ const styles = StyleSheet.create({
     marginRight: SCREEN_WIDTH * 0.05,
   },
   foodName: {
-    fontSize: 30,
+    fontSize: SCREEN_HEIGHT * SCREEN_WIDTH * 0.000091,
     color: '#50a5ff',
-    marginBottom: 10,
+    marginBottom: SCREEN_HEIGHT * 0.012,
   },
   foodDetail: {
-    fontSize: 15,
+    fontSize: SCREEN_HEIGHT * SCREEN_WIDTH * 0.000091 * 0.5,
     color: 'black',
-    marginBottom: 20,
+    marginBottom: SCREEN_HEIGHT * 0.024,
     marginRight: SCREEN_WIDTH * 0.16,
   },
   nut: {
-    fontSize: 24,
+    fontSize: SCREEN_HEIGHT * SCREEN_WIDTH * 0.000076,
     fontWeight: 'bold',
   },
 });

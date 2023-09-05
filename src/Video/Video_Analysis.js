@@ -46,7 +46,7 @@ export default function Video_Analysis() {
   } else if (exName == "squat") {
     exName = "스쿼트"
   } else {
-    exName = "영상이 업로드되지 않았거나 분석되지 않는 형태의 운동입니다."
+    exName = "운동 정보 없음"
   }
 
   return (
@@ -83,54 +83,54 @@ const styles = StyleSheet.create({
     flex: 1,
     width: SCREEN_HEIGHT / 2.4,
     borderRadius: 20,
-    marginBottom: 10,
+    marginBottom: SCREEN_HEIGHT * 0.012,
   },
   correction: {
     flex: 1,
     width: SCREEN_HEIGHT / 2.4,
     backgroundColor: '#E2E2E2',
     borderRadius: 20,
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: SCREEN_HEIGHT * 0.012,
+    marginBottom: SCREEN_HEIGHT * 0.012,
   },
   correctionTitle: {
-    fontSize: 25,
+    fontSize: SCREEN_HEIGHT * SCREEN_WIDTH * 0.000076,
     color: '#50a5ff',
-    marginTop: 15,
-    marginLeft: 20,
-    marginRight: 20,
+    marginTop: SCREEN_HEIGHT * 0.012,
+    marginLeft: SCREEN_WIDTH * 0.05,
+    marginRight: SCREEN_WIDTH * 0.05,
     justifyContent: "flex-start",
     fontWeight: 'bold'
   },
   correctionSub: {
-    marginTop: 10,
-    marginLeft: 20,
-    marginRight: 20,
-    marginBottom: 10,
+    marginTop: SCREEN_HEIGHT * 0.012,
+    marginLeft: SCREEN_WIDTH * 0.05,
+    marginRight: SCREEN_WIDTH * 0.05,
+    marginBottom: SCREEN_HEIGHT * 0.012,
   },
   manual: {
     flex: 2,
     width: SCREEN_HEIGHT / 2.4,
     backgroundColor: '#E2E2E2',
     borderRadius: 20,
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: SCREEN_HEIGHT * 0.012,
+    marginBottom: SCREEN_HEIGHT * 0.012,
   },
   manualTitle: {
     color: '#5f4ffe',
-    fontSize: 25,
+    fontSize: SCREEN_HEIGHT * SCREEN_WIDTH * 0.000076,
     marginTop: 15,
-    marginLeft: 20,
-    marginRight: 20,
+    marginLeft: SCREEN_WIDTH * 0.05,
+    marginRight: SCREEN_WIDTH * 0.05,
     justifyContent: "flex-start",
     fontWeight: 'bold'
   },
   manualSub: {
 
-    marginTop: 10,
-    marginLeft: 20,
-    marginRight: 20,
-    marginBottom: 10,
+    marginTop: SCREEN_HEIGHT * 0.012,
+    marginLeft: SCREEN_WIDTH * 0.05,
+    marginRight: SCREEN_WIDTH * 0.05,
+    marginBottom: SCREEN_HEIGHT * 0.012,
   },
 
 
