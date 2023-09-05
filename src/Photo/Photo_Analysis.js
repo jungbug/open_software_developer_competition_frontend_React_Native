@@ -135,11 +135,18 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
           // 배열의 첫 번째 객체에서 값을 가져와서 state를 업데이트합니다.
           const firstItem = responseJson[0];
           setWeekProteinData([
-            firstItem.kcal,
-            firstItem.carbohydrate,
-            firstItem.protein,
-            firstItem.fat,
+            firstItem.total_kcal,
+            firstItem.total_carbs,
+            firstItem.total_protein,
+            firstItem.total_fat,
           ]);
+          //아래 코드는 api 엔드포인드가 weekly가 아닌 all일때 사용
+          // setWeekProteinData([
+          //   firstItem.kcal,
+          //   firstItem.carbohydrate,
+          //   firstItem.protein,
+          //   firstItem.fat,
+          // ]);
         }
       } else {
         console.error('주간 데이터 가져오기 실패:', response.status);
