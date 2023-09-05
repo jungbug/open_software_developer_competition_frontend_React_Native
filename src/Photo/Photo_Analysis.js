@@ -119,7 +119,7 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
         return;
       }
   
-      const url = api_uri + '/api/v1/user/nutrient/all';
+      const url = api_uri + '/api/v1/user/nutrient/weekly';
       const response = await fetch(url, {
         method: 'GET',
         headers: {
