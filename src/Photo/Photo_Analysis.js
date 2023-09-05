@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { api_uri } from '@env';
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
 
 const Photo_Analysis = ({ onNavigateToPhoto }) => {
   const [proteinData, setProteinData] = useState([1, 1, 1, 1]);
-  const [foodName, setFoodName] = useState(''); // 초기값은 빈 문자열로 설정
+  const [foodName, setFoodName] = useState(''); 
+  const [weekproteinData, setWeekProteinData] = useState([1, 1, 1, 1]);
+  let [accessToken, setAccessToken] = useState('');
 
   useEffect(() => {
-    // AsyncStorage에서 foodName 값을 가져와서 설정
     AsyncStorage.getItem('foodName')
       .then((value) => {
         if (value) {
           setFoodName(value);
           init(value);
         } else {
-          // 기본값으로 설정할 돈까스를 사용
           setFoodName('');
           init('');
         }
@@ -27,6 +27,24 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
         init('');
       });
   }, []);
+
+
+  const getData = async () => {
+    try {
+      const accessTokenValue = await AsyncStorage.getItem('accessToken');
+
+      return [accessTokenValue];
+    } catch (error) {
+      console.error('Error getting data:', error);
+      return [null, null];
+    }
+  };
+  useEffect(() => {
+    getData().then(([token]) => {
+      setAccessToken(token);
+    });
+  }, []);
+
 
   const init = async (foodName) => {
     try {
@@ -52,10 +70,96 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
         fetchedProteinData = [response.I2790.row[0].NUTR_CONT1, response.I2790.row[0].NUTR_CONT2, response.I2790.row[0].NUTR_CONT4, response.I2790.row[0].NUTR_CONT3];
       }
       setProteinData(fetchedProteinData);
+
+      // 음식 정보를 서버로 보내는 함수 호출
+      postFoodData(fetchedProteinData);
     } catch (e) {
       console.log("데이터가 없습니다");
     }
   };
+
+  const postFoodData = async (fetchedProteinData) => {
+    try {
+      const response = await fetch(
+        api_uri + '/api/v1/user/nutrient/add',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: "Bearer " + accessToken,
+          },
+          body: JSON.stringify({
+            kcal: 3,
+            carbohydrate: 3,
+            protein: 4,
+            fat: 4,
+          }),
+        }
+      );
+  
+      console.log(response.status);
+      if (response.status === 200) {
+        console.log('음식 데이터 전송 성공');
+      } else {
+        console.log('음식 데이터 전송 실패');
+      }
+    } catch (error) {
+      console.error('음식 데이터 전송 중 오류:', error);
+    }
+  };
+
+
+  const getWeekData = async () => {
+    try {
+      const accessToken = await AsyncStorage.getItem('accessToken');
+      return accessToken;
+    } catch (error) {
+      console.error('Error getting access token:', error);
+      return null;
+    }
+  };
+  
+  const fetchWeekData = async () => {
+    try {
+      const accessToken = await getWeekData();
+  
+      if (!accessToken) {
+        console.error('Access token is missing.');
+        return;
+      }
+  
+      const url = api_uri + '/api/v1/user/nutrient/weekly';
+  
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + accessToken,
+        },
+      });
+  
+      if (response.status === 200) {
+        const responseJson = await response.json();
+        console.log('주간 데이터 가져오기 성공', responseJson);
+        setWeekProteinData([
+          responseJson.kcal,
+          responseJson.carbohydrate,
+          responseJson.protein,
+          responseJson.fat,
+        ]);
+      } else {
+        console.error('주간 데이터 가져오기 실패:', response.status);
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  };
+  
+  
+  useEffect(() => {
+    fetchWeekData();
+  }, []);
+  
+
 
   return (
     <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
@@ -85,10 +189,10 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
 
       <View style={styles.fifthContainer}>
         <View style={styles.nutritionInfo2}>
-          <NutritionInfo2 label="칼로리" value={proteinData[0] + " kcal"} />
-          <NutritionInfo2 label="탄수화물" value={proteinData[1] + "g"} />
-          <NutritionInfo2 label="지방" value={proteinData[2] + "g"} />
-          <NutritionInfo2 label="단백질" value={proteinData[3] + "g"} />
+          <NutritionInfo2 label="칼로리" value={weekproteinData[0] + " kcal"} />
+          <NutritionInfo2 label="탄수화물" value={weekproteinData[1] + "g"} />
+          <NutritionInfo2 label="지방" value={weekproteinData[2] + "g"} />
+          <NutritionInfo2 label="단백질" value={weekproteinData[3] + "g"} />
         </View>
 
       </View>
