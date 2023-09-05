@@ -54,10 +54,10 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
       }
       var composed = composeUnicode(foodName);
       const response = await (await fetch(`http://openapi.foodsafetykorea.go.kr/api/415756d599f247a1bc19/I2790/json/1/1000/DESC_KOR=${composed}`)).json();
-      console.log(response)
       let fetchedProteinData = [1, 1, 1, 1];
       for (let item of response.I2790.row) {
         if (item.DESC_KOR === foodName) {
+          
           if(item.NUTR_CONT1 === "" || item.NUTR_CONT2 === "" || item.NUTR_CONT3 === "" || item.NUTR_CONT4 === ""){
             return;
           }
@@ -67,6 +67,7 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
         }
       }
       if (flag) {
+        
         fetchedProteinData = [response.I2790.row[0].NUTR_CONT1, response.I2790.row[0].NUTR_CONT2, response.I2790.row[0].NUTR_CONT4, response.I2790.row[0].NUTR_CONT3];
       }
       setProteinData(fetchedProteinData);
@@ -78,8 +79,9 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
     }
   };
 
-  const postFoodData = async (fetchedProteinData) => {
+  const postFoodData = async () => {
     try {
+      const accessToken = await AsyncStorage.getItem('accessToken');
       const response = await fetch(
         api_uri + '/api/v1/user/nutrient/add',
         {
@@ -89,14 +91,13 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
             Authorization: "Bearer " + accessToken,
           },
           body: JSON.stringify({
-            kcal: 3,
-            carbohydrate: 3,
-            protein: 4,
-            fat: 4,
+            kcal: parseFloat(proteinData[0]),
+            carbohydrate: parseFloat(proteinData[1]),
+            protein: parseFloat(proteinData[2]),
+            fat: parseFloat(proteinData[3]),
           }),
         }
       );
-  
       console.log(response.status);
       if (response.status === 200) {
         console.log('음식 데이터 전송 성공');
@@ -107,6 +108,7 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
       console.error('음식 데이터 전송 중 오류:', error);
     }
   };
+  
 
 
   const getWeekData = async () => {
@@ -184,7 +186,7 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
       </View>
 
       <View style={styles.fourthContainer}>
-        <Text style={styles.secondmiddleText}>주간 분석(예시)</Text>
+        <Text style={styles.secondmiddleText}>주간 분석</Text>
       </View>
 
       <View style={styles.fifthContainer}>
