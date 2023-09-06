@@ -6,7 +6,7 @@ import { api_uri } from '@env';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
-const labels = ['월', '화', '수', '목', '금', '토', '일'];
+const labels = ['1일차', '2일차', '3일차', '4일차', '5일차', '6일차', '7일차'];
 
 
 const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalysis }) => {
@@ -188,7 +188,7 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
               </TouchableOpacity>
             </View>
           </View>
-          <Text style={[styles.nut, { color: '#5f4ffe' }]}>   칼로리(예시)</Text>
+          <Text style={[styles.nut, { color: '#5f4ffe' }]}>   칼로리 주간그래프</Text>
           <BarChart
             style={styles.chart}
             data={data}
