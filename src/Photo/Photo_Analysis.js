@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { api_uri } from '@env';
+import { API_URL,API_KEY,api_uri  } from '@env';
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
 
 const Photo_Analysis = ({ onNavigateToPhoto }) => {
@@ -53,7 +53,7 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
         return combined.normalize('NFC');
       }
       var composed = composeUnicode(foodName);
-      const response = await (await fetch(`http://openapi.foodsafetykorea.go.kr/api/415756d599f247a1bc19/I2790/json/1/1000/DESC_KOR=${composed}`)).json();
+      const response = await (await fetch(`${API_URL}/api/${API_KEY}/I2790/json/1/1000/DESC_KOR=${composed}`)).json();
       let fetchedProteinData = [1, 1, 1, 1];
       for (let item of response.I2790.row) {
         if (item.DESC_KOR === foodName) {

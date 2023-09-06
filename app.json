@@ -16,12 +16,20 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.act.healthwatch"
+      "bundleIdentifier": "com.act.healthwatch",
+      "config": {
+        "usesCleartextTraffic": true
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "config": {
+        "cleartext": {
+          "include": "http://openapi.foodsafetykorea.go.kr"
+        }
       },
       "package": "com.act.healthwatch"
     },
