@@ -72,7 +72,6 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
       }
       setProteinData(fetchedProteinData);
 
-      // 음식 정보를 서버로 보내는 함수 호출
       postFoodData(fetchedProteinData);
     } catch (e) {
       console.log("데이터가 없습니다");
@@ -98,7 +97,6 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
           }),
         }
       );
-      console.log(response.status);
       if (response.status === 200) {
         console.log('음식 데이터 전송 성공');
       } else {
@@ -131,23 +129,20 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
         const responseJson = await response.json();
         console.log('주간 데이터 가져오기 성공', responseJson);
   
+        let totalKcal = 0;
+        let totalCarbohydrate = 0;
+        let totalProtein = 0;
+        let totalFat = 0;
+  
         if (responseJson.length > 0) {
-          // 배열의 첫 번째 객체에서 값을 가져와서 state를 업데이트합니다.
-          const firstItem = responseJson[0];
-          //아래 코드는 api 엔드포인드가 weekly일때 사용
-          // setWeekProteinData([
-          //   firstItem.total_kcal,
-          //   firstItem.total_carbs,
-          //   firstItem.total_protein,
-          //   firstItem.total_fat,
-          // ]);
-          //아래 코드는 api 엔드포인드가 weekly가 아닌 all일때 사용
-          setWeekProteinData([
-            firstItem.kcal,
-            firstItem.carbohydrate,
-            firstItem.protein,
-            firstItem.fat,
-          ]);
+          responseJson.forEach((item) => {
+            totalKcal += item.kcal;
+            totalCarbohydrate += item.carbohydrate;
+            totalProtein += item.protein;
+            totalFat += item.fat;
+          });
+  
+          setWeekProteinData([totalKcal, totalCarbohydrate, totalProtein, totalFat]);
         }
       } else {
         console.error('주간 데이터 가져오기 실패:', response.status);
@@ -156,8 +151,6 @@ const Photo_Analysis = ({ onNavigateToPhoto }) => {
       console.error('An error occurred:', error);
     }
   };
-  
-  
   
   useEffect(() => {
     fetchWeekData();
@@ -283,21 +276,21 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   nutritionInfo: {
-    flexDirection: 'column', // 세로로 정렬
+    flexDirection: 'column',
     alignItems: 'center',
   },
   nutritionInfoItem: {
-    flexDirection: 'row', // 가로로 정렬
-    justifyContent: 'space-between', // 라벨과 값 사이의 간격을 벌립니다.
-    marginVertical: 12, // 각 항목을 위아래로 여백을 줍니다.
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 12,
     alignItems: 'center',
   },
   nutritionInfoItemLabel: {
-    flex: 1, // 라벨 영역이 화면 너비의 절반을 차지하도록 설정
+    flex: 1,
   },
   nutritionInfoItemValue: {
-    flex: 1, // 수치 영역이 화면 너비의 절반을 차지하도록 설정
-    alignItems: 'flex-end', // 수치를 오른쪽으로 정렬
+    flex: 1,
+    alignItems: 'flex-end',
   },
   nutritionLabel: {
     fontSize: 25,

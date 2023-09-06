@@ -31,7 +31,7 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
   const province = { "아몬드": "아몬드는 지방함량이 높지만 적당히 섭취하면 몸에 흡수되지 않으며 포만감을 줍니다." };
   const minerals = { "양파": "양파에는 많은 무기질이 있어 혈당 조절, 인슐린 생성 촉진, 당뇨 예방에 좋습니다." };
 
-  const NUTRIENTS = [10, 60, 10, 40, 15];//서버에서 받을 영양소별 섭취량
+  const NUTRIENTS = [10, 60, 10, 40, 15];
   getData().then((result) => {
     accessToken = result[0];
     nameResult = result[1];
@@ -110,7 +110,7 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
         console.log('주간 데이터 가져오기 성공', responseJson);
 
         if (responseJson.length > 0) {
-          // 배열의 첫 번째 객체에서 값을 가져와서 state를 업데이트합니다.
+          
           const firstItem = responseJson[0];
           setWeekProteinData([
             firstItem.total_kcal,
@@ -175,7 +175,6 @@ const Home = ({ onNavigateToMore, navigateToPhotoAnalysis, navigateToVideoAnalys
 
       </View>
 
-      {/* 세 번째 영역 */}
       <View style={[styles.thirdContainer]}>
         <ScrollView>
           <View style={styles.contentContainer}>

@@ -9,7 +9,7 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginFailed, setLoginFailed] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
+  const [isLoading, setIsLoading] = useState(false);
 
   const saveData = async (data, id) => {
     try {
@@ -35,7 +35,7 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
     const id = email;
     const pw = password;
 
-    setIsLoading(true); // 로딩 중으로 설정
+    setIsLoading(true);
 
     const queryParams = new URLSearchParams({
       id: id,
@@ -49,7 +49,7 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
         method: 'GET'
       });
 
-      setIsLoading(false); // 로딩이 완료되면 로딩 상태를 다시 false로 설정
+      setIsLoading(false);
 
       const responseJson = await response.json();
 
@@ -77,7 +77,7 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
       }
     } catch (error) {
       console.error('An error occurred:', error);
-      setIsLoading(false); // 에러 발생 시도도 로딩 상태를 false로 설정
+      setIsLoading(false);
       setLoginFailed(true);
       return 0;
     }
@@ -86,9 +86,8 @@ const Login = ({ onLogin, onNavigateToSignUp }) => {
   return (
     <View style={styles.container}>
       {isLoading ? (
-        <ActivityIndicator size="large" color="#50a5ff" /> // 로딩 중 표시
+        <ActivityIndicator size="large" color="#50a5ff" />
       ) : (
-        // 로그인 폼 표시
         <>
           <Image source={iconImage} style={styles.icon} />
           <TextInput

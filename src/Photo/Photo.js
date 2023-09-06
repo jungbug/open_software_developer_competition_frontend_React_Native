@@ -27,7 +27,6 @@ export default function Photo() {
   useEffect(() => {
     getData().then(([token, name]) => {
       setAccessToken(token);
-      // 사용자의 이름으로 초기 foodName 설정
       setFoodName(name);
     });
   }, []);
@@ -71,10 +70,8 @@ export default function Photo() {
         const responseData = await response.json();
         const newFoodName = Object.values(responseData)[2];
         console.log(newFoodName);
-
-        // 응답을 받아서 foodName 상태를 업데이트
         setFoodName(newFoodName);
-        await AsyncStorage.setItem('foodName', newFoodName); // AsyncStorage에도 저장
+        await AsyncStorage.setItem('foodName', newFoodName);
 
         Alert.alert('사진이 보내졌습니다', '음식분석화면으로 이동해주세요.');
       } else {

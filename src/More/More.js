@@ -20,7 +20,7 @@ const More = ({ onNavigateToHome }) => {
   const province = { "아몬드": "아몬드는 지방함량이 높지만 적당히 섭취하면 몸에 흡수되지 않으며 포만감을 줍니다." };
   const minerals = { "양파": "양파에는 많은 무기질이 있어 혈당 조절, 인슐린 생성 촉진, 당뇨 예방에 좋습니다." };
 
-  const NUTRIENTS = [10, 60, 10, 40, 15];//서버에서 받을 영양소별 섭취량
+  const NUTRIENTS = [10, 60, 10, 40, 15];
 
   if (NUTRIENTS[0] < 50) {
     proteinR = Math.floor(Math.random() * Object.keys(protein).length)

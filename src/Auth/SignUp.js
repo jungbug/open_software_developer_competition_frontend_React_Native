@@ -34,7 +34,6 @@ const SignUp = ({ onNavigateToLogin }) => {
       return response;
     } else {
       console.log('실패');
-      // throw new Error('unable to get');
     }
   };
 
